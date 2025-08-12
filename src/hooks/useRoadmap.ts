@@ -1,7 +1,7 @@
 import { useState, useCallback, useRef, useEffect } from 'react';
 import { Node, Edge, Position, MarkerType } from 'reactflow';
 import { createClient } from '@/lib/supabase';
-import { roadmapSections, RoadmapSection } from '@/constants/roadmap';
+import type { RoadmapSection } from '@/utils/translateRoadmap';
 import { createDebouncedFunction } from '@/utils/debounce';
 
 // Types
@@ -14,7 +14,7 @@ interface NodeData {
 const DEFAULT_PROGRESS: Record<string, boolean> = {};
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function useRoadmap(user: any, isGuestMode: boolean) {
+export function useRoadmap(user: any, isGuestMode: boolean, roadmapSections: RoadmapSection[]) {
   const [progress, setProgress] = useState<Record<string, boolean>>(DEFAULT_PROGRESS);
   const [loading, setLoading] = useState(true);
   const [nodes, setNodes] = useState<Node<NodeData>[]>([]);
@@ -25,9 +25,17 @@ export function useRoadmap(user: any, isGuestMode: boolean) {
   // Generate nodes
   const generateNodes = useCallback(() => {
     const nodeArray: Node<NodeData>[] = roadmapSections.map((section) => {
-      const totalSteps = section.steps.length;
-      const completedSteps = section.steps.filter((_, idx) => progress[`${section.id}-${idx}`]).length;
-      const percentage = totalSteps > 0 ? (completedSteps / totalSteps) * 100 : 0;
+      // Only count non-optional steps for progress calculation
+      const requiredSteps = section.steps.filter((step) => !step.optional);
+      const totalRequiredSteps = requiredSteps.length;
+      
+      const completedRequiredSteps = section.steps
+        .map((step, idx) => ({ step, idx }))
+        .filter(({ step }) => !step.optional)
+        .filter(({ idx }) => progress[`${section.id}-${idx}`])
+        .length;
+      
+      const percentage = totalRequiredSteps > 0 ? (completedRequiredSteps / totalRequiredSteps) * 100 : 0;
 
       return {
         id: section.id,
@@ -45,7 +53,7 @@ export function useRoadmap(user: any, isGuestMode: boolean) {
     });
 
     setNodes(nodeArray);
-  }, [progress]);
+  }, [progress, roadmapSections]);
 
   // Generate edges
   const generateEdges = useCallback(() => {
@@ -212,7 +220,7 @@ export function useRoadmap(user: any, isGuestMode: boolean) {
   // Get section by ID
   const getSection = useCallback((nodeId: string): RoadmapSection | null => {
     return roadmapSections.find((s) => s.id === nodeId) || null;
-  }, []);
+  }, [roadmapSections]);
 
   return {
     nodes,

@@ -1,8 +1,12 @@
 import { useAuth } from '@/contexts/AuthContext'
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
+import { GetStaticProps } from 'next'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 export default function Login() {
+  const { t } = useTranslation('common')
   const { user, loading, signInWithGoogle } = useAuth()
   const router = useRouter()
 
@@ -13,7 +17,7 @@ export default function Login() {
   }, [user, loading, router])
 
   if (loading) {
-    return <div className="flex min-h-screen items-center justify-center">Loading...</div>
+    return <div className="flex min-h-screen items-center justify-center">{t('common.loading')}</div>
   }
 
   // If user is already logged in, show dashboard link
@@ -21,12 +25,12 @@ export default function Login() {
     return (
       <div className="flex min-h-screen items-center justify-center">
         <div className="text-center">
-          <p className="mb-4">You are already logged in!</p>
+          <p className="mb-4">{t('auth.alreadyLoggedIn')}</p>
           <button
             onClick={() => router.push('/dashboard')}
-            className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+            className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 font-semibold"
           >
-            Go to Dashboard
+            {t('auth.goToDashboard')}
           </button>
         </div>
       </div>
@@ -34,19 +38,19 @@ export default function Login() {
   }
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center bg-gray-100">
-      <div className="w-full max-w-md space-y-8 rounded-lg bg-white p-8 shadow-lg">
+    <div className="flex min-h-screen flex-col items-center justify-center bg-gray-100 px-4 sm:px-6 lg:px-8">
+      <div className="w-full max-w-sm sm:max-w-md space-y-6 sm:space-y-8 rounded-lg bg-white p-6 sm:p-8 shadow-lg">
         <div className="text-center">
-          <h2 className="text-3xl font-bold text-gray-900">Sign in to your account</h2>
+          <h2 className="text-2xl sm:text-3xl font-bold text-gray-900">{t('auth.signInToAccount')}</h2>
           <p className="mt-2 text-sm text-gray-600">
-            You&apos;re currently browsing as a guest. Sign in to save your progress across devices.
+            {t('auth.guestBrowsingMessage')}
           </p>
         </div>
 
-        <div className="mt-8 space-y-4">
+        <div className="mt-6 sm:mt-8 space-y-4">
           <button
             onClick={() => signInWithGoogle()}
-            className="flex w-full items-center justify-center space-x-2 rounded-md bg-white px-4 py-2 text-gray-700 shadow-sm ring-1 ring-gray-300 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+            className="flex w-full items-center justify-center space-x-2 rounded-md bg-white px-4 py-3 text-sm sm:text-base text-gray-700 shadow-sm ring-1 ring-gray-300 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-colors font-semibold"
           >
             <svg className="h-5 w-5" viewBox="0 0 24 24">
               <path
@@ -66,17 +70,25 @@ export default function Login() {
                 fill="#EA4335"
               />
             </svg>
-            <span>Sign in with Google</span>
+            <span>{t('auth.signInWithGoogle')}</span>
           </button>
 
           <button
             onClick={() => router.push('/dashboard')}
-            className="w-full rounded-md bg-gray-800 px-4 py-2 text-sm font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
+            className="w-full rounded-md bg-gray-800 px-4 py-3 text-sm sm:text-base font-semibold text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-colors"
           >
-            Continue as Guest
+            {t('common.continueAsGuest')}
           </button>
         </div>
       </div>
     </div>
   )
 }
+
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale ?? 'en', ['common'])),
+    },
+  };
+};

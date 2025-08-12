@@ -1,0 +1,234 @@
+{
+  "sections": {
+    "choose-school": {
+      "title": "University Research & Selection",
+      "description": "The foundation of your study abroad journey. Proper research ensures you select institutions that align with your academic goals, career aspirations, and financial capacity. This phase determines your eligibility and competitive positioning.",
+      "steps": {
+        "0": {
+          "title": "Research universities and programs using comprehensive databases",
+          "description": "Utilize professional academic databases to identify programs matching your field of study"
+        },
+        "1": {
+          "title": "Evaluate GPA requirements and academic prerequisites",
+          "description": "Ensure your academic credentials meet minimum requirements for target institutions"
+        },
+        "2": {
+          "title": "Obtain required English proficiency certification",
+          "description": "Complete IELTS/TOEFL testing if required by target institutions"
+        },
+        "3": {
+          "title": "Draft compelling statement of purpose",
+          "description": "Articulate your academic objectives and research interests professionally"
+        },
+        "4": {
+          "title": "Secure academic and professional reference letters",
+          "description": "Obtain recommendations from faculty and supervisors who can attest to your capabilities"
+        },
+        "5": {
+          "title": "Compile comprehensive academic transcripts",
+          "description": "Prepare detailed course descriptions and credential evaluations if required"
+        },
+        "6": {
+          "title": "Document professional work experience",
+          "description": "Provide employment verification and professional accomplishments"
+        },
+        "7": {
+          "title": "Research and apply for scholarships",
+          "description": "Explore funding opportunities to reduce financial burden"
+        },
+        "8": {
+          "title": "Network with current students and alumni",
+          "description": "Gain insider perspectives on academic programs and campus life"
+        }
+      }
+    },
+    "applying": {
+      "title": "Application Submission Process",
+      "description": "The critical phase where you formally present your candidacy. Attention to detail, deadline adherence, and complete documentation are essential for successful admission outcomes.",
+      "steps": {
+        "0": {
+          "title": "Create comprehensive application timeline with deadlines",
+          "description": "Organize applications chronologically to avoid missing critical dates"
+        },
+        "1": {
+          "title": "Submit applications through official university portals",
+          "description": "Complete online applications ensuring all required fields are properly filled"
+        },
+        "2": {
+          "title": "Process application fees and documentation",
+          "description": "Submit required fees and upload supporting documents in specified formats"
+        },
+        "3": {
+          "title": "Prepare for and attend admission interviews",
+          "description": "Demonstrate communication skills and academic commitment during interviews"
+        },
+        "4": {
+          "title": "Monitor application status and respond to admission decisions",
+          "description": "Track progress and respond promptly to admission committee communications"
+        },
+        "5": {
+          "title": "Submit enrollment deposit and accept admission offer",
+          "description": "Secure your seat by submitting required deposits within specified timeframes"
+        }
+      }
+    },
+    "immigration": {
+      "title": "Legal Documentation & Immigration",
+      "description": "Essential legal processes for international study authorization. Proper documentation ensures legal entry and residence status, preventing complications that could jeopardize your academic plans.",
+      "steps": {
+        "0": {
+          "title": "Apply for appropriate student visa category",
+          "description": "Submit F-1 or equivalent student visa application with required documentation"
+        },
+        "1": {
+          "title": "Provide certified proof of accommodation arrangements",
+          "description": "Document housing arrangements as required by immigration authorities"
+        },
+        "2": {
+          "title": "Submit official letter of admission and I-20 form",
+          "description": "Provide university-issued documents confirming enrollment and program details"
+        },
+        "3": {
+          "title": "Demonstrate sufficient financial resources",
+          "description": "Provide bank statements and financial guarantees meeting visa requirements"
+        },
+        "4": {
+          "title": "Obtain comprehensive health insurance coverage",
+          "description": "Secure health insurance meeting university and visa requirements"
+        },
+        "5": {
+          "title": "Register for residence permit upon arrival",
+          "description": "Complete local registration requirements within specified timeframe after arrival"
+        }
+      }
+    },
+    "transportation": {
+      "title": "Travel Planning & Logistics",
+      "description": "Strategic planning for international travel and local mobility. Proper preparation ensures cost-effective transportation and smooth transition to your new academic environment.",
+      "steps": {
+        "0": {
+          "title": "Research student discounts for international flights",
+          "description": "Utilize student-specific booking platforms for discounted airfare"
+        },
+        "1": {
+          "title": "Book international flights with appropriate timing",
+          "description": "Schedule arrival allowing time for orientation and settlement"
+        },
+        "2": {
+          "title": "Plan local transportation from airport to accommodation",
+          "description": "Research and book ground transportation for arrival day"
+        }
+      }
+    },
+    "housing": {
+      "title": "Accommodation Arrangements",
+      "description": "Securing appropriate living arrangements is crucial for academic success and personal well-being. Housing decisions impact your budget, social integration, and daily academic routine.",
+      "steps": {
+        "0": {
+          "title": "Apply for university dormitory accommodation",
+          "description": "Submit dormitory applications early as spaces are typically limited"
+        },
+        "1": {
+          "title": "Secure verified off-campus rental accommodation",
+          "description": "Research and secure housing through reputable platforms with proper lease agreements"
+        }
+      }
+    },
+    "necessary-items": {
+      "title": "Essential Documentation & Preparations",
+      "description": "Comprehensive preparation of essential items and documentation prevents complications and ensures smooth integration into your new academic and social environment.",
+      "steps": {
+        "0": {
+          "title": "Verify health insurance coverage and documentation",
+          "description": "Ensure health insurance meets university requirements and provides adequate coverage"
+        },
+        "1": {
+          "title": "Prepare passport-sized photographs meeting official specifications",
+          "description": "Obtain professionally taken photos meeting visa and university documentation standards"
+        },
+        "2": {
+          "title": "Organize and secure original academic and legal documents",
+          "description": "Compile transcripts, diplomas, passport, visa, and I-20 in organized portfolio"
+        },
+        "3": {
+          "title": "Create certified copies of all important documents",
+          "description": "Prepare notarized copies as backup and for various registration processes"
+        },
+        "4": {
+          "title": "Prepare prescription medications and health records",
+          "description": "Ensure adequate medication supply and translated medical records if necessary"
+        },
+        "5": {
+          "title": "Pack appropriate clothing for climate and cultural context",
+          "description": "Research local climate and cultural norms to pack appropriately"
+        },
+        "6": {
+          "title": "Arrange international phone service and connectivity",
+          "description": "Secure reliable communication methods for emergency and daily use"
+        }
+      }
+    },
+    "student-card": {
+      "title": "Student Identification & Services Registration",
+      "description": "Student ID cards provide access to university facilities, services, and significant discounts. This registration process integrates you into the university system and local student community.",
+      "steps": {
+        "0": {
+          "title": "Research university student ID card requirements and procedures",
+          "description": "Understand documentation requirements and processing timelines for student ID"
+        },
+        "1": {
+          "title": "Complete student ID registration process with required documentation",
+          "description": "Submit required forms, photos, and documentation to obtain official student ID"
+        },
+        "2": {
+          "title": "Activate student discounts and benefits across services",
+          "description": "Utilize student ID for transportation, dining, entertainment, and retail discounts"
+        }
+      }
+    },
+    "bank-account": {
+      "title": "Financial Services Setup",
+      "description": "Establishing local banking relationships is essential for managing tuition payments, living expenses, and building financial credibility. Local accounts often provide better exchange rates and reduced fees.",
+      "steps": {
+        "0": {
+          "title": "Research banks offering specialized student account programs",
+          "description": "Compare student banking packages, fees, and services offered by local institutions"
+        },
+        "1": {
+          "title": "Obtain required tax identification documentation",
+          "description": "Apply for SSN or ITIN if required for banking and employment purposes"
+        },
+        "2": {
+          "title": "Establish local bank account and arrange tuition payment methods",
+          "description": "Open checking account and set up automatic tuition payment systems"
+        }
+      }
+    },
+    "orientation": {
+      "title": "Academic & Social Integration",
+      "description": "Orientation programs provide essential information about academic expectations, campus resources, and social opportunities. Active participation accelerates your integration and academic success.",
+      "steps": {
+        "0": {
+          "title": "Participate in international student orientation programs",
+          "description": "Attend mandatory orientation sessions covering academic policies and campus life"
+        },
+        "1": {
+          "title": "Locate and register with essential university service offices",
+          "description": "Identify locations of registrar, financial aid, career services, and counseling centers"
+        },
+        "2": {
+          "title": "Understand course registration procedures and academic requirements",
+          "description": "Learn course selection process, prerequisites, and graduation requirements for your program"
+        },
+        "3": {
+          "title": "Review university safety protocols and campus security procedures",
+          "description": "Understand emergency procedures, campus safety resources, and reporting mechanisms"
+        },
+        "4": {
+          "title": "Obtain emergency contact information and support services directory",
+          "description": "Compile essential contact numbers for medical, security, and administrative emergencies"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "common": {
+    "signIn": "Đăng Nhập",
+    "signOut": "Đăng Xuất",
+    "signInToSaveProgress": "Đăng Nhập để Lưu Tiến Trình",
+    "continueAsGuest": "Tiếp Tục Dưới Dạng Khách",
+    "guestMode": "Chế Độ Khách",
+    "guestModeDescription": "Chế Độ Khách - Tiến trình được lưu cục bộ",
+    "signedInAs": "Đã đăng nhập bằng",
+    "loading": "Đang tải...",
+    "close": "Đóng",
+    "required": "Bắt Buộc",
+    "optional": "Tùy Chọn",
+    "complete": "Hoàn Thành",
+    "requiredSteps": "Bước Bắt Buộc",
+    "totalProgress": "Tổng Tiến Trình",
+    "completion": "Hoàn Thành",
+    "referenceLink": "Liên Kết Tham Khảo",
+    "reference": "Tham Khảo"
+  },
+  "navigation": {
+    "studyAbroadRoadmap": "Lộ Trình Du Học",
+    "dashboard": "Bảng Điều Khiển",
+    "login": "Đăng Nhập"
+  },
+  "auth": {
+    "signInToAccount": "Đăng nhập vào tài khoản của bạn",
+    "guestBrowsingMessage": "Bạn đang duyệt với tư cách khách. Đăng nhập để lưu tiến trình trên các thiết bị.",
+    "signInWithGoogle": "Đăng nhập bằng Google",
+    "alreadyLoggedIn": "Bạn đã đăng nhập rồi!",
+    "goToDashboard": "Đi tới Bảng Điều Khiển"
+  },
+  "dashboard": {
+    "completeAllRequiredSteps": "Hoàn thành tất cả các bước bắt buộc để tiến bộ trong hành trình du học của bạn"
+  }
+}

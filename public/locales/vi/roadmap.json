@@ -1,0 +1,234 @@
+{
+  "sections": {
+    "choose-school": {
+      "title": "Nghiên Cứu & Lựa Chọn Trường Đại Học",
+      "description": "Nền tảng của hành trình du học của bạn. Nghiên cứu đúng đắn đảm bảo bạn chọn các tổ chức phù hợp với mục tiêu học tập, khát vọng nghề nghiệp và khả năng tài chính. Giai đoạn này quyết định tính đủ điều kiện và vị thế cạnh tranh của bạn.",
+      "steps": {
+        "0": {
+          "title": "Nghiên cứu các trường đại học và chương trình sử dụng cơ sở dữ liệu toàn diện",
+          "description": "Sử dụng cơ sở dữ liệu học thuật chuyên nghiệp để xác định các chương trình phù hợp với lĩnh vực nghiên cứu của bạn"
+        },
+        "1": {
+          "title": "Đánh giá các yêu cầu GPA và điều kiện tiên quyết học thuật",
+          "description": "Đảm bảo thông tin đăng ký học thuật của bạn đáp ứng yêu cầu tối thiểu cho các tổ chức mục tiêu"
+        },
+        "2": {
+          "title": "Lấy chứng chỉ năng lực tiếng Anh bắt buộc",
+          "description": "Hoàn thành kiểm tra IELTS/TOEFL nếu được yêu cầu bởi các tổ chức mục tiêu"
+        },
+        "3": {
+          "title": "Soạn thảo bản tuyên bố mục đích hấp dẫn",
+          "description": "Diễn đạt các mục tiêu học thuật và sở thích nghiên cứu của bạn một cách chuyên nghiệp"
+        },
+        "4": {
+          "title": "Bảo đảm các thư giới thiệu học thuật và nghề nghiệp",
+          "description": "Lấy các khuyến nghị từ giảng viên và người giám sát có thể chứng thực cho khả năng của bạn"
+        },
+        "5": {
+          "title": "Biên soạn bảng điểm học thuật toàn diện",
+          "description": "Chuẩn bị mô tả khóa học chi tiết và đánh giá thông tin đăng ký nếu được yêu cầu"
+        },
+        "6": {
+          "title": "Lập hồ sơ kinh nghiệm làm việc chuyên nghiệp",
+          "description": "Cung cấp xác minh việc làm và thành tích chuyên nghiệp"
+        },
+        "7": {
+          "title": "Nghiên cứu và nộp đơn xin học bổng",
+          "description": "Khám phá các cơ hội tài trợ để giảm gánh nặng tài chính"
+        },
+        "8": {
+          "title": "Kết nối với sinh viên hiện tại và cựu sinh viên",
+          "description": "Có được góc nhìn sâu sắc về các chương trình học thuật và cuộc sống trong khuôn viên"
+        }
+      }
+    },
+    "applying": {
+      "title": "Quy Trình Nộp Đơn Ứng Tuyển",
+      "description": "Giai đoạn quan trọng mà bạn chính thức trình bày ứng cử của mình. Sự chú ý đến chi tiết, tuân thủ thời hạn và tài liệu hoàn chỉnh là thiết yếu cho kết quả nhập học thành công.",
+      "steps": {
+        "0": {
+          "title": "Tạo lịch trình ứng tuyển toàn diện với thời hạn",
+          "description": "Tổ chức các ứng dụng theo thứ tự thời gian để tránh bỏ lỡ các ngày quan trọng"
+        },
+        "1": {
+          "title": "Nộp đơn qua cổng thông tin chính thức của trường đại học",
+          "description": "Hoàn thành các ứng dụng trực tuyến đảm bảo tất cả các trường bắt buộc được điền đúng"
+        },
+        "2": {
+          "title": "Xử lý phí ứng tuyển và tài liệu",
+          "description": "Nộp các khoản phí bắt buộc và tải lên các tài liệu hỗ trợ theo định dạng quy định"
+        },
+        "3": {
+          "title": "Chuẩn bị và tham dự các cuộc phỏng vấn nhập học",
+          "description": "Thể hiện kỹ năng giao tiếp và cam kết học thuật trong các cuộc phỏng vấn"
+        },
+        "4": {
+          "title": "Theo dõi tình trạng ứng tuyển và phản hồi quyết định nhập học",
+          "description": "Theo dõi tiến trình và phản hồi kịp thời với các thông tin liên lạc của ủy ban nhập học"
+        },
+        "5": {
+          "title": "Nộp tiền đặt cọc ghi danh và chấp nhận lời mời nhập học",
+          "description": "Bảo đảm chỗ ngồi của bạn bằng cách nộp tiền đặt cọc bắt buộc trong khung thời gian quy định"
+        }
+      }
+    },
+    "immigration": {
+      "title": "Tài Liệu Pháp Lý & Xuất Nhập Cảnh",
+      "description": "Các quy trình pháp lý thiết yếu cho việc ủy quyền nghiên cứu quốc tế. Tài liệu đúng đắn đảm bảo tình trạng nhập cảnh và cư trú hợp pháp, ngăn ngừa các biến chứng có thể gây nguy hiểm cho kế hoạch học thuật của bạn.",
+      "steps": {
+        "0": {
+          "title": "Nộp đơn xin thị thực sinh viên phù hợp",
+          "description": "Nộp đơn xin thị thực sinh viên F-1 hoặc tương đương với tài liệu bắt buộc"
+        },
+        "1": {
+          "title": "Cung cấp bằng chứng chứng nhận về sắp xếp chỗ ở",
+          "description": "Lập hồ sơ sắp xếp nhà ở theo yêu cầu của cơ quan xuất nhập cảnh"
+        },
+        "2": {
+          "title": "Nộp thư nhập học chính thức và mẫu I-20",
+          "description": "Cung cấp tài liệu do trường đại học cấp xác nhận ghi danh và chi tiết chương trình"
+        },
+        "3": {
+          "title": "Chứng minh nguồn tài chính đầy đủ",
+          "description": "Cung cấp sao kê ngân hàng và bảo đảm tài chính đáp ứng yêu cầu thị thực"
+        },
+        "4": {
+          "title": "Có được bảo hiểm y tế toàn diện",
+          "description": "Bảo đảm bảo hiểm y tế đáp ứng yêu cầu của trường đại học và thị thực"
+        },
+        "5": {
+          "title": "Đăng ký giấy phép cư trú khi đến",
+          "description": "Hoàn thành các yêu cầu đăng ký địa phương trong khung thời gian quy định sau khi đến"
+        }
+      }
+    },
+    "transportation": {
+      "title": "Lập Kế Hoạch Di Chuyển & Hậu Cần",
+      "description": "Lập kế hoạch chiến lược cho việc du lịch quốc tế và tính di động địa phương. Chuẩn bị đúng đắn đảm bảo vận chuyển hiệu quả về chi phí và chuyển tiếp suôn sẻ đến môi trường học thuật mới của bạn.",
+      "steps": {
+        "0": {
+          "title": "Nghiên cứu giảm giá sinh viên cho các chuyến bay quốc tế",
+          "description": "Sử dụng các nền tảng đặt chỗ dành riêng cho sinh viên để được giảm giá vé máy bay"
+        },
+        "1": {
+          "title": "Đặt các chuyến bay quốc tế với thời gian thích hợp",
+          "description": "Lên lịch đến cho phép thời gian định hướng và giải quyết"
+        },
+        "2": {
+          "title": "Lập kế hoạch vận chuyển địa phương từ sân bay đến chỗ ở",
+          "description": "Nghiên cứu và đặt vận chuyển mặt đất cho ngày đến"
+        }
+      }
+    },
+    "housing": {
+      "title": "Sắp Xếp Chỗ Ở",
+      "description": "Bảo đảm sắp xếp sống thích hợp là rất quan trọng cho sự thành công học thuật và phúc lợi cá nhân. Quyết định nhà ở ảnh hưởng đến ngân sách, tích hợp xã hội và thói quen học thuật hàng ngày của bạn.",
+      "steps": {
+        "0": {
+          "title": "Nộp đơn xin chỗ ở ký túc xá trường đại học",
+          "description": "Nộp đơn xin ký túc xá sớm vì số lượng chỗ thường hạn chế"
+        },
+        "1": {
+          "title": "Bảo đảm chỗ ở thuê ngoài khuôn viên đã được xác minh",
+          "description": "Nghiên cứu và bảo đảm nhà ở thông qua các nền tảng có uy tín với hợp đồng thuê đúng đắn"
+        }
+      }
+    },
+    "necessary-items": {
+      "title": "Tài Liệu Thiết Yếu & Chuẩn Bị",
+      "description": "Chuẩn bị toàn diện các mục thiết yếu và tài liệu ngăn ngừa biến chứng và đảm bảo tích hợp suôn sẻ vào môi trường học thuật và xã hội mới của bạn.",
+      "steps": {
+        "0": {
+          "title": "Xác minh bảo hiểm y tế và tài liệu",
+          "description": "Đảm bảo bảo hiểm y tế đáp ứng yêu cầu của trường đại học và cung cấp bảo hiểm đầy đủ"
+        },
+        "1": {
+          "title": "Chuẩn bị ảnh cỡ hộ chiếu đáp ứng thông số kỹ thuật chính thức",
+          "description": "Có được ảnh chụp chuyên nghiệp đáp ứng tiêu chuẩn tài liệu thị thực và trường đại học"
+        },
+        "2": {
+          "title": "Tổ chức và bảo đảm tài liệu học thuật và pháp lý gốc",
+          "description": "Biên soạn bảng điểm, bằng cấp, hộ chiếu, thị thực và I-20 trong hồ sơ tổ chức"
+        },
+        "3": {
+          "title": "Tạo bản sao chứng nhận của tất cả các tài liệu quan trọng",
+          "description": "Chuẩn bị bản sao công chứng làm sao lưu và cho các quy trình đăng ký khác nhau"
+        },
+        "4": {
+          "title": "Chuẩn bị thuốc theo toa và hồ sơ y tế",
+          "description": "Đảm bảo cung cấp thuốc đầy đủ và hồ sơ y tế được dịch nếu cần thiết"
+        },
+        "5": {
+          "title": "Đóng gói quần áo phù hợp với khí hậu và bối cảnh văn hóa",
+          "description": "Nghiên cứu khí hậu địa phương và tiêu chuẩn văn hóa để đóng gói phù hợp"
+        },
+        "6": {
+          "title": "Sắp xếp dịch vụ điện thoại quốc tế và kết nối",
+          "description": "Bảo đảm các phương thức giao tiếp đáng tin cậy cho việc khẩn cấp và sử dụng hàng ngày"
+        }
+      }
+    },
+    "student-card": {
+      "title": "Đăng Ký Nhận Dạng Sinh Viên & Dịch Vụ",
+      "description": "Thẻ ID sinh viên cung cấp quyền truy cập vào cơ sở, dịch vụ của trường đại học và giảm giá đáng kể. Quy trình đăng ký này tích hợp bạn vào hệ thống trường đại học và cộng đồng sinh viên địa phương.",
+      "steps": {
+        "0": {
+          "title": "Nghiên cứu các yêu cầu và quy trình thẻ ID sinh viên của trường đại học",
+          "description": "Hiểu các yêu cầu tài liệu và lịch trình xử lý cho ID sinh viên"
+        },
+        "1": {
+          "title": "Hoàn thành quy trình đăng ký ID sinh viên với tài liệu bắt buộc",
+          "description": "Nộp các mẫu đơn, ảnh và tài liệu bắt buộc để có được ID sinh viên chính thức"
+        },
+        "2": {
+          "title": "Kích hoạt giảm giá và lợi ích sinh viên trên các dịch vụ",
+          "description": "Sử dụng ID sinh viên cho giảm giá vận chuyển, ăn uống, giải trí và bán lẻ"
+        }
+      }
+    },
+    "bank-account": {
+      "title": "Thiết Lập Dịch Vụ Tài Chính",
+      "description": "Thiết lập các mối quan hệ ngân hàng địa phương là thiết yếu để quản lý các khoản thanh toán học phí, chi phí sinh hoạt và xây dựng uy tín tài chính. Tài khoản địa phương thường cung cấp tỷ giá hối đoái tốt hơn và phí giảm.",
+      "steps": {
+        "0": {
+          "title": "Nghiên cứu các ngân hàng cung cấp chương trình tài khoản sinh viên chuyên biệt",
+          "description": "So sánh các gói ngân hàng sinh viên, phí và dịch vụ được cung cấp bởi các tổ chức địa phương"
+        },
+        "1": {
+          "title": "Có được tài liệu nhận dạng thuế bắt buộc",
+          "description": "Nộp đơn xin SSN hoặc ITIN nếu được yêu cầu cho ngân hàng và mục đích việc làm"
+        },
+        "2": {
+          "title": "Thiết lập tài khoản ngân hàng địa phương và sắp xếp các phương thức thanh toán học phí",
+          "description": "Mở tài khoản séc và thiết lập hệ thống thanh toán học phí tự động"
+        }
+      }
+    },
+    "orientation": {
+      "title": "Tích Hợp Học Thuật & Xã Hội",
+      "description": "Các chương trình định hướng cung cấp thông tin thiết yếu về kỳ vọng học thuật, tài nguyên khuôn viên và cơ hội xã hội. Sự tham gia tích cực tăng tốc tích hợp và thành công học thuật của bạn.",
+      "steps": {
+        "0": {
+          "title": "Tham gia các chương trình định hướng sinh viên quốc tế",
+          "description": "Tham dự các phiên định hướng bắt buộc bao gồm chính sách học thuật và cuộc sống khuôn viên"
+        },
+        "1": {
+          "title": "Định vị và đăng ký với các văn phòng dịch vụ trường đại học thiết yếu",
+          "description": "Xác định vị trí của đăng ký viên, hỗ trợ tài chính, dịch vụ nghề nghiệp và trung tâm tư vấn"
+        },
+        "2": {
+          "title": "Hiểu các quy trình đăng ký khóa học và yêu cầu học thuật",
+          "description": "Học quy trình lựa chọn khóa học, điều kiện tiên quyết và yêu cầu tốt nghiệp cho chương trình của bạn"
+        },
+        "3": {
+          "title": "Xem xét các giao thức an toàn trường đại học và quy trình bảo mật khuôn viên",
+          "description": "Hiểu các quy trình khẩn cấp, tài nguyên an toàn khuôn viên và cơ chế báo cáo"
+        },
+        "4": {
+          "title": "Có được thông tin liên hệ khẩn cấp và thư mục dịch vụ hỗ trợ",
+          "description": "Biên soạn các số liên hệ thiết yếu cho các trường hợp khẩn cấp y tế, bảo mật và hành chính"
+        }
+      }
+    }
+  }
+}

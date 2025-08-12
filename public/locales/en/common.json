@@ -1,0 +1,36 @@
+{
+  "common": {
+    "signIn": "Sign In",
+    "signOut": "Sign Out",
+    "signInToSaveProgress": "Sign In to Save Progress",
+    "continueAsGuest": "Continue as Guest",
+    "guestMode": "Guest Mode",
+    "guestModeDescription": "Guest Mode - Progress saved locally",
+    "signedInAs": "Signed in as",
+    "loading": "Loading...",
+    "close": "Close",
+    "required": "Required",
+    "optional": "Optional",
+    "complete": "Complete",
+    "requiredSteps": "Required Steps",
+    "totalProgress": "Total Progress",
+    "completion": "Completion",
+    "referenceLink": "Reference Link",
+    "reference": "Reference"
+  },
+  "navigation": {
+    "studyAbroadRoadmap": "Study Abroad Roadmap",
+    "dashboard": "Dashboard",
+    "login": "Login"
+  },
+  "auth": {
+    "signInToAccount": "Sign in to your account",
+    "guestBrowsingMessage": "You're currently browsing as a guest. Sign in to save your progress across devices.",
+    "signInWithGoogle": "Sign in with Google",
+    "alreadyLoggedIn": "You are already logged in!",
+    "goToDashboard": "Go to Dashboard"
+  },
+  "dashboard": {
+    "completeAllRequiredSteps": "Complete all required steps to progress through your study abroad journey"
+  }
+}

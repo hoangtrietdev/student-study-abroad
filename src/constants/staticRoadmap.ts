@@ -54,7 +54,7 @@ export const staticRoadmapSections: RoadmapSection[] = [
     id: "immigration",
     titleKey: "sections.immigration.title",
     descriptionKey: "sections.immigration.description",
-    position: { x: 50, y: 650 },
+    position: { x: 0, y: 650 },
     color: "#3b82f6",
     steps: [
       { titleKey: "sections.immigration.steps.0.title", descriptionKey: "sections.immigration.steps.0.description", optional: false },
@@ -69,7 +69,7 @@ export const staticRoadmapSections: RoadmapSection[] = [
     id: "transportation",
     titleKey: "sections.transportation.title",
     descriptionKey: "sections.transportation.description",
-    position: { x: 450, y: 650 },
+    position: { x: 400, y: 650 },
     color: "#10b981",
     steps: [
       { titleKey: "sections.transportation.steps.0.title", descriptionKey: "sections.transportation.steps.0.description", optional: false, referenceLink: "https://www.studentuniverse.com" },
@@ -81,7 +81,7 @@ export const staticRoadmapSections: RoadmapSection[] = [
     id: "housing",
     titleKey: "sections.housing.title",
     descriptionKey: "sections.housing.description",
-    position: { x: 750, y: 650 },
+    position: { x: 800, y: 650 },
     color: "#8b5cf6",
     steps: [
       { titleKey: "sections.housing.steps.0.title", descriptionKey: "sections.housing.steps.0.description", optional: true },
@@ -92,7 +92,7 @@ export const staticRoadmapSections: RoadmapSection[] = [
     id: "necessary-items",
     titleKey: "sections.necessary-items.title",
     descriptionKey: "sections.necessary-items.description",
-    position: { x: 1150, y: 650 },
+    position: { x: 1200, y: 650 },
     color: "#ef4444",
     steps: [
       { titleKey: "sections.necessary-items.steps.0.title", descriptionKey: "sections.necessary-items.steps.0.description", optional: false },

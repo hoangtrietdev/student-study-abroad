@@ -20,14 +20,14 @@ export interface RoadmapSection {
 // Static positions and colors remain the same
 const sectionConfig = [
   { id: "choose-school", position: { x: 600, y: 0 }, color: "#d946ef" },
-  { id: "applying", position: { x: 600, y: 300 }, color: "#f97316" },
-  { id: "immigration", position: { x: 50, y: 650 }, color: "#3b82f6" },
-  { id: "transportation", position: { x: 450, y: 650 }, color: "#10b981" },
-  { id: "housing", position: { x: 750, y: 650 }, color: "#8b5cf6" },
-  { id: "necessary-items", position: { x: 1150, y: 650 }, color: "#ef4444" },
-  { id: "student-card", position: { x: 600, y: 1000 }, color: "#f59e0b" },
-  { id: "bank-account", position: { x: 600, y: 1350 }, color: "#3b82f6" },
-  { id: "orientation", position: { x: 600, y: 1700 }, color: "#84cc16" },
+  { id: "applying", position: { x: 600, y: 400 }, color: "#f97316" },
+  { id: "immigration", position: { x: 0, y: 850 }, color: "#3b82f6" },
+  { id: "transportation", position: { x: 400, y: 850 }, color: "#10b981" },
+  { id: "housing", position: { x: 800, y: 850 }, color: "#8b5cf6" },
+  { id: "necessary-items", position: { x: 1200, y: 850 }, color: "#ef4444" },
+  { id: "student-card", position: { x: 600, y: 1300 }, color: "#f59e0b" },
+  { id: "bank-account", position: { x: 600, y: 1750 }, color: "#3b82f6" },
+  { id: "orientation", position: { x: 600, y: 2200 }, color: "#84cc16" },
 ];
 
 // Static reference links

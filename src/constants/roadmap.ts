@@ -138,7 +138,7 @@ export const roadmapSections: RoadmapSection[] = [
         description: "Complete local registration requirements within specified timeframe after arrival"
       }
     ],
-    position: { x: 50, y: 650 },
+    position: { x: 0, y: 650 },
     color: "#3b82f6",
   },
   {
@@ -164,7 +164,7 @@ export const roadmapSections: RoadmapSection[] = [
         description: "Research and book ground transportation for arrival day"
       }
     ],
-    position: { x: 450, y: 650 },
+    position: { x: 400, y: 650 },
     color: "#10b981",
   },
   {
@@ -182,7 +182,7 @@ export const roadmapSections: RoadmapSection[] = [
         description: "Research and secure housing through reputable platforms with proper lease agreements"
       }
     ],
-    position: { x: 750, y: 650 },
+    position: { x: 800, y: 650 },
     color: "#8b5cf6",
   },
   {
@@ -219,7 +219,7 @@ export const roadmapSections: RoadmapSection[] = [
         description: "Secure reliable communication methods for emergency and daily use"
       }
     ],
-    position: { x: 1150, y: 650 },
+    position: { x: 1200, y: 650 },
     color: "#ef4444",
   },
   {

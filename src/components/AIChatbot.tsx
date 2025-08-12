@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
+import Markdown from 'markdown-to-jsx';
 import { CHATBOT_CONFIG, generateWelcomeMessage } from '@/constants/chatbot';
 import { usePostMutation } from '@/hooks/useReactQuery';
 
@@ -24,6 +25,97 @@ const AIChatbot = () => {
   const [inputValue, setInputValue] = useState('');
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+
+  // Custom components for markdown rendering
+  const getMarkdownComponents = (isWelcome: boolean) => ({
+    h1: ({ children }: { children: React.ReactNode }) => (
+      <h1 className={`text-lg font-bold mb-2 ${isWelcome ? 'text-green-200' : 'text-white'}`}>
+        {children}
+      </h1>
+    ),
+    h2: ({ children }: { children: React.ReactNode }) => (
+      <h2 className={`text-base font-bold mb-2 ${isWelcome ? 'text-green-200' : 'text-blue-200'}`}>
+        {children}
+      </h2>
+    ),
+    h3: ({ children }: { children: React.ReactNode }) => (
+      <h3 className={`text-base font-semibold mb-1 ${isWelcome ? 'text-green-200' : 'text-blue-200'}`}>
+        {children}
+      </h3>
+    ),
+    p: ({ children }: { children: React.ReactNode }) => (
+      <p className={`mb-2 last:mb-0 ${isWelcome ? 'text-gray-200' : 'text-gray-100'}`}>
+        {children}
+      </p>
+    ),
+    ul: ({ children }: { children: React.ReactNode }) => (
+      <ul className="list-none mb-2 space-y-1">{children}</ul>
+    ),
+    ol: ({ children }: { children: React.ReactNode }) => (
+      <ol className="list-decimal list-inside mb-2 space-y-1">{children}</ol>
+    ),
+    li: ({ children }: { children: React.ReactNode }) => (
+      <li className={`${isWelcome ? 'text-gray-200' : 'text-gray-100'} ml-2`}>
+        <span className="text-green-400">• </span>{children}
+      </li>
+    ),
+    strong: ({ children }: { children: React.ReactNode }) => (
+      <strong className={`font-bold ${isWelcome ? 'text-green-200' : 'text-blue-200'}`}>
+        {children}
+      </strong>
+    ),
+    em: ({ children }: { children: React.ReactNode }) => (
+      <em className={`italic ${isWelcome ? 'text-gray-200' : 'text-gray-200'}`}>
+        {children}
+      </em>
+    ),
+    code: ({ children }: { children: React.ReactNode }) => (
+      <code className="bg-gray-800 text-green-300 px-1 py-0.5 rounded text-sm font-mono">
+        {children}
+      </code>
+    ),
+    pre: ({ children }: { children: React.ReactNode }) => (
+      <pre className="bg-gray-800 text-green-300 p-3 rounded-md overflow-x-auto mb-2 text-sm font-mono">
+        {children}
+      </pre>
+    ),
+    a: ({ href, children }: { href?: string; children: React.ReactNode }) => (
+      <a 
+        href={href} 
+        target="_blank" 
+        rel="noopener noreferrer"
+        className="text-blue-300 hover:text-blue-200 underline"
+      >
+        {children}
+      </a>
+    ),
+    blockquote: ({ children }: { children: React.ReactNode }) => (
+      <blockquote className={`border-l-4 border-blue-500 pl-4 italic mb-2 ${isWelcome ? 'text-gray-200' : 'text-gray-200'}`}>
+        {children}
+      </blockquote>
+    ),
+    hr: () => (
+      <hr className="border-t border-gray-600 my-4" />
+    ),
+    table: ({ children }: { children: React.ReactNode }) => (
+      <table className="w-full border-collapse mb-4">{children}</table>
+    ),
+    thead: ({ children }: { children: React.ReactNode }) => (
+      <thead className="bg-gray-800">{children}</thead>
+    ),
+    tbody: ({ children }: { children: React.ReactNode }) => (
+      <tbody>{children}</tbody>
+    ),
+    tr: ({ children }: { children: React.ReactNode }) => (
+      <tr className="border-b border-gray-700">{children}</tr>
+    ),
+    th: ({ children }: { children: React.ReactNode }) => (
+      <th className="text-left p-2 font-semibold text-blue-200">{children}</th>
+    ),
+    td: ({ children }: { children: React.ReactNode }) => (
+      <td className={`p-2 ${isWelcome ? 'text-gray-200' : 'text-gray-100'}`}>{children}</td>
+    ),
+  });
 
   // React Query mutation for sending chat messages
   const chatMutation = usePostMutation<ChatResponse, ChatRequest>('/api/chat', {
@@ -238,62 +330,23 @@ const AIChatbot = () => {
                           : 'bg-gradient-to-r from-blue-600 to-blue-700 text-white border border-blue-500/50'
                       }`}
                     >
-                      {message.id.startsWith('welcome-') ? (
-                        // Special formatting for welcome message
-                        <div className="space-y-2">
-                          {message.content.split('\n\n').map((paragraph, idx) => {
-                            if (paragraph.includes('**') || paragraph.includes('•')) {
-                              // Handle bold text and bullet points
-                              return (
-                                <div key={idx} className="space-y-1">
-                                  {paragraph.split('\n').map((line, lineIdx) => {
-                                    if (line.startsWith('**') && line.endsWith('**')) {
-                                      // Bold headers
-                                      return (
-                                        <div key={lineIdx} className="font-bold text-green-200 text-base">
-                                          {line.replace(/\*\*/g, '')}
-                                        </div>
-                                      );
-                                    } else if (line.startsWith('•')) {
-                                      // Bullet points
-                                      return (
-                                        <div key={lineIdx} className="text-gray-200 ml-2">
-                                          <span className="text-green-400">•</span> {line.substring(1).trim()}
-                                        </div>
-                                      );
-                                    } else if (line.includes('**')) {
-                                      // Inline bold text
-                                      const parts = line.split('**');
-                                      return (
-                                        <div key={lineIdx} className="text-gray-200">
-                                          {parts.map((part, partIdx) => 
-                                            partIdx % 2 === 0 ? part : <span key={partIdx} className="font-bold text-green-200">{part}</span>
-                                          )}
-                                        </div>
-                                      );
-                                    } else {
-                                      return (
-                                        <div key={lineIdx} className="text-gray-200">
-                                          {line}
-                                        </div>
-                                      );
-                                    }
-                                  })}
-                                </div>
-                              );
-                            } else {
-                              return (
-                                <div key={idx} className="text-gray-200">
-                                  {paragraph}
-                                </div>
-                              );
-                            }
-                          })}
-                        </div>
-                      ) : (
-                        // Regular message formatting
-                        <p className="whitespace-pre-wrap">{message.content}</p>
-                      )}
+                      {/* Render message content with Markdown */}
+                      <div className="prose prose-sm max-w-none">
+                        <Markdown 
+                          options={{ 
+                            overrides: message.role === 'assistant' 
+                              ? getMarkdownComponents(message.id.startsWith('welcome-'))
+                              : {
+                                  // Simple styling for user messages
+                                  p: ({ children }: { children: React.ReactNode }) => (
+                                    <p className="mb-1 last:mb-0 whitespace-pre-wrap text-white">{children}</p>
+                                  ),
+                                }
+                          }}
+                        >
+                          {message.content}
+                        </Markdown>
+                      </div>
                       <span className="text-xs opacity-60 mt-2 block">
                         {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                       </span>

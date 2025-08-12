@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { CHATBOT_CONFIG, generateWelcomeMessage } from '@/constants/chatbot';
+import { usePostMutation } from '@/hooks/useReactQuery';
 
 interface Message {
   id: string;
@@ -8,13 +9,44 @@ interface Message {
   timestamp: Date;
 }
 
+interface ChatResponse {
+  message: string;
+}
+
+interface ChatRequest {
+  message: string;
+  history: { role: string; content: string }[];
+}
+
 const AIChatbot = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputValue, setInputValue] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+
+  // React Query mutation for sending chat messages
+  const chatMutation = usePostMutation<ChatResponse, ChatRequest>('/api/chat', {
+    onSuccess: (data) => {
+      const botMessage: Message = {
+        id: (Date.now() + 1).toString(),
+        content: data.message,
+        role: 'assistant',
+        timestamp: new Date(),
+      };
+      setMessages(prev => [...prev, botMessage]);
+    },
+    onError: (error) => {
+      console.error('Error sending message:', error);
+      const errorMessage: Message = {
+        id: (Date.now() + 1).toString(),
+        content: CHATBOT_CONFIG.ERROR_MESSAGES.GENERIC,
+        role: 'assistant',
+        timestamp: new Date(),
+      };
+      setMessages(prev => [...prev, errorMessage]);
+    },
+  });
 
   // Initialize welcome message when chatbot opens for the first time
   const initializeWelcomeMessage = useCallback(() => {
@@ -63,7 +95,7 @@ const AIChatbot = () => {
   }, [isOpen]);
 
   const sendMessage = async () => {
-    if (!inputValue.trim() || isLoading) return;
+    if (!inputValue.trim() || chatMutation.isPending) return;
 
     const userMessage: Message = {
       id: Date.now().toString(),
@@ -74,45 +106,12 @@ const AIChatbot = () => {
 
     setMessages(prev => [...prev, userMessage]);
     setInputValue('');
-    setIsLoading(true);
 
-    try {
-      // Call your chat API
-      const response = await fetch('/api/chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ 
-          message: userMessage.content, 
-          history: messages.map(m => ({ role: m.role, content: m.content }))
-        }),
-      });
-      
-      if (!response.ok) {
-        throw new Error('Failed to get AI response');
-      }
-      
-      const data = await response.json();
-      
-      const botMessage: Message = {
-        id: (Date.now() + 1).toString(),
-        content: data.message,
-        role: 'assistant',
-        timestamp: new Date(),
-      };
-
-      setMessages(prev => [...prev, botMessage]);
-    } catch (error) {
-      console.error('Error sending message:', error);
-      const errorMessage: Message = {
-        id: (Date.now() + 1).toString(),
-        content: CHATBOT_CONFIG.ERROR_MESSAGES.GENERIC,
-        role: 'assistant',
-        timestamp: new Date(),
-      };
-      setMessages(prev => [...prev, errorMessage]);
-    } finally {
-      setIsLoading(false);
-    }
+    // Send to API using React Query mutation
+    chatMutation.mutate({
+      message: userMessage.content,
+      history: messages.map(m => ({ role: m.role, content: m.content }))
+    });
   };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
@@ -131,7 +130,7 @@ const AIChatbot = () => {
   };
 
   const handleQuickQuestion = (question: string) => {
-    setInputValue(question);
+    setInputValue(''); // Clear input when quick question is clicked
     // Auto-send the question
     const userMessage: Message = {
       id: Date.now().toString(),
@@ -140,39 +139,11 @@ const AIChatbot = () => {
       timestamp: new Date(),
     };
     setMessages(prev => [...prev, userMessage]);
-    setIsLoading(true);
 
-    // Send to API (same logic as sendMessage)
-    fetch('/api/chat', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ 
-        message: question, 
-        history: messages.map(m => ({ role: m.role, content: m.content }))
-      }),
-    })
-    .then(response => response.json())
-    .then(data => {
-      const botMessage: Message = {
-        id: (Date.now() + 1).toString(),
-        content: data.message,
-        role: 'assistant',
-        timestamp: new Date(),
-      };
-      setMessages(prev => [...prev, botMessage]);
-    })
-    .catch(error => {
-      console.error('Error sending message:', error);
-      const errorMessage: Message = {
-        id: (Date.now() + 1).toString(),
-        content: CHATBOT_CONFIG.ERROR_MESSAGES.GENERIC,
-        role: 'assistant',
-        timestamp: new Date(),
-      };
-      setMessages(prev => [...prev, errorMessage]);
-    })
-    .finally(() => {
-      setIsLoading(false);
+    // Send to API using React Query mutation
+    chatMutation.mutate({
+      message: question,
+      history: messages.map(m => ({ role: m.role, content: m.content }))
     });
   };
 
@@ -340,7 +311,7 @@ const AIChatbot = () => {
                       <button
                         key={idx}
                         onClick={() => handleQuickQuestion(question)}
-                        disabled={isLoading}
+                        disabled={chatMutation.isPending}
                         className="px-3 py-1.5 bg-gray-700 hover:bg-gray-600 disabled:bg-gray-800 text-gray-200 text-xs rounded-full transition-colors duration-200 border border-gray-600 hover:border-gray-500"
                       >
                         {question}
@@ -351,7 +322,7 @@ const AIChatbot = () => {
               )}
               
               {/* Loading indicator */}
-              {isLoading && (
+              {chatMutation.isPending && (
                 <div className="flex justify-start">
                   <div className="bg-gray-800 border border-gray-700 p-3 rounded-lg">
                     <div className="flex space-x-1">
@@ -375,12 +346,12 @@ const AIChatbot = () => {
                   onChange={(e) => setInputValue(e.target.value)}
                   onKeyPress={handleKeyPress}
                   placeholder={CHATBOT_CONFIG.UI_TEXT.INPUT_PLACEHOLDER}
-                  disabled={isLoading}
+                  disabled={chatMutation.isPending}
                   className="flex-1 bg-gray-900 border border-gray-600 rounded-lg px-3 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:opacity-50"
                 />
                 <button
                   onClick={sendMessage}
-                  disabled={!inputValue.trim() || isLoading}
+                  disabled={!inputValue.trim() || chatMutation.isPending}
                   className="bg-blue-600 hover:bg-blue-700 disabled:bg-gray-600 disabled:cursor-not-allowed text-white p-2 rounded-lg transition-colors duration-200"
                 >
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

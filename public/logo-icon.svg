@@ -1,0 +1,41 @@
+<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#3B82F6" />
+      <stop offset="50%" style="stop-color:#1D4ED8" />
+      <stop offset="100%" style="stop-color:#1E40AF" />
+    </linearGradient>
+    <linearGradient id="accentGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#10B981" />
+      <stop offset="100%" style="stop-color:#059669" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Main globe circle -->
+  <circle cx="24" cy="24" r="20" fill="url(#logoGradient)" opacity="0.95"/>
+  
+  <!-- Continents/Land masses -->
+  <path d="M12 18 C16 16, 20 17, 24 19 C28 21, 32 20, 36 18" stroke="white" stroke-width="2" fill="none" opacity="0.8"/>
+  <path d="M10 28 C14 26, 18 27, 22 29 C26 31, 30 30, 34 28" stroke="white" stroke-width="1.5" fill="none" opacity="0.6"/>
+  <ellipse cx="18" cy="15" rx="4" ry="2" fill="white" opacity="0.4"/>
+  <ellipse cx="30" cy="33" rx="3" ry="1.5" fill="white" opacity="0.4"/>
+  
+  <!-- Graduation cap on globe -->
+  <g transform="translate(20, 12)">
+    <polygon points="0,8 8,4 8,8 0,12" fill="url(#accentGradient)"/>
+    <rect x="0" y="8" width="8" height="1" fill="url(#accentGradient)"/>
+    <circle cx="8" cy="6" r="0.5" fill="#F59E0B"/>
+    <line x1="8" y1="6" x2="10" y2="4" stroke="#F59E0B" stroke-width="0.5"/>
+  </g>
+  
+  <!-- Flight path/Route indicators -->
+  <path d="M6 24 Q24 8, 42 24" stroke="url(#accentGradient)" stroke-width="2" fill="none" opacity="0.7" stroke-dasharray="2,2"/>
+  <circle cx="6" cy="24" r="2" fill="url(#accentGradient)" opacity="0.8"/>
+  <circle cx="42" cy="24" r="2" fill="url(#accentGradient)" opacity="0.8"/>
+  
+  <!-- Location pin -->
+  <g transform="translate(38, 18)">
+    <path d="M2 0 C3.1 0, 4 0.9, 4 2 C4 3.5, 2 6, 2 6 S0 3.5, 0 2 C0 0.9, 0.9 0, 2 0 Z" fill="#EF4444"/>
+    <circle cx="2" cy="2" r="1" fill="white"/>
+  </g>
+</svg>

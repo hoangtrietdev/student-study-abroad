@@ -1,0 +1,53 @@
+<svg width="192" height="192" viewBox="0 0 192 192" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#F8FAFC" />
+      <stop offset="100%" style="stop-color:#F1F5F9" />
+    </linearGradient>
+    <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#3B82F6" />
+      <stop offset="50%" style="stop-color:#1D4ED8" />
+      <stop offset="100%" style="stop-color:#1E40AF" />
+    </linearGradient>
+    <linearGradient id="accentGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#10B981" />
+      <stop offset="100%" style="stop-color:#059669" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="192" height="192" rx="32" ry="32" fill="url(#bgGrad)"/>
+  
+  <!-- Main globe -->
+  <circle cx="96" cy="96" r="70" fill="url(#logoGradient)" opacity="0.95"/>
+  
+  <!-- Continents -->
+  <path d="M42 75 C58 70, 74 73, 96 78 C118 83, 140 80, 150 75" stroke="white" stroke-width="6" fill="none" opacity="0.8"/>
+  <path d="M37 112 C53 107, 69 110, 91 115 C113 120, 135 117, 155 112" stroke="white" stroke-width="5" fill="none" opacity="0.6"/>
+  <ellipse cx="70" cy="58" rx="13" ry="6.5" fill="white" opacity="0.4"/>
+  <ellipse cx="122" cy="134" rx="11" ry="5.5" fill="white" opacity="0.4"/>
+  
+  <!-- Graduation cap -->
+  <g transform="translate(80, 55)">
+    <polygon points="0,22 22,11 22,22 0,33" fill="url(#accentGradient)"/>
+    <rect x="0" y="22" width="22" height="2.8" fill="url(#accentGradient)"/>
+    <circle cx="22" cy="16.5" r="1.6" fill="#F59E0B"/>
+    <line x1="22" y1="16.5" x2="28.5" y2="10" stroke="#F59E0B" stroke-width="1.6"/>
+  </g>
+  
+  <!-- Route -->
+  <path d="M22 96 Q96 32, 170 96" stroke="url(#accentGradient)" stroke-width="5.5" fill="none" opacity="0.7" stroke-dasharray="8.5,8.5"/>
+  <circle cx="22" cy="96" r="6.5" fill="url(#accentGradient)" opacity="0.8"/>
+  <circle cx="170" cy="96" r="6.5" fill="url(#accentGradient)" opacity="0.8"/>
+  
+  <!-- Location pins -->
+  <g transform="translate(155, 70)">
+    <path d="M6.5 0 C10.1 0, 13 2.9, 13 6.5 C13 11.4, 6.5 19.5, 6.5 19.5 S0 11.4, 0 6.5 C0 2.9, 2.9 0, 6.5 0 Z" fill="#EF4444"/>
+    <circle cx="6.5" cy="6.5" r="3.2" fill="white"/>
+  </g>
+  
+  <g transform="translate(27, 115)">
+    <path d="M4.5 0 C7 0, 9 2, 9 4.5 C9 7.9, 4.5 13.5, 4.5 13.5 S0 7.9, 0 4.5 C0 2, 2 0, 4.5 0 Z" fill="#F59E0B"/>
+    <circle cx="4.5" cy="4.5" r="2.2" fill="white"/>
+  </g>
+</svg>

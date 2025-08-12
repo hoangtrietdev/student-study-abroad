@@ -36,9 +36,13 @@ export default function Document() {
         
         {/* Favicon */}
         <link rel="icon" href="/favicon.ico" />
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        <link rel="icon" type="image/svg+xml" href="/favicon-16x16.svg" />
+        <link rel="icon" type="image/svg+xml" sizes="32x32" href="/favicon-32x32.svg" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.svg" />
+        
+        {/* PWA Icons */}
+        <link rel="icon" type="image/svg+xml" sizes="192x192" href="/icon-192x192.svg" />
+        <link rel="icon" type="image/svg+xml" sizes="512x512" href="/icon-512x512.svg" />
         
         {/* Additional SEO */}
         <meta name="theme-color" content="#3B82F6" />

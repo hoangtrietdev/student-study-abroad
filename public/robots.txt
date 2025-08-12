@@ -1,0 +1,12 @@
+User-agent: *
+Allow: /
+
+# Sitemaps
+Sitemap: https://studyoverseasmap.com/sitemap.xml
+
+# Disallow admin pages
+Disallow: /api/
+Disallow: /admin/
+
+# SEO friendly crawling
+Crawl-delay: 1

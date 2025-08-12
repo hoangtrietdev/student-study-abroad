@@ -21,6 +21,7 @@ import StyledModal from "@/components/Modal";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import Header from '@/components/Header';
 import AIChatbot from '@/components/AIChatbot';
+import SEO from '@/components/SEO';
 
 // Custom Node Component
 interface RoadmapNodeProps {
@@ -176,9 +177,16 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="h-screen w-full flex flex-col bg-gray-900">
-      {/* Header */}
-      <Header title={tCommon('navigation.studyAbroadRoadmap')} />
+    <>
+      <SEO
+        title="Study Abroad Dashboard - Interactive Roadmap"
+        description="Track your study abroad progress with our interactive roadmap. Complete university applications, visa requirements, and preparation steps for international education."
+        keywords="study abroad dashboard, roadmap tracker, international student guide, university applications, visa requirements, study abroad checklist"
+        url="https://studyoverseasmap.com/dashboard"
+      />
+      <div className="h-screen w-full flex flex-col bg-gray-900">
+        {/* Header */}
+        <Header title={tCommon('navigation.studyAbroadRoadmap')} />
 
       {/* Roadmap Content */}
       <div className="flex-1 relative">
@@ -244,7 +252,8 @@ export default function Dashboard() {
 
       {/* AI Chatbot */}
       <AIChatbot />
-    </div>
+      </div>
+    </>
   );
 }
 

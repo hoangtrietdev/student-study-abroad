@@ -1,6 +1,6 @@
 import { RoadmapSection } from "@/utils/translateRoadmap";
 import { useTranslation } from 'next-i18next';
-import React from "react";
+import React, { useEffect } from "react";
 
 interface ModalProps {
   isOpen: boolean;
@@ -19,6 +19,30 @@ export default function StyledModal({
 }: ModalProps) {
   const { t } = useTranslation('common');
   
+  // Handle ESC key press
+  useEffect(() => {
+    const handleEscapeKey = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        onClose();
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener('keydown', handleEscapeKey);
+    }
+
+    return () => {
+      document.removeEventListener('keydown', handleEscapeKey);
+    };
+  }, [isOpen, onClose]);
+
+  // Handle click outside
+  const handleBackdropClick = (event: React.MouseEvent<HTMLDivElement>) => {
+    if (event.target === event.currentTarget) {
+      onClose();
+    }
+  };
+  
   if (!isOpen) return null;
 
   const requiredSteps = section.steps.filter(step => !step.optional);
@@ -31,7 +55,10 @@ export default function StyledModal({
   const totalCompletedCount = section.steps.filter((_, idx) => checklist[`${section.id}-${idx}`]).length;
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black/60 z-50 p-2 sm:p-4">
+    <div 
+      className="fixed inset-0 flex items-center justify-center bg-black/60 z-50 p-2 sm:p-4"
+      onClick={handleBackdropClick}
+    >
       <div className="bg-[#1e1e1e] w-full max-w-5xl max-h-[95vh] sm:max-h-[90vh] rounded-xl shadow-lg overflow-hidden flex flex-col">
         
         {/* Header */}

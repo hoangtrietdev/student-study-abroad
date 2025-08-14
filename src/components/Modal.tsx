@@ -1,6 +1,6 @@
 import { RoadmapSection } from "@/utils/translateRoadmap";
 import { useTranslation } from 'next-i18next';
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from 'react';
 
 interface ModalProps {
   isOpen: boolean;
@@ -18,6 +18,40 @@ export default function StyledModal({
   onChecklistChange,
 }: ModalProps) {
   const { t } = useTranslation('common');
+  const [viewportHeight, setViewportHeight] = useState(
+    typeof window !== 'undefined' ? window.innerHeight : 800
+  );
+  
+  // Handle viewport height changes (for mobile address bar hiding/showing)
+  useEffect(() => {
+    const handleResize = () => {
+      setViewportHeight(window.innerHeight);
+    };
+
+    const handleOrientationChange = () => {
+      // Delay to allow for proper viewport calculation after orientation change
+      setTimeout(() => {
+        setViewportHeight(window.innerHeight);
+      }, 100);
+    };
+
+    if (typeof window !== 'undefined') {
+      window.addEventListener('resize', handleResize);
+      window.addEventListener('orientationchange', handleOrientationChange);
+      // Also listen for visual viewport changes (when mobile keyboard appears)
+      if (window.visualViewport) {
+        window.visualViewport.addEventListener('resize', handleResize);
+      }
+      
+      return () => {
+        window.removeEventListener('resize', handleResize);
+        window.removeEventListener('orientationchange', handleOrientationChange);
+        if (window.visualViewport) {
+          window.visualViewport.removeEventListener('resize', handleResize);
+        }
+      };
+    }
+  }, []);
   
   // Handle ESC key press
   useEffect(() => {
@@ -56,13 +90,19 @@ export default function StyledModal({
 
   return (
     <div 
-      className="fixed inset-0 flex items-center justify-center bg-black/60 z-50 p-2 sm:p-4"
+      className="fixed inset-0 flex items-center justify-center bg-black/60 z-50 p-2 sm:p-4 overflow-hidden modal-container modal-safe-area"
       onClick={handleBackdropClick}
     >
-      <div className="bg-[#1e1e1e] w-full max-w-5xl max-h-[95vh] sm:max-h-[90vh] rounded-xl shadow-lg overflow-hidden flex flex-col">
+      <div 
+        className="bg-[#1e1e1e] w-full max-w-5xl rounded-xl shadow-lg overflow-hidden flex flex-col mobile-modal"
+        style={{
+          // Dynamic height calculation using state for better mobile support
+          maxHeight: `${Math.min(viewportHeight * 0.85, 800)}px`,
+        }}
+      >
         
         {/* Header */}
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between px-4 sm:px-6 py-3 sm:py-4 border-b border-gray-700 bg-gradient-to-r from-gray-800 to-gray-900">
+        <div className="flex-shrink-0 flex flex-col sm:flex-row sm:items-center sm:justify-between px-4 sm:px-6 py-3 sm:py-4 border-b border-gray-700 bg-gradient-to-r from-gray-800 to-gray-900">
           <button
             onClick={onClose}
             className="self-end sm:self-auto mb-2 sm:mb-0 bg-red-500 text-white px-3 sm:px-4 py-1 sm:py-2 rounded-lg hover:bg-red-600 transition-colors font-semibold text-sm"
@@ -77,7 +117,7 @@ export default function StyledModal({
         </div>
 
         {/* Progress Section */}
-        <div className="px-4 sm:px-6 py-3 sm:py-4 bg-gray-800/50">
+        <div className="flex-shrink-0 px-4 sm:px-6 py-2 sm:py-3 md:py-4 bg-gray-800/50">
           <div className="flex flex-col sm:flex-row justify-between items-center space-y-2 sm:space-y-0 mb-3">
             <div className="text-center">
               <div className="text-xs sm:text-sm text-gray-400">{t('common.requiredSteps')}</div>
@@ -110,7 +150,7 @@ export default function StyledModal({
         </div>
 
         {/* Steps Content */}
-        <div className="flex-1 overflow-auto">
+        <div className="flex-1 overflow-auto modal-content-scrollable">
           <div className="p-3 sm:p-6 space-y-3 sm:space-y-4">
             {section.steps.map((step, idx) => {
               const isChecked = checklist[`${section.id}-${idx}`] || false;
@@ -192,7 +232,7 @@ export default function StyledModal({
         </div>
 
         {/* Footer */}
-        <div className="px-4 sm:px-6 py-3 sm:py-4 bg-gray-800/50 border-t border-gray-700">
+        <div className="flex-shrink-0 px-4 sm:px-6 py-2 sm:py-3 md:py-4 bg-gray-800/50 border-t border-gray-700">
           <div className="text-center text-xs sm:text-sm text-gray-400">
             {t('dashboard.completeAllRequiredSteps')}
           </div>

@@ -40,9 +40,9 @@ const RoadmapNode = ({ data, selected }: RoadmapNodeProps) => {
   return (
     <div
       className={`
-        relative min-w-[250px] max-w-[300px] sm:min-w-[320px] sm:max-w-[380px] 
+        relative w-[250px] h-[180px] sm:w-[320px] sm:h-[200px] 
         p-4 sm:p-7 rounded-xl border-2 transition-all duration-500 cursor-pointer 
-        shadow-lg hover:shadow-xl transform hover:scale-105
+        shadow-lg hover:shadow-xl transform hover:scale-105 flex flex-col justify-between
         ${selected ? 'border-blue-400 shadow-blue-400/20' : 'border-white/20 hover:border-white/40'}
         ${isCompleted ? 'animate-pulse border-gold-400 shadow-gold-400/30' : ''}
       `}

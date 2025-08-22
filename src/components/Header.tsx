@@ -1,14 +1,14 @@
-import { useRouter } from 'next/router';
-import { useTranslation } from 'next-i18next';
-import { useAuth } from '@/contexts/AuthContext';
-import LanguageSwitcher from '@/components/LanguageSwitcher';
+import { useRouter } from "next/router";
+import { useTranslation } from "next-i18next";
+import { useAuth } from "@/contexts/AuthContext";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
 
 interface HeaderProps {
   title: string;
 }
 
 const Header = ({ title }: HeaderProps) => {
-  const { t: tCommon } = useTranslation('common');
+  const { t: tCommon } = useTranslation("common");
   const { user, signOut } = useAuth();
   const router = useRouter();
 
@@ -27,13 +27,16 @@ const Header = ({ title }: HeaderProps) => {
           </h1>
           {user ? (
             <span className="inline-flex items-center px-2 sm:px-3 md:px-4 py-1 md:py-1.5 rounded-full text-xs sm:text-sm font-medium bg-green-900/50 text-green-300 border border-green-700/50 max-w-fit shadow-sm">
-              <span className="hidden sm:inline md:text-sm">{tCommon('common.signedInAs')} </span>
-              <span className="truncate text-xs sm:text-sm">{user.email}</span>
+              <span className="hidden sm:inline md:text-sm">
+                {tCommon("common.signedInAs") + " " + user.email}
+              </span>
             </span>
           ) : (
             <span className="inline-flex items-center px-2 sm:px-3 md:px-4 py-1 md:py-1.5 rounded-full text-xs sm:text-sm font-medium bg-gray-700/50 text-gray-300 border border-gray-600/50 shadow-sm">
-              <span className="hidden sm:inline">{tCommon('common.guestModeDescription')}</span>
-              <span className="sm:hidden">{tCommon('common.guestMode')}</span>
+              <span className="hidden sm:inline">
+                {tCommon("common.guestModeDescription")}
+              </span>
+              <span className="sm:hidden">{tCommon("common.guestMode")}</span>
             </span>
           )}
         </div>
@@ -44,15 +47,17 @@ const Header = ({ title }: HeaderProps) => {
               onClick={handleSignOut}
               className="text-xs sm:text-sm md:text-base text-gray-400 hover:text-gray-200 transition-colors duration-200 px-2 sm:px-3 md:px-4 lg:px-5 py-1 md:py-1.5 lg:py-2 rounded-md hover:bg-gray-700/50 font-semibold"
             >
-              {tCommon('common.signOut')}
+              {tCommon("common.signOut")}
             </button>
           ) : (
             <button
-              onClick={() => router.push('/login')}
+              onClick={() => router.push("/login")}
               className="text-xs sm:text-sm md:text-base bg-gradient-to-r from-blue-500 to-blue-600 text-white px-2 sm:px-3 md:px-4 lg:px-5 py-1 md:py-1.5 lg:py-2 rounded-md hover:from-blue-600 hover:to-blue-700 transition-all duration-200 shadow-md font-semibold"
             >
-              <span className="hidden sm:inline lg:text-base">{tCommon('common.signIn')}</span>
-              <span className="sm:hidden">{tCommon('common.signIn')}</span>
+              <span className="hidden sm:inline lg:text-base">
+                {tCommon("common.signIn")}
+              </span>
+              <span className="sm:hidden">{tCommon("common.signIn")}</span>
             </button>
           )}
         </div>

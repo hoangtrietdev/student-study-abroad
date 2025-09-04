@@ -39,26 +39,6 @@
       "sizes": "512x512",
       "type": "image/svg+xml",
       "purpose": "any maskable"
-    },
-    {
-      "src": "/og-image.png",
-      "sizes": "1200x630",
-      "type": "image/png",
-      "purpose": "any"
-    }
-  ],
-  "screenshots": [
-    {
-      "src": "/screenshot-desktop.png",
-      "sizes": "1280x720",
-      "type": "image/png",
-      "form_factor": "wide"
-    },
-    {
-      "src": "/screenshot-mobile.png", 
-      "sizes": "390x844",
-      "type": "image/png",
-      "form_factor": "narrow"
     }
   ],
   "shortcuts": [

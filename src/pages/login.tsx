@@ -1,5 +1,5 @@
 import { useAuth } from '@/contexts/AuthContext'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { GetStaticProps } from 'next'
@@ -10,6 +10,27 @@ export default function Login() {
   const { t } = useTranslation('common')
   const { user, loading, signInWithGoogle } = useAuth()
   const router = useRouter()
+  const [error, setError] = useState<string | null>(null)
+  const [isSigningIn, setIsSigningIn] = useState(false)
+
+  useEffect(() => {
+    if (!loading && user) {
+      router.push('/dashboard')
+    }
+  }, [user, loading, router])
+
+  const handleGoogleSignIn = async () => {
+    setError(null)
+    setIsSigningIn(true)
+    try {
+      await signInWithGoogle()
+    } catch (error) {
+      console.error('Sign in error:', error)
+      setError(error instanceof Error ? error.message : 'An error occurred during sign in')
+    } finally {
+      setIsSigningIn(false)
+    }
+  }
 
   useEffect(() => {
     if (!loading && user) {
@@ -73,9 +94,16 @@ export default function Login() {
           </div>
 
           <div className="mt-6 sm:mt-8 space-y-4">
+            {error && (
+              <div className="rounded-md bg-red-50 p-4">
+                <div className="text-sm text-red-700">{error}</div>
+              </div>
+            )}
+            
             <button
-              onClick={() => signInWithGoogle()}
-              className="flex w-full items-center justify-center space-x-2 rounded-md bg-white px-4 py-3 text-sm sm:text-base text-gray-700 shadow-sm ring-1 ring-gray-300 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-colors font-semibold"
+              onClick={handleGoogleSignIn}
+              disabled={isSigningIn}
+              className="flex w-full items-center justify-center space-x-2 rounded-md bg-white px-4 py-3 text-sm sm:text-base text-gray-700 shadow-sm ring-1 ring-gray-300 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-colors font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <svg className="h-5 w-5" viewBox="0 0 24 24">
                 <path
@@ -95,7 +123,7 @@ export default function Login() {
                   fill="#EA4335"
                 />
               </svg>
-              <span>{t('auth.signInWithGoogle')}</span>
+              <span>{isSigningIn ? 'Signing in...' : t('auth.signInWithGoogle')}</span>
             </button>
 
             <button

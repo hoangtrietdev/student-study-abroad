@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from 'react'
-import { createClient } from '@/lib/supabase'
-import { User } from '@supabase/supabase-js'
+import { auth, googleProvider } from '@/lib/firebase'
+import { onAuthStateChanged, signInWithPopup, signOut as firebaseSignOut, User } from 'firebase/auth'
 
 type AuthContextType = {
   user: User | null
@@ -26,48 +26,35 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     return true // Default to guest mode on server
   })
 
-  const supabase = createClient()
-
   useEffect(() => {
-    // Check active sessions and sets the user
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setUser(session?.user ?? null)
-      // If user is logged in, disable guest mode
-      if (session?.user) {
-        setIsGuestMode(false)
-        localStorage.setItem('guestMode', 'false')
-      }
-      setLoading(false)
-    })
+    // Only set up auth listener if Firebase is properly initialized
+    if (!auth) {
+      console.warn('Firebase auth not initialized. Running in guest mode only.');
+      setLoading(false);
+      return;
+    }
 
-    // Listen for changes on auth state
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, session) => {
-      setUser(session?.user ?? null)
+    // Listen for authentication state changes
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setUser(user)
       // If user logs in, disable guest mode
-      if (session?.user) {
+      if (user) {
         setIsGuestMode(false)
         localStorage.setItem('guestMode', 'false')
       }
       setLoading(false)
     })
 
-    return () => subscription.unsubscribe()
-  }, [supabase.auth])
+    return () => unsubscribe()
+  }, [])
 
   const signInWithGoogle = async () => {
+    if (!auth || !googleProvider) {
+      throw new Error('Firebase not properly configured. Please check your environment variables.');
+    }
+    
     try {
-      const { error } = await supabase.auth.signInWithOAuth({
-        provider: 'google',
-        options: {
-          queryParams: {
-            access_type: 'offline',
-            prompt: 'consent',
-          },
-        },
-      })
-      if (error) throw error
+      await signInWithPopup(auth, googleProvider)
     } catch (error) {
       console.error('Error signing in with Google:', error)
       throw error
@@ -75,8 +62,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }
 
   const signOut = async () => {
+    if (!auth) {
+      throw new Error('Firebase not properly configured. Please check your environment variables.');
+    }
+    
     try {
-      await supabase.auth.signOut()
+      await firebaseSignOut(auth)
       // After sign out, return to guest mode by default
       enableGuestMode()
     } catch (error) {

@@ -1,6 +1,7 @@
 import { useState, useCallback, useRef, useEffect } from 'react';
 import { Node, Edge, Position, MarkerType } from 'reactflow';
-import { createClient } from '@/lib/supabase';
+import { db } from '@/lib/firebase';
+import { doc, getDoc, setDoc } from 'firebase/firestore';
 import type { RoadmapSection } from '@/utils/translateRoadmap';
 import { createDebouncedFunction } from '@/utils/debounce';
 
@@ -20,7 +21,6 @@ export function useRoadmap(user: any, isGuestMode: boolean, roadmapSections: Roa
   const [nodes, setNodes] = useState<Node<NodeData>[]>([]);
   const [edges, setEdges] = useState<Edge[]>([]);
   const hasLoadedRef = useRef(false);
-  const supabase = createClient();
 
   // Generate nodes
   const generateNodes = useCallback(() => {
@@ -106,27 +106,25 @@ export function useRoadmap(user: any, isGuestMode: boolean, roadmapSections: Roa
     generateEdges();
   }, [progress, generateNodes, generateEdges]);
 
-  // Save progress to Supabase
-  const saveToSupabase = useCallback(async (newProgress: Record<string, boolean>) => {
-    if (!user) return;
+  // Save progress to Firebase Firestore
+  const saveToFirestore = useCallback(async (newProgress: Record<string, boolean>) => {
+    if (!user || !db) return;
     try {
-      const { error } = await supabase
-        .from('roadmap')
-        .upsert(
-          { user_id: user.id, progress: newProgress },
-          { onConflict: 'user_id' }
-        );
-      
-      if (error) throw error;
+      const userDocRef = doc(db, 'roadmaps', user.uid);
+      await setDoc(userDocRef, {
+        userId: user.uid,
+        progress: newProgress,
+        updatedAt: new Date()
+      }, { merge: true });
     } catch (error) {
-      console.error('Error saving to Supabase:', error);
+      console.error('Error saving to Firestore:', error);
     }
-  }, [user, supabase]);
+  }, [user]);
 
   // Debounced save function  
   const debouncedSave = useCallback(() => {
-    return createDebouncedFunction(saveToSupabase);
-  }, [saveToSupabase]);
+    return createDebouncedFunction(saveToFirestore);
+  }, [saveToFirestore]);
 
   // Load roadmap progress
   const loadRoadmap = useCallback(async () => {
@@ -135,8 +133,8 @@ export function useRoadmap(user: any, isGuestMode: boolean, roadmapSections: Roa
         setLoading(true);
       }
 
-      if (isGuestMode || !user) {
-        // Handle guest mode - load from localStorage
+      if (isGuestMode || !user || !db) {
+        // Handle guest mode or Firebase not available - load from localStorage
         const savedProgress = localStorage.getItem('studentRoadmap');
         const loadedProgress = savedProgress ? JSON.parse(savedProgress) : DEFAULT_PROGRESS;
         setProgress(loadedProgress);
@@ -145,47 +143,30 @@ export function useRoadmap(user: any, isGuestMode: boolean, roadmapSections: Roa
         return;
       }
 
-      // User is authenticated - load from Supabase
-      const { data, error } = await supabase
-        .from('roadmap')
-        .select('progress')
-        .eq('user_id', user.id)
-        .maybeSingle();
+      // User is authenticated - load from Firestore
+      const userDocRef = doc(db, 'roadmaps', user.uid);
+      const docSnap = await getDoc(userDocRef);
 
-      if (error) {
-        console.error('Error fetching roadmap:', error.message);
-        setProgress(DEFAULT_PROGRESS);
-        hasLoadedRef.current = true;
-        setLoading(false);
-        return;
-      }
-
-      if (!data) {
-        // Create new roadmap entry using UPSERT to avoid duplicate key errors
+      if (!docSnap.exists()) {
+        // Create new roadmap entry
         const localProgress = localStorage.getItem('studentRoadmap');
         const progressToUse = localProgress ? JSON.parse(localProgress) : DEFAULT_PROGRESS;
         
-        const { data: newData, error: upsertError } = await supabase
-          .from('roadmap')
-          .upsert(
-            { user_id: user.id, progress: progressToUse },
-            { onConflict: 'user_id' }
-          )
-          .select('progress')
-          .single();
+        await setDoc(userDocRef, {
+          userId: user.uid,
+          progress: progressToUse,
+          createdAt: new Date(),
+          updatedAt: new Date()
+        });
 
-        if (upsertError) {
-          console.error('Error creating/updating roadmap:', upsertError.message);
-          setProgress(DEFAULT_PROGRESS);
-        } else {
-          setProgress(newData.progress || DEFAULT_PROGRESS);
-          
-          // Clear localStorage after migration
-          if (localProgress) {
-            localStorage.removeItem('studentRoadmap');
-          }
+        setProgress(progressToUse);
+        
+        // Clear localStorage after migration
+        if (localProgress) {
+          localStorage.removeItem('studentRoadmap');
         }
       } else {
+        const data = docSnap.data();
         setProgress(data.progress || DEFAULT_PROGRESS);
       }
 
@@ -197,7 +178,7 @@ export function useRoadmap(user: any, isGuestMode: boolean, roadmapSections: Roa
     } finally {
       setLoading(false);
     }
-  }, [isGuestMode, user, supabase]);
+  }, [isGuestMode, user]);
 
   // Handle toggle for roadmap steps
   const handleToggle = useCallback((sectionId: string, stepIndex: number) => {

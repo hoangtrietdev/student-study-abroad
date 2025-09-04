@@ -1,58 +1,106 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { createClient } from '@/lib/supabase';
+import { db } from '@/lib/firebase';
+import { 
+  collection, 
+  doc, 
+  getDocs, 
+  getDoc, 
+  addDoc, 
+  updateDoc, 
+  deleteDoc, 
+  query, 
+  where,
+  DocumentData,
+  WhereFilterOp
+} from 'firebase/firestore';
 
 // Query keys factory for better cache management
 export const queryKeys = {
-  all: ['supabase'] as const,
-  tables: (table: string) => [...queryKeys.all, table] as const,
-  table: (table: string, id?: string | number) => [...queryKeys.tables(table), id] as const,
+  all: ['firestore'] as const,
+  collections: (collectionName: string) => [...queryKeys.all, collectionName] as const,
+  document: (collectionName: string, id?: string) => [...queryKeys.collections(collectionName), id] as const,
   user: () => [...queryKeys.all, 'user'] as const,
   roadmapProgress: (userId?: string) => [...queryKeys.all, 'roadmap-progress', userId] as const,
 };
 
-// Hook for fetching data from Supabase tables
-export function useSupabaseQuery<T>(
-  table: string,
+// Hook for fetching data from Firestore collections
+export function useFirestoreQuery<T extends DocumentData>(
+  collectionName: string,
   options?: {
-    select?: string;
-    filter?: Record<string, unknown>;
+    filters?: Array<{ field: string; operator: WhereFilterOp; value: unknown }>;
     single?: boolean;
     enabled?: boolean;
   }
 ) {
-  const { select = '*', filter = {}, single = false, enabled = true } = options || {};
+  const { filters = [], single = false, enabled = true } = options || {};
 
   return useQuery({
-    queryKey: queryKeys.table(table, JSON.stringify(filter)),
+    queryKey: queryKeys.document(collectionName, JSON.stringify(filters)),
     queryFn: async () => {
-      const supabase = createClient();
-      let query = supabase.from(table).select(select);
-
-      // Apply filters
-      Object.entries(filter).forEach(([key, value]) => {
-        query = query.eq(key, value);
-      });
-
-      if (single) {
-        const { data, error } = await query.single();
-        if (error) throw error;
-        return data as T;
+      const collectionRef = collection(db, collectionName);
+      
+      if (single && filters.length > 0) {
+        // For single document queries with filters
+        let q = query(collectionRef);
+        filters.forEach(filter => {
+          q = query(q, where(filter.field, filter.operator, filter.value));
+        });
+        const querySnapshot = await getDocs(q);
+        if (!querySnapshot.empty) {
+          const doc = querySnapshot.docs[0];
+          return { id: doc.id, ...doc.data() } as unknown as T;
+        }
+        return null;
+      } else if (single) {
+        // This would require a document ID, which isn't provided
+        throw new Error('Single document query requires either an ID or filters');
       } else {
-        const { data, error } = await query;
-        if (error) throw error;
-        return data as T[];
+        // For collection queries
+        let q = query(collectionRef);
+        filters.forEach(filter => {
+          q = query(q, where(filter.field, filter.operator, filter.value));
+        });
+        const querySnapshot = await getDocs(q);
+        return querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })) as unknown as T[];
       }
     },
     enabled,
   });
 }
 
-// Hook for mutations (insert, update, delete)
-export function useSupabaseMutation<T>(
-  table: string,
-  operation: 'insert' | 'update' | 'delete' | 'upsert',
+// Hook for getting a single document by ID
+export function useFirestoreDoc<T extends DocumentData>(
+  collectionName: string,
+  documentId?: string,
   options?: {
-    onSuccess?: (data: T) => void;
+    enabled?: boolean;
+  }
+) {
+  const { enabled = true } = options || {};
+
+  return useQuery({
+    queryKey: queryKeys.document(collectionName, documentId),
+    queryFn: async () => {
+      if (!documentId) return null;
+      
+      const docRef = doc(db, collectionName, documentId);
+      const docSnap = await getDoc(docRef);
+      
+      if (docSnap.exists()) {
+        return { id: docSnap.id, ...docSnap.data() } as unknown as T;
+      }
+      return null;
+    },
+    enabled: enabled && !!documentId,
+  });
+}
+
+// Hook for mutations (create, update, delete)
+export function useFirestoreMutation<T extends DocumentData>(
+  collectionName: string,
+  operation: 'create' | 'update' | 'delete',
+  options?: {
+    onSuccess?: (data: T | void) => void;
     onError?: (error: Error) => void;
     invalidateQueries?: string[];
   }
@@ -61,30 +109,35 @@ export function useSupabaseMutation<T>(
 
   return useMutation({
     mutationFn: async (payload: Record<string, unknown>) => {
-      const supabase = createClient();
-      let query;
+      const collectionRef = collection(db, collectionName);
 
       switch (operation) {
-        case 'insert':
-          query = supabase.from(table).insert(payload).select();
-          break;
+        case 'create':
+          const docRef = await addDoc(collectionRef, payload);
+          const newDoc = await getDoc(docRef);
+          return { id: newDoc.id, ...newDoc.data() } as unknown as T;
+        
         case 'update':
           const { id, ...updateData } = payload;
-          query = supabase.from(table).update(updateData).eq('id', id).select();
-          break;
-        case 'upsert':
-          query = supabase.from(table).upsert(payload).select();
-          break;
+          if (!id || typeof id !== 'string') {
+            throw new Error('Document ID is required for update operation');
+          }
+          const docToUpdate = doc(db, collectionName, id);
+          await updateDoc(docToUpdate, updateData);
+          const updatedDoc = await getDoc(docToUpdate);
+          return { id: updatedDoc.id, ...updatedDoc.data() } as unknown as T;
+        
         case 'delete':
-          query = supabase.from(table).delete().eq('id', payload.id);
-          break;
+          const { id: deleteId } = payload;
+          if (!deleteId || typeof deleteId !== 'string') {
+            throw new Error('Document ID is required for delete operation');
+          }
+          await deleteDoc(doc(db, collectionName, deleteId));
+          return;
+        
         default:
           throw new Error(`Unsupported operation: ${operation}`);
       }
-
-      const { data, error } = await query;
-      if (error) throw error;
-      return data as T;
     },
     onSuccess: (data) => {
       // Invalidate related queries
@@ -93,8 +146,8 @@ export function useSupabaseMutation<T>(
           queryClient.invalidateQueries({ queryKey: [queryKey] });
         });
       } else {
-        // Default: invalidate all table queries
-        queryClient.invalidateQueries({ queryKey: queryKeys.tables(table) });
+        // Default: invalidate all collection queries
+        queryClient.invalidateQueries({ queryKey: queryKeys.collections(collectionName) });
       }
       options?.onSuccess?.(data);
     },
@@ -102,21 +155,7 @@ export function useSupabaseMutation<T>(
   });
 }
 
-// Hook for fetching current user
-export function useCurrentUser() {
-  return useQuery({
-    queryKey: queryKeys.user(),
-    queryFn: async () => {
-      const supabase = createClient();
-      const { data: { user }, error } = await supabase.auth.getUser();
-      if (error) throw error;
-      return user;
-    },
-    staleTime: 5 * 60 * 1000, // 5 minutes
-  });
-}
-
-// Hook for general fetch requests (non-Supabase)
+// Hook for general fetch requests (non-Firebase)
 export function useFetch<T>(
   url: string,
   options?: {

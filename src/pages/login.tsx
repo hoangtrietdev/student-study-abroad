@@ -24,14 +24,11 @@ export default function Login() {
     setIsSigningIn(true)
     try {
       await signInWithGoogle()
-      // If we reach here and no error was thrown, sign-in was successful
-      // The useEffect will handle redirecting to dashboard when user state updates
     } catch (error) {
-      console.error('Sign in error:', error)
-      setError(error instanceof Error ? error.message : 'An error occurred during sign in')
-    } finally {
-      // Always reset the signing in state, whether successful, cancelled, or failed
       setIsSigningIn(false)
+      console.error('Sign in error:', error)
+      setError('An error occurred during sign in')
+      
     }
   }
 

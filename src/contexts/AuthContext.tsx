@@ -53,28 +53,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       throw new Error('Firebase not properly configured. Please check your environment variables.');
     }
     
-    try {
-      await signInWithPopup(auth, googleProvider)
-    } catch (error) {
-      // Handle specific Firebase auth errors
-      const firebaseError = error as { code?: string; message?: string }
-      
-      if (firebaseError.code === 'auth/popup-closed-by-user') {
-        // User closed the popup - this is not really an error, just return silently
-        console.log('Google sign-in popup was closed by user')
-        return
-      } else if (firebaseError.code === 'auth/cancelled-popup-request') {
-        // Another popup was already open
-        console.log('Google sign-in popup was cancelled due to another popup')
-        return
-      } else if (firebaseError.code === 'auth/popup-blocked') {
-        // Popup was blocked by browser
-        throw new Error('Sign-in popup was blocked by your browser. Please allow popups for this site.')
-      } else {
-        console.error('Error signing in with Google:', error)
-        throw error
-      }
-    }
+    await signInWithPopup(auth, googleProvider).catch((error) => {
+      console.error('Error signing in with Google:', error);
+      throw error;
+    });
   }
 
   const signOut = async () => {

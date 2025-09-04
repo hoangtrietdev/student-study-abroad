@@ -13,20 +13,6 @@ const firebaseConfig = {
   measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID || "",
 };
 
-// Debug logging for browser
-if (typeof window !== 'undefined') {
-  console.log('Firebase Environment Variables Check:', {
-    apiKey: firebaseConfig.apiKey ? 'Set' : 'Missing',
-    authDomain: firebaseConfig.authDomain ? 'Set' : 'Missing', 
-    projectId: firebaseConfig.projectId ? 'Set' : 'Missing',
-    appId: firebaseConfig.appId ? 'Set' : 'Missing',
-    actualValues: {
-      apiKey: firebaseConfig.apiKey || 'undefined',
-      authDomain: firebaseConfig.authDomain || 'undefined',
-      projectId: firebaseConfig.projectId || 'undefined'
-    }
-  });
-}
 
 // Validate that we have the minimum required configuration
 const hasRequiredConfig = !!(

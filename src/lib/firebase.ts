@@ -65,8 +65,6 @@ if (hasRequiredConfig) {
   }
 } else {
   console.error('Firebase configuration incomplete. Missing required environment variables.');
-  console.error('Required variables: NEXT_PUBLIC_FIREBASE_API_KEY, NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN, NEXT_PUBLIC_FIREBASE_PROJECT_ID, NEXT_PUBLIC_FIREBASE_APP_ID');
-  console.error('Current config:', firebaseConfig);
 }
 
 export { app, auth, db, googleProvider };

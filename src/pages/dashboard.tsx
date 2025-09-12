@@ -13,6 +13,7 @@ import ReactFlow, {
 } from "reactflow";
 import "reactflow/dist/style.css";
 
+import GoogleAdsense from '@/components/GoogleAdsense';
 import { useAuth } from '@/contexts/AuthContext';
 import { useRoadmap } from '@/hooks/useRoadmap';
 import { translateRoadmapSections } from '@/utils/translateRoadmap';
@@ -249,6 +250,16 @@ export default function Dashboard() {
           checklist={progress}
         />
       )}
+
+      {/* Google AdSense */}
+      <div className="w-full max-w-4xl mx-auto my-8">
+        <GoogleAdsense
+          slot="1234567890" /* Replace with your actual ad slot ID from Google AdSense */
+          style={{ display: 'block' }}
+          format="auto"
+          responsive={true}
+        />
+      </div>
 
       {/* AI Chatbot */}
       <AIChatbot />

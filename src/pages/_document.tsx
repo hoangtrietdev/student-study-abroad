@@ -4,6 +4,13 @@ export default function Document() {
   return (
     <Html lang="en">
       <Head>
+        {/* Google AdSense */}
+        <script 
+          async 
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4624818853225101"
+          crossOrigin="anonymous"
+        />
+        
         {/* Primary Meta Tags */}
         <meta name="title" content="Study Overseas Map - Complete Study Abroad Roadmap & Guide" />
         <meta name="description" content="Interactive study abroad roadmap for international students. Plan your journey with our comprehensive guide covering university applications, visas, scholarships, and more." />

@@ -26,6 +26,17 @@ const AIChatbot = () => {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
+  // Function to clean AI response content by removing reasoning tags
+  const cleanAIResponse = (content: string): string => {
+    // Remove <think>, <reasoning>, and similar tags and their content
+    return content
+      .replace(/<think>[\s\S]*?<\/think>/gi, '')
+      .replace(/<reasoning>[\s\S]*?<\/reasoning>/gi, '')
+      .replace(/<thought>[\s\S]*?<\/thought>/gi, '')
+      .replace(/<analysis>[\s\S]*?<\/analysis>/gi, '')
+      .trim();
+  };
+
   // Custom components for markdown rendering
   const getMarkdownComponents = (isWelcome: boolean) => ({
     h1: ({ children }: { children: React.ReactNode }) => (
@@ -122,7 +133,7 @@ const AIChatbot = () => {
     onSuccess: (data) => {
       const botMessage: Message = {
         id: (Date.now() + 1).toString(),
-        content: data.message,
+        content: cleanAIResponse(data.message),
         role: 'assistant',
         timestamp: new Date(),
       };
@@ -272,7 +283,7 @@ const AIChatbot = () => {
           />
           
           {/* Drawer */}
-          <div className="fixed right-0 top-0 h-full w-full sm:w-96 bg-gray-900 border-l border-gray-700 shadow-xl z-50 flex flex-col">
+          <div className="fixed right-0 top-0 h-full w-full sm:w-[35%] lg:w-[40%] bg-gray-900 border-l border-gray-700 shadow-xl z-50 flex flex-col">
             {/* Header */}
             <div className="flex items-center justify-between p-4 border-b border-gray-700 bg-gray-800">
               <div className="flex items-center space-x-2">

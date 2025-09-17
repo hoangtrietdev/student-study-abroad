@@ -43,7 +43,7 @@ export default async function handler(
       },
       body: JSON.stringify({
         messages,
-        model: 'llama3-8b-8192', // Fast and capable model
+        model: 'deepseek-r1-distill-llama-70b', // Updated to supported model
         max_tokens: 512, // Reasonable response length
         temperature: 0.7, // Balanced creativity
         top_p: 0.9,

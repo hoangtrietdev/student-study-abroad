@@ -1,6 +1,26 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { STUDY_ABROAD_ADVISOR_PROMPT } from '@/prompts/studyAbroadAdvisor';
 
+// Very simple keyword-based moderation as a safety net (not a substitute for full moderation)
+const BLOCKED_PATTERNS = [
+  /(hate|racis\w+|sexist|violence|terror|extremis\w+)/i,
+  /(adult content|porn|explicit sexual)/i,
+  /(weapons|illegal drugs|buy fake)/i,
+];
+
+function isDisallowed(text: string): boolean {
+  return BLOCKED_PATTERNS.some((re) => re.test(text));
+}
+
+function cleanAI(content: string): string {
+  return content
+    .replace(/<think>[\s\S]*?<\/think>/gi, '')
+    .replace(/<reasoning>[\s\S]*?<\/reasoning>/gi, '')
+    .replace(/<thought>[\s\S]*?<\/thought>/gi, '')
+    .replace(/<analysis>[\s\S]*?<\/analysis>/gi, '')
+    .trim();
+}
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
@@ -14,6 +34,14 @@ export default async function handler(
 
     if (!message) {
       return res.status(400).json({ message: 'Message is required' });
+    }
+
+    // Basic server-side moderation of user input
+    if (isDisallowed(String(message))) {
+      return res.status(200).json({
+        message: 'I can\'t assist with that topic. Let\'s focus on study abroad, visas, universities, or scholarships.',
+        success: true,
+      });
     }
 
     // Check if API key is configured
@@ -63,7 +91,16 @@ export default async function handler(
       throw new Error('Invalid response format from Groq API');
     }
 
-    const aiResponse = data.choices[0].message.content;
+    const aiRaw = data.choices[0].message.content || '';
+    const aiResponse = cleanAI(aiRaw);
+
+    // Basic server-side moderation of AI output
+    if (isDisallowed(aiResponse)) {
+      return res.status(200).json({
+        message: 'Here\'s a safer alternative: I can help with study pathways, application steps, visa checklists, and scholarship strategies.',
+        success: true,
+      });
+    }
 
     res.status(200).json({ 
       message: aiResponse,

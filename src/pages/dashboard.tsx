@@ -22,6 +22,8 @@ import LoadingSpinner from "@/components/LoadingSpinner";
 import Header from '@/components/Header';
 import AIChatbot from '@/components/AIChatbot';
 import SEO from '@/components/SEO';
+import Footer from '@/components/Footer';
+import CookieConsent from '@/components/CookieConsent';
 
 // Custom Node Component
 interface RoadmapNodeProps {
@@ -252,6 +254,12 @@ export default function Dashboard() {
 
       {/* AI Chatbot */}
       <AIChatbot />
+
+      {/* Footer */}
+      <Footer />
+
+      {/* Cookie Consent */}
+      <CookieConsent />
       </div>
     </>
   );

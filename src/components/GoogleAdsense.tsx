@@ -30,14 +30,17 @@ export default function GoogleAdsense({
   }, []);
 
   return (
-    <ins
-      className={`adsbygoogle ${className}`}
-      style={style}
-      data-ad-client={client}
-      data-ad-slot={slot}
-      data-ad-format={format}
-      data-full-width-responsive={responsive}
-      {...(layoutKey && { 'data-ad-layout-key': layoutKey })}
-    />
+    <div aria-label="Advertisement" role="complementary" className={className}>
+      <span className="sr-only">Advertisement</span>
+      <ins
+        className={`adsbygoogle`}
+        style={style}
+        data-ad-client={client}
+        data-ad-slot={slot}
+        data-ad-format={format}
+        data-full-width-responsive={responsive}
+        {...(layoutKey && { 'data-ad-layout-key': layoutKey })}
+      />
+    </div>
   );
 }

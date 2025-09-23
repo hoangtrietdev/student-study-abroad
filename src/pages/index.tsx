@@ -2,6 +2,8 @@ import { useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { useAuth } from '@/contexts/AuthContext'
 import SEO from '@/components/SEO'
+import Footer from '@/components/Footer'
+import CookieConsent from '@/components/CookieConsent'
 
 export default function Home() {
   const router = useRouter()
@@ -29,6 +31,8 @@ export default function Home() {
           <p className="text-gray-600">Loading your study abroad journey...</p>
         </div>
       </div>
+      <Footer />
+      <CookieConsent />
     </>
   )
 }

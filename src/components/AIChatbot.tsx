@@ -91,10 +91,10 @@ const AIChatbot = () => {
       </pre>
     ),
     a: ({ href, children }: { href?: string; children: React.ReactNode }) => (
-      <a 
-        href={href} 
-        target="_blank" 
-        rel="noopener noreferrer"
+      <a
+        href={href}
+        target="_blank"
+        rel="nofollow ugc noopener noreferrer"
         className="text-blue-300 hover:text-blue-200 underline"
       >
         {children}

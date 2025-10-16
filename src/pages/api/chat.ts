@@ -71,7 +71,7 @@ export default async function handler(
       },
       body: JSON.stringify({
         messages,
-        model: 'deepseek-r1-distill-llama-70b', // Updated to supported model
+        model: 'llama-3.3-70b-versatile', // Updated to supported model
         max_tokens: 512, // Reasonable response length
         temperature: 0.7, // Balanced creativity
         top_p: 0.9,
@@ -79,8 +79,9 @@ export default async function handler(
         presence_penalty: 0.1,
       }),
     });
-
+  
     if (!response.ok) {
+      console.error('Groq API response not ok:', response);
       const errorData = await response.json().catch(() => ({}));
       throw new Error(`Groq API error: ${response.status} - ${errorData.error?.message || 'Unknown error'}`);
     }

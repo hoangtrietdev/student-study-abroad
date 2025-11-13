@@ -40,7 +40,7 @@ if (hasRequiredConfig) {
     // Configure Google Auth Provider
     googleProvider = new GoogleAuthProvider();
     googleProvider.setCustomParameters({
-      prompt: "consent",
+      prompt: "select_account",
     });
     
     if (typeof window !== 'undefined') {

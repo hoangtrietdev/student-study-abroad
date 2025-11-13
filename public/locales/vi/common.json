@@ -21,6 +21,7 @@
   "navigation": {
     "studyAbroadRoadmap": "Lộ Trình Du Học",
     "dashboard": "Bảng Điều Khiển",
+    "myRoadmaps": "Lộ Trình Của Tôi",
     "login": "Đăng Nhập"
   },
   "auth": {
@@ -32,5 +33,41 @@
   },
   "dashboard": {
     "completeAllRequiredSteps": "Hoàn thành tất cả các bước bắt buộc để tiến bộ trong hành trình du học của bạn"
+  },
+  "myRoadmaps": {
+    "title": "Lộ Trình Tùy Chỉnh Của Tôi",
+    "subtitle": "Quản lý các kế hoạch du học cá nhân hóa của bạn",
+    "createNewRoadmap": "Tạo Lộ Trình Mới",
+    "noRoadmapsYet": "Chưa có lộ trình tùy chỉnh nào",
+    "createFirstRoadmap": "Tạo lộ trình du học cá nhân hóa đầu tiên của bạn",
+    "createYourFirstRoadmap": "Tạo Lộ Trình Đầu Tiên",
+    "viewRoadmap": "Xem Lộ Trình",
+    "deleteRoadmap": "Xóa",
+    "deleteConfirmation": "Bạn có chắc chắn muốn xóa lộ trình này không? Hành động này không thể hoàn tác.",
+    "loadingRoadmaps": "Đang tải lộ trình của bạn...",
+    "created": "Đã tạo",
+    "updated": "Đã cập nhật",
+    "deleteError": "Không thể xóa lộ trình. Vui lòng thử lại.",
+    "loadError": "Không thể tải lộ trình. Vui lòng thử lại."
+  },
+  "customRoadmap": {
+    "loading": "Đang tải...",
+    "loadingYourRoadmap": "Đang tải lộ trình tùy chỉnh của bạn...",
+    "notFound": "Không Tìm Thấy Lộ Trình",
+    "notFoundMessage": "Lộ trình bạn đang tìm kiếm không tồn tại.",
+    "accessDenied": "Truy Cập Bị Từ Chối",
+    "accessDeniedMessage": "Bạn không có quyền xem lộ trình này.",
+    "backToDashboard": "Quay Lại Bảng Điều Khiển",
+    "yourCustomRoadmap": "Lộ Trình Tùy Chỉnh Của Bạn",
+    "createdOn": "Tạo vào ngày",
+    "delete": "Xóa",
+    "deleting": "Đang xóa...",
+    "deleteConfirmation": "Bạn có chắc chắn muốn xóa lộ trình tùy chỉnh này không? Hành động này không thể hoàn tác.",
+    "overallProgress": "Tiến Trình Tổng Thể",
+    "clickTip": "Nhấp vào bất kỳ phần nào của lộ trình để xem chi tiết và đánh dấu các bước đã hoàn thành. Theo dõi tiến trình của bạn đến",
+    "completeAllSteps": "Hoàn thành tất cả các bước bắt buộc để hoàn tất phần này",
+    "mobileNotSupported": "Phiên Bản Di Động Chưa Có",
+    "mobileNotSupportedMessage": "Bản đồ tư duy tương tác chưa được tối ưu hóa cho thiết bị di động. Vui lòng sử dụng máy tính để bàn hoặc máy tính bảng với màn hình lớn hơn để có trải nghiệm tốt nhất.",
+    "viewOnDesktop": "Xem Trên Máy Tính Để Có Trải Nghiệm Đầy Đủ"
   }
 }

@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
 import { useAuth } from "@/contexts/AuthContext";
-import LanguageSwitcher from "@/components/LanguageSwitcher";
+// import LanguageSwitcher from "@/components/LanguageSwitcher";
 
 interface HeaderProps {
   title: string;
@@ -25,6 +25,33 @@ const Header = ({ title }: HeaderProps) => {
           <h1 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-white tracking-tight">
             {title}
           </h1>
+          
+          {/* Navigation Links */}
+          {user && (
+            <nav className="flex items-center gap-2 sm:gap-4">
+              <button
+                onClick={() => router.push('/dashboard')}
+                className={`text-xs sm:text-sm px-3 py-1.5 rounded-lg transition-colors ${
+                  router.pathname === '/dashboard'
+                    ? 'bg-blue-600 text-white'
+                    : 'text-gray-300 hover:text-white hover:bg-gray-700'
+                }`}
+              >
+                {tCommon("navigation.dashboard")}
+              </button>
+              <button
+                onClick={() => router.push('/my-roadmaps')}
+                className={`text-xs sm:text-sm px-3 py-1.5 rounded-lg transition-colors ${
+                  router.pathname === '/my-roadmaps'
+                    ? 'bg-blue-600 text-white'
+                    : 'text-gray-300 hover:text-white hover:bg-gray-700'
+                }`}
+              >
+                {tCommon("navigation.myRoadmaps")}
+              </button>
+            </nav>
+          )}
+          
           {user ? (
             <span className="inline-flex items-center px-2 sm:px-3 md:px-4 py-1 md:py-1.5 rounded-full text-xs sm:text-sm font-medium bg-green-900/50 text-green-300 border border-green-700/50 max-w-fit shadow-sm">
               <span className="hidden sm:inline md:text-sm">
@@ -41,7 +68,7 @@ const Header = ({ title }: HeaderProps) => {
           )}
         </div>
         <div className="flex items-center justify-end space-x-2 sm:space-x-3 md:space-x-4 lg:space-x-5">
-          <LanguageSwitcher />
+          {/* <LanguageSwitcher /> */}
           {user ? (
             <button
               onClick={handleSignOut}

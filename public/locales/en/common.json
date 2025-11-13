@@ -21,6 +21,7 @@
   "navigation": {
     "studyAbroadRoadmap": "Study Overseas Roadmap",
     "dashboard": "Dashboard",
+    "myRoadmaps": "My Roadmaps",
     "login": "Login"
   },
   "auth": {
@@ -32,5 +33,41 @@
   },
   "dashboard": {
     "completeAllRequiredSteps": "Complete all required steps to progress through your study abroad journey"
+  },
+  "myRoadmaps": {
+    "title": "My Custom Roadmaps",
+    "subtitle": "Manage your personalized study abroad plans",
+    "createNewRoadmap": "Create New Roadmap",
+    "noRoadmapsYet": "No custom roadmaps yet",
+    "createFirstRoadmap": "Create your first personalized study abroad roadmap",
+    "createYourFirstRoadmap": "Create Your First Roadmap",
+    "viewRoadmap": "View Roadmap",
+    "deleteRoadmap": "Delete",
+    "deleteConfirmation": "Are you sure you want to delete this roadmap? This action cannot be undone.",
+    "loadingRoadmaps": "Loading your roadmaps...",
+    "created": "Created",
+    "updated": "Updated",
+    "deleteError": "Failed to delete roadmap. Please try again.",
+    "loadError": "Failed to load roadmaps. Please try again."
+  },
+  "customRoadmap": {
+    "loading": "Loading...",
+    "loadingYourRoadmap": "Loading your custom roadmap...",
+    "notFound": "Roadmap Not Found",
+    "notFoundMessage": "The roadmap you are looking for does not exist.",
+    "accessDenied": "Access Denied",
+    "accessDeniedMessage": "You do not have permission to view this roadmap.",
+    "backToDashboard": "Back to Dashboard",
+    "yourCustomRoadmap": "Your Custom Roadmap",
+    "createdOn": "Created on",
+    "delete": "Delete",
+    "deleting": "Deleting...",
+    "deleteConfirmation": "Are you sure you want to delete this custom roadmap? This action cannot be undone.",
+    "overallProgress": "Overall Progress",
+    "clickTip": "Click on any roadmap section to view details and mark steps as complete. Track your progress toward",
+    "completeAllSteps": "Complete all required steps to finish this section",
+    "mobileNotSupported": "Mobile Version Not Available",
+    "mobileNotSupportedMessage": "The interactive roadmap visualization is not optimized for mobile devices. Please use a desktop or tablet with a larger screen for the best experience.",
+    "viewOnDesktop": "View on Desktop for Full Experience"
   }
 }

@@ -15,7 +15,7 @@
     "firebase": "^12.2.1",
     "i18next": "^25.3.4",
     "markdown-to-jsx": "^7.7.13",
-    "next": "15.4.6",
+    "next": "15.4.10",
     "next-i18next": "^15.4.2",
     "react": "19.1.0",
     "react-dom": "19.1.0",

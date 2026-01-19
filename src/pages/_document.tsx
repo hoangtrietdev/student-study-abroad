@@ -11,6 +11,12 @@ export default function Document() {
           crossOrigin="anonymous"
         />
         
+        {/* Adsterra Popunder - High Revenue */}
+        <script 
+          async
+          src="https://pl28514680.effectivegatecpm.com/a6/76/57/a67657795da16a9ffb9e24e32ad01450.js"
+        />
+        
         {/* Primary Meta Tags */}
         <meta name="title" content="Study Overseas Map - Complete Study Abroad Roadmap & Guide" />
         <meta name="description" content="Interactive study abroad roadmap for international students. Plan your journey with our comprehensive guide covering university applications, visas, scholarships, and more." />

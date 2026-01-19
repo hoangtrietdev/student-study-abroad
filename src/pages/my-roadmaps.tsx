@@ -20,6 +20,8 @@ import LoadingSpinner from "@/components/LoadingSpinner";
 import CustomRoadmapModal from "@/components/CustomRoadmapModal";
 import AIChatbot from "@/components/AIChatbot";
 import CookieConsent from "@/components/CookieConsent";
+import ResponsiveAd, { InFeedAd } from "@/components/ResponsiveAd";
+import { ADSTERRA_CONFIG, isAdsEnabled } from "@/constants/adsterra-config";
 
 interface CustomRoadmap {
   id: string;
@@ -128,6 +130,15 @@ export default function MyRoadmapsPage() {
       <div className="min-h-screen bg-gray-900 text-white flex flex-col">
         <Header title={t("myRoadmaps.title")} />
 
+        {/* Top Banner Ad */}
+        {isAdsEnabled() && (
+          <ResponsiveAd 
+            desktopBannerId={ADSTERRA_CONFIG.myRoadmaps.topDesktopBanner}
+            mobileBannerId={ADSTERRA_CONFIG.myRoadmaps.topMobileBanner}
+            className="py-4 bg-gray-800/50"
+          />
+        )}
+
         <div className="flex-1 container mx-auto px-4 py-8">
           {/* Header Section */}
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
@@ -198,11 +209,12 @@ export default function MyRoadmapsPage() {
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {roadmaps.map((roadmap) => (
-                <div
-                  key={roadmap.id}
-                  className="bg-gray-800 rounded-xl p-6 hover:bg-gray-750 transition-all duration-200 border border-gray-700 hover:border-blue-500 flex flex-col"
-                >
+              {roadmaps.map((roadmap, index) => (
+                <>
+                  <div
+                    key={roadmap.id}
+                    className="bg-gray-800 rounded-xl p-6 hover:bg-gray-750 transition-all duration-200 border border-gray-700 hover:border-blue-500 flex flex-col"
+                  >
                   {/* Card Header */}
                   <div className="flex items-start justify-between mb-4">
                     <div className="flex-1">
@@ -280,6 +292,17 @@ export default function MyRoadmapsPage() {
                     </div>
                   </div>
                 </div>
+                
+                {/* Insert Ad after every 3rd roadmap */}
+                {(index + 1) % 3 === 0 && index !== roadmaps.length - 1 && isAdsEnabled() && (
+                  <div key={`ad-${roadmap.id}`} className="col-span-1 md:col-span-2 lg:col-span-3">
+                    <InFeedAd 
+                      desktopBannerId={ADSTERRA_CONFIG.myRoadmaps.inFeedDesktopBanner}
+                      mobileBannerId={ADSTERRA_CONFIG.myRoadmaps.inFeedMobileBanner}
+                    />
+                  </div>
+                )}
+                </>
               ))}
             </div>
           )}

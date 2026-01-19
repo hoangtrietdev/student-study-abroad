@@ -24,6 +24,8 @@ import AIChatbot from '@/components/AIChatbot';
 import SEO from '@/components/SEO';
 import Footer from '@/components/Footer';
 import CookieConsent from '@/components/CookieConsent';
+import { AdsterraDisplayBanner } from '@/components/Adsterra';
+import { ADSTERRA_CONFIG, isAdsEnabled } from '@/constants/adsterra-config';
 
 // Custom Node Component
 interface RoadmapNodeProps {
@@ -189,6 +191,18 @@ export default function Dashboard() {
       <div className="h-screen w-full flex flex-col bg-gray-900">
         {/* Header */}
         <Header title={tCommon('navigation.studyAbroadRoadmap')} />
+
+        {/* Top Banner Ad */}
+        {isAdsEnabled() && (
+          <div className="bg-gray-800 py-2 flex justify-center border-b border-gray-700">
+            <AdsterraDisplayBanner 
+              bannerId={ADSTERRA_CONFIG.dashboard.topBanner}
+              width={728}
+              height={90}
+              className="mx-auto"
+            />
+          </div>
+        )}
 
       {/* Roadmap Content */}
       <div className="flex-1 relative">

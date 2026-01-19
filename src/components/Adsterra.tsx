@@ -19,18 +19,34 @@ export default function Adsterra({
   className = '',
 }: AdsterraProps) {
   const banner = useRef<HTMLDivElement>(null);
+  const scriptLoaded = useRef(false);
 
   useEffect(() => {
-    if (banner.current && !banner.current.firstChild) {
-      const conf = document.createElement('script');
-      const script = document.createElement('script');
-      script.type = 'text/javascript';
-      script.src = `https://pl28514680.effectivegatecpm.com/${atOptions?.key}/invoke.js`;
-      conf.innerHTML = `atOptions = ${JSON.stringify(atOptions)}`;
+    if (banner.current && !scriptLoaded.current && atOptions) {
+      scriptLoaded.current = true;
 
-      banner.current.append(conf);
-      banner.current.append(script);
+      // Create config script
+      const configScript = document.createElement('script');
+      configScript.innerHTML = `atOptions = ${JSON.stringify(atOptions)};`;
+      
+      // Create invoke script
+      const invokeScript = document.createElement('script');
+      invokeScript.type = 'text/javascript';
+      invokeScript.async = true;
+      invokeScript.src = `https://pl28514680.effectivegatecpm.com/${atOptions.key}/invoke.js`;
+
+      // Append in order: config first, then invoke
+      banner.current.appendChild(configScript);
+      banner.current.appendChild(invokeScript);
     }
+
+    // Cleanup function
+    return () => {
+      if (banner.current) {
+        banner.current.innerHTML = '';
+      }
+      scriptLoaded.current = false;
+    };
   }, [atOptions]);
 
   return (

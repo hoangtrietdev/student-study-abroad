@@ -25,12 +25,12 @@ export const POPUNDER_ENABLED = true;
 /**
  * Popunder ID từ Adsterra Dashboard
  */
-const ADSTERRA_POPUNDER_ID = '28414181';
+const ADSTERRA_POPUNDER_ID = 'a67657795da16a9ffb9e24e32ad01450';
 
 /**
  * Banner 728x90 ID từ Adsterra Dashboard
  */
-const ADSTERRA_BANNER_728x90_ID = '28414272';
+const ADSTERRA_BANNER_728x90_ID = 'a1c9eeb413db5df64f4d6735abc44cef';
 
 // ============================================
 // CONFIG - KHÔNG CẦN CHỈNH SỬA

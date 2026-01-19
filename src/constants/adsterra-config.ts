@@ -23,10 +23,14 @@ export const ADSTERRA_ENABLED = true;
 export const POPUNDER_ENABLED = true;
 
 /**
- * Banner ID từ Adsterra Dashboard
- * Format: a6/76/57/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+ * Popunder ID từ Adsterra Dashboard
  */
-const ADSTERRA_BANNER_ID = 'a6/76/57/a67657795da16a9ffb9e24e32ad01450';
+const ADSTERRA_POPUNDER_ID = '28414181';
+
+/**
+ * Banner 728x90 ID từ Adsterra Dashboard
+ */
+const ADSTERRA_BANNER_728x90_ID = '28414272';
 
 // ============================================
 // CONFIG - KHÔNG CẦN CHỈNH SỬA
@@ -35,37 +39,37 @@ const ADSTERRA_BANNER_ID = 'a6/76/57/a67657795da16a9ffb9e24e32ad01450';
 export const ADSTERRA_CONFIG = {
   // Dashboard Page
   dashboard: {
-    topBanner: ADSTERRA_BANNER_ID,
+    topBanner: ADSTERRA_BANNER_728x90_ID, // 728x90 banner
   },
 
   // My Roadmaps Page  
   myRoadmaps: {
-    topDesktopBanner: ADSTERRA_BANNER_ID,
-    topMobileBanner: ADSTERRA_BANNER_ID,
-    inFeedDesktopBanner: ADSTERRA_BANNER_ID,
-    inFeedMobileBanner: ADSTERRA_BANNER_ID,
+    topDesktopBanner: ADSTERRA_BANNER_728x90_ID, // 728x90 banner
+    topMobileBanner: ADSTERRA_BANNER_728x90_ID, // Dùng chung cho mobile
+    inFeedDesktopBanner: ADSTERRA_BANNER_728x90_ID, // Dùng chung
+    inFeedMobileBanner: ADSTERRA_BANNER_728x90_ID, // Dùng chung
   },
 
   // Footer (Global)
   footer: {
-    desktopBanner: ADSTERRA_BANNER_ID,
-    mobileBanner: ADSTERRA_BANNER_ID,
+    desktopBanner: ADSTERRA_BANNER_728x90_ID, // 728x90 banner
+    mobileBanner: ADSTERRA_BANNER_728x90_ID, // Dùng chung
   },
 
   // Contact Page
   contact: {
-    banner: ADSTERRA_BANNER_ID,
+    banner: ADSTERRA_BANNER_728x90_ID,
   },
 
   // Custom Roadmap Page
   customRoadmap: {
-    sidebarBanner: ADSTERRA_BANNER_ID,
+    sidebarBanner: ADSTERRA_BANNER_728x90_ID,
   },
 
-  // Popunder
+  // Popunder (High Revenue)
   popunder: {
-    key: ADSTERRA_BANNER_ID,
-    scriptUrl: `https://pl28514680.effectivegatecpm.com/${ADSTERRA_BANNER_ID}.js`,
+    key: ADSTERRA_POPUNDER_ID, // Popunder ID
+    scriptUrl: `https://pl28514680.effectivegatecpm.com/${ADSTERRA_POPUNDER_ID}/invoke.js`,
   },
 } as const;
 
@@ -120,6 +124,7 @@ if (typeof window !== 'undefined' && process.env.NODE_ENV === 'development') {
   console.log('🎯 Adsterra Config:', {
     enabled: ADSTERRA_ENABLED,
     popunderEnabled: POPUNDER_ENABLED,
-    bannerId: ADSTERRA_BANNER_ID,
+    popunderId: ADSTERRA_POPUNDER_ID,
+    banner728x90Id: ADSTERRA_BANNER_728x90_ID,
   });
 }

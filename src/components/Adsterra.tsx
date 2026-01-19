@@ -25,7 +25,7 @@ export default function Adsterra({
       const conf = document.createElement('script');
       const script = document.createElement('script');
       script.type = 'text/javascript';
-      script.src = `https://pl28514680.effectivegatecpm.com/${atOptions?.key}.js`;
+      script.src = `https://pl28514680.effectivegatecpm.com/${atOptions?.key}/invoke.js`;
       conf.innerHTML = `atOptions = ${JSON.stringify(atOptions)}`;
 
       banner.current.append(conf);

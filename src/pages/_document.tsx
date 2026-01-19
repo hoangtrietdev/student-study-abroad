@@ -14,7 +14,8 @@ export default function Document() {
         {/* Adsterra Popunder - High Revenue */}
         <script 
           async
-          src="https://pl28514680.effectivegatecpm.com/a6/76/57/a67657795da16a9ffb9e24e32ad01450.js"
+          data-cfasync="false"
+          src="https://pl28514680.effectivegatecpm.com/28414181/invoke.js"
         />
         
         {/* Primary Meta Tags */}

@@ -170,6 +170,13 @@ export default function CustomRoadmapPage() {
   const [error, setError] = useState<string | null>(null);
   const [selectedSection, setSelectedSection] = useState<RoadmapSection | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isAddingStep, setIsAddingStep] = useState(false);
+  const [newStepForm, setNewStepForm] = useState({
+    title: '',
+    description: '',
+    referenceLink: '',
+    optional: false,
+  });
 
   // Fetch roadmap data
   useEffect(() => {
@@ -274,9 +281,27 @@ export default function CustomRoadmapPage() {
     updatedRoadmap.roadmapData.roadmapSections[sectionIndex].steps[stepIndex].completed = 
       !updatedRoadmap.roadmapData.roadmapSections[sectionIndex].steps[stepIndex].completed;
 
+    // Clean undefined values from all steps before saving
+    const cleanedRoadmapData = {
+      ...updatedRoadmap.roadmapData,
+      roadmapSections: updatedRoadmap.roadmapData.roadmapSections.map(section => ({
+        ...section,
+        steps: section.steps.map(step => {
+          const cleanStep: Record<string, string | boolean> = {
+            title: step.title,
+            optional: step.optional || false,
+            completed: step.completed || false,
+          };
+          if (step.description) cleanStep.description = step.description;
+          if (step.referenceLink) cleanStep.referenceLink = step.referenceLink;
+          return cleanStep;
+        })
+      }))
+    };
+
     try {
       await updateDoc(doc(db, 'customRoadmaps', roadmap.id), {
-        roadmapData: updatedRoadmap.roadmapData,
+        roadmapData: cleanedRoadmapData,
         updatedAt: new Date(),
       });
 
@@ -285,6 +310,119 @@ export default function CustomRoadmapPage() {
     } catch (err) {
       console.error('Error updating step:', err);
       alert(t('myRoadmaps.deleteError'));
+    }
+  };
+
+  // Handle add new step
+  const handleAddStep = async () => {
+    if (!roadmap || !selectedSection || !newStepForm.title.trim()) {
+      alert('Please enter a step title');
+      return;
+    }
+
+    const updatedRoadmap = { ...roadmap };
+    const sectionIndex = updatedRoadmap.roadmapData.roadmapSections?.findIndex(s => s.id === selectedSection.id);
+    
+    if (sectionIndex === undefined || sectionIndex === -1) return;
+
+    const newStep: RoadmapStep = {
+      title: newStepForm.title.trim(),
+      optional: newStepForm.optional,
+      completed: false,
+    };
+
+    // Only add optional fields if they have values
+    if (newStepForm.description.trim()) {
+      newStep.description = newStepForm.description.trim();
+    }
+    if (newStepForm.referenceLink.trim()) {
+      newStep.referenceLink = newStepForm.referenceLink.trim();
+    }
+
+    updatedRoadmap.roadmapData.roadmapSections[sectionIndex].steps.push(newStep);
+
+    // Clean undefined values from all steps before saving
+    const cleanedRoadmapData = {
+      ...updatedRoadmap.roadmapData,
+      roadmapSections: updatedRoadmap.roadmapData.roadmapSections.map(section => ({
+        ...section,
+        steps: section.steps.map(step => {
+          const cleanStep: Record<string, string | boolean> = {
+            title: step.title,
+            optional: step.optional || false,
+            completed: step.completed || false,
+          };
+          if (step.description) cleanStep.description = step.description;
+          if (step.referenceLink) cleanStep.referenceLink = step.referenceLink;
+          return cleanStep;
+        })
+      }))
+    };
+
+    try {
+      await updateDoc(doc(db, 'customRoadmaps', roadmap.id), {
+        roadmapData: cleanedRoadmapData,
+        updatedAt: new Date(),
+      });
+
+      setRoadmap(updatedRoadmap);
+      setSelectedSection(updatedRoadmap.roadmapData.roadmapSections[sectionIndex]);
+      
+      // Reset form
+      setNewStepForm({
+        title: '',
+        description: '',
+        referenceLink: '',
+        optional: false,
+      });
+      setIsAddingStep(false);
+    } catch (err) {
+      console.error('Error adding step:', err);
+      alert('Failed to add step. Please try again.');
+    }
+  };
+
+  // Handle delete step
+  const handleDeleteStep = async (stepIndex: number) => {
+    if (!roadmap || !selectedSection) return;
+    if (!confirm('Are you sure you want to delete this step?')) return;
+
+    const updatedRoadmap = { ...roadmap };
+    const sectionIndex = updatedRoadmap.roadmapData.roadmapSections?.findIndex(s => s.id === selectedSection.id);
+    
+    if (sectionIndex === undefined || sectionIndex === -1) return;
+
+    updatedRoadmap.roadmapData.roadmapSections[sectionIndex].steps.splice(stepIndex, 1);
+
+    // Clean undefined values from all steps before saving
+    const cleanedRoadmapData = {
+      ...updatedRoadmap.roadmapData,
+      roadmapSections: updatedRoadmap.roadmapData.roadmapSections.map(section => ({
+        ...section,
+        steps: section.steps.map(step => {
+          const cleanStep: Record<string, string | boolean> = {
+            title: step.title,
+            optional: step.optional || false,
+            completed: step.completed || false,
+          };
+          if (step.description) cleanStep.description = step.description;
+          if (step.referenceLink) cleanStep.referenceLink = step.referenceLink;
+          return cleanStep;
+        })
+      }))
+    };
+
+    try {
+      await updateDoc(doc(db, 'customRoadmaps', roadmap.id), {
+        roadmapData: cleanedRoadmapData,
+        updatedAt: new Date(),
+      });
+
+      setRoadmap(updatedRoadmap);
+      setSelectedSection(updatedRoadmap.roadmapData.roadmapSections[sectionIndex]);
+    } catch (err) {
+      console.error('Error deleting step:', err);
+      alert('Failed to delete step. Please try again.');
     }
   };
 
@@ -581,6 +719,15 @@ export default function CustomRoadmapPage() {
                                   {t('common.required')}
                                 </span>
                               )}
+                              <button
+                                onClick={() => handleDeleteStep(idx)}
+                                className="text-red-400 hover:text-red-300 transition-colors p-1"
+                                title="Delete step"
+                              >
+                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                </svg>
+                              </button>
                             </div>
                           </div>
                           
@@ -610,6 +757,89 @@ export default function CustomRoadmapPage() {
                     </div>
                   );
                 })}
+
+                {/* Add New Step Form */}
+                {isAddingStep ? (
+                  <div className="border-2 border-dashed border-blue-500/50 rounded-lg p-4 bg-blue-900/10">
+                    <h4 className="text-sm font-semibold text-white mb-3">Add New Step</h4>
+                    
+                    <div className="space-y-3">
+                      <div>
+                        <label className="block text-xs text-gray-400 mb-1">Step Title *</label>
+                        <input
+                          type="text"
+                          value={newStepForm.title}
+                          onChange={(e) => setNewStepForm({ ...newStepForm, title: e.target.value })}
+                          className="w-full bg-gray-700 border border-gray-600 text-white rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                          placeholder="Enter step title"
+                          autoFocus
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block text-xs text-gray-400 mb-1">Description (Optional)</label>
+                        <textarea
+                          value={newStepForm.description}
+                          onChange={(e) => setNewStepForm({ ...newStepForm, description: e.target.value })}
+                          className="w-full bg-gray-700 border border-gray-600 text-white rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 min-h-[60px]"
+                          placeholder="Enter step description"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block text-xs text-gray-400 mb-1">Reference Link (Optional)</label>
+                        <input
+                          type="url"
+                          value={newStepForm.referenceLink}
+                          onChange={(e) => setNewStepForm({ ...newStepForm, referenceLink: e.target.value })}
+                          className="w-full bg-gray-700 border border-gray-600 text-white rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                          placeholder="https://example.com"
+                        />
+                      </div>
+
+                      <div className="flex items-center space-x-2">
+                        <input
+                          type="checkbox"
+                          id="optional-checkbox"
+                          checked={newStepForm.optional}
+                          onChange={(e) => setNewStepForm({ ...newStepForm, optional: e.target.checked })}
+                          className="w-4 h-4 text-blue-600 bg-gray-700 border-gray-600 rounded focus:ring-blue-500"
+                        />
+                        <label htmlFor="optional-checkbox" className="text-sm text-gray-300 cursor-pointer">
+                          Mark as optional step
+                        </label>
+                      </div>
+
+                      <div className="flex gap-2 pt-2">
+                        <button
+                          onClick={handleAddStep}
+                          className="flex-1 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+                        >
+                          Add Step
+                        </button>
+                        <button
+                          onClick={() => {
+                            setIsAddingStep(false);
+                            setNewStepForm({ title: '', description: '', referenceLink: '', optional: false });
+                          }}
+                          className="flex-1 bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+                        >
+                          Cancel
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  <button
+                    onClick={() => setIsAddingStep(true)}
+                    className="w-full border-2 border-dashed border-gray-600 hover:border-blue-500 rounded-lg p-4 text-gray-400 hover:text-blue-400 transition-colors flex items-center justify-center gap-2"
+                  >
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                    </svg>
+                    <span className="text-sm font-medium">Add New Step</span>
+                  </button>
+                )}
               </div>
             </div>
 

@@ -11,12 +11,6 @@ export default function Document() {
           crossOrigin="anonymous"
         />
         
-        {/* Adsterra Popunder - High Revenue */}
-        <script 
-          async
-          data-cfasync="false"
-          src="https://pl28514680.effectivegatecpm.com/28414181/invoke.js"
-        />
         
         {/* Primary Meta Tags */}
         <meta name="title" content="Study Overseas Map - Complete Study Abroad Roadmap & Guide" />

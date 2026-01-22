@@ -34,8 +34,8 @@ export default function ResponsiveAd({
       <div className="block md:hidden">
         <AdsterraDisplayBanner 
           bannerId={mobileBanner}
-          width={320}
-          height={50}
+          width={300}
+          height={250}
         />
       </div>
     </div>

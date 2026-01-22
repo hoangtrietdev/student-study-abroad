@@ -8,10 +8,11 @@ export const POPUNDER_ENABLED = true;
  */
 const ADSTERRA_POPUNDER_ID = 'a67657795da16a9ffb9e24e32ad01450';
 
-/**
- * Banner 728x90 ID from Adsterra Dashboard
- */
 const ADSTERRA_BANNER_728x90_ID = 'a1c9eeb413db5df64f4d6735abc44cef';
+
+const ADSTERRA_BANNER_468x60_ID = '5b15b16aea14d4cc1c8640937f590eb1';
+
+const ADSTERRA_BANNER_300x250_ID = '0ff61237c6106edd0ea5e1b58734de77';
 
 
 export const ADSTERRA_CONFIG = {
@@ -23,15 +24,15 @@ export const ADSTERRA_CONFIG = {
   // My Roadmaps Page  
   myRoadmaps: {
     topDesktopBanner: ADSTERRA_BANNER_728x90_ID, // 728x90 banner
-    topMobileBanner: ADSTERRA_BANNER_728x90_ID, //mobile
-    inFeedDesktopBanner: ADSTERRA_BANNER_728x90_ID, //
-    inFeedMobileBanner: ADSTERRA_BANNER_728x90_ID, //
+    topMobileBanner: ADSTERRA_BANNER_300x250_ID, //mobile
+    inFeedDesktopBanner: ADSTERRA_BANNER_468x60_ID, //
+    inFeedMobileBanner: ADSTERRA_BANNER_300x250_ID, //
   },
 
   // Footer (Global)
   footer: {
     desktopBanner: ADSTERRA_BANNER_728x90_ID, // 728x90 banner
-    mobileBanner: ADSTERRA_BANNER_728x90_ID, //
+    mobileBanner: ADSTERRA_BANNER_300x250_ID, //
   },
 
   // Contact Page

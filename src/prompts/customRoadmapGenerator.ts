@@ -43,26 +43,51 @@ For each section:
    - Avoid repeating university name in every title - be concise
 3. Rewrite the description to be specific to ${university} and ${major}
 4. For each step: keep same count, customize content for this profile, keep optional field
-5. **CRITICAL - Reference Links**: Add the referenceLink field to as many steps as possible
-   - Put helpful URLs in the "referenceLink" field for each step (this creates a clickable link in the UI)
-   - Prioritize links to ${university}'s official pages (admissions, program pages, student services, international office, etc.)
-   - Include direct links to ${university}'s application portal, housing office, visa guidance pages
-   - You can also mention relevant links within the step description text for context
-   - For general resources, use reputable sources (government sites, official testing centers, visa portals)
-   - Aim to provide referenceLink for every step where it would help the student
+
+## CRITICAL RULES - Data Accuracy & Reference Links
+
+### Reference Links Policy:
+- **ONLY include referenceLink if you have a REAL, ACCURATE URL**
+- **DO NOT generate fake or placeholder links (e.g., no "https://example.com" or made-up URLs)**
+- **DO NOT hallucinate URLs** - if you don't know the actual link, LEAVE IT OUT
+- Prioritize ${university}'s official pages when you know them (admissions, program pages, international office)
+- Use verified government sites for visa/immigration steps (official embassy/consulate sites)
+- Use official testing organization sites (IELTS, TOEFL, GRE official sites)
+- If you don't know the exact URL for a step, simply omit the referenceLink field - it's better to have no link than a fake one
+
+### Content Accuracy:
+- **Base your advice on REAL requirements and procedures** for ${university} if you have that knowledge
+- **If you don't have specific information** about ${university}, provide GENERAL but ACCURATE study abroad advice
+- **DO NOT make up specific deadlines, requirements, or procedures** you don't know
+- Use phrases like "Check university website for specific deadlines" rather than inventing dates
+- Provide accurate, helpful guidance that applies broadly to ${degreeLevel} students in ${major}
+
+### Quality Standards:
+- Each step should be actionable and clear
+- Descriptions should be informative but concise
+- Optional steps should genuinely be optional, not critical requirements
+- Maintain the logical flow from the template (research → apply → prepare → arrive → settle)
 
 ## Output Format
 Return ONLY a valid JSON object with this EXACT structure (no markdown, no additional text):
 
 {
   "title": "Roadmap for ${degreeLevel} in ${major} at ${university}",
-  "overview": "Write 2-3 paragraphs explaining the personalized journey for this ${degreeLevel} student pursuing ${major} at ${university}. Make it motivating and specific to their goals.",
+  "overview": "Write 2-3 paragraphs explaining the personalized journey for this ${degreeLevel} student pursuing ${major} at ${university}. Make it motivating, specific, and based on accurate information about the program and university.",
   "roadmapSections": [
     // Include ALL 9 sections from the template, customized for ${major} and ${university}
     // Each section MUST have: id, title, description, steps[], position{x,y}, color
+    // Each step can optionally have: title, description, optional (boolean), referenceLink (ONLY if you have a REAL URL)
     // Keep the same section IDs: choose-school, applying, immigration, transportation, housing, necessary-items, student-card, bank-account, orientation
   ]
 }
+
+**REMEMBER:** 
+- Only include referenceLink fields with REAL, VERIFIABLE URLs
+- DO NOT make up or hallucinate links
+- If unsure about a link, LEAVE IT OUT
+- Provide accurate, helpful content even without specific links
+- It's better to have fewer accurate links than many fake ones
 
 CRITICAL: Return valid JSON matching the template structure with all 9 sections customized for ${major} at ${university}.`;
 };

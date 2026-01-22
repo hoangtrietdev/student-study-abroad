@@ -1,13 +1,14 @@
 import Head from 'next/head';
-import Footer from '@/components/Footer';
+import MainLayout from '@/components/layout/MainLayout';
 
 export default function Terms() {
   return (
-    <main className="min-h-screen bg-gray-900 text-gray-100">
+    <MainLayout title="Terms of Service">
       <Head>
         <title>Terms of Service | Study Overseas Map</title>
         <meta name="robots" content="index,follow" />
       </Head>
+      <main className="min-h-screen bg-gray-900 text-gray-100">
       <div className="max-w-3xl mx-auto px-5 py-10">
         <h1 className="text-2xl font-bold mb-4">Terms of Service</h1>
         <p className="mb-4 opacity-90">Last updated: {new Date().toLocaleDateString()}</p>
@@ -35,7 +36,7 @@ export default function Terms() {
         <h2 className="text-xl font-semibold mt-6 mb-2">Contact</h2>
         <p>Questions? Email <a href="mailto:hoangtrietdev@gmail.com" className="text-blue-300 underline">hoangtrietdev@gmail.com</a>.</p>
       </div>
-      <Footer />
     </main>
+    </MainLayout>
   );
 }

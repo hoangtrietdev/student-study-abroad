@@ -1,13 +1,14 @@
 import Head from 'next/head';
-import Footer from '@/components/Footer';
+import MainLayout from '@/components/layout/MainLayout';
 
 export default function Privacy() {
   return (
-    <main className="min-h-screen bg-gray-900 text-gray-100">
+    <MainLayout title="Privacy Policy">
       <Head>
         <title>Privacy Policy | Study Overseas Map</title>
         <meta name="robots" content="index,follow" />
       </Head>
+      <main className="min-h-screen bg-gray-900 text-gray-100">
       <div className="max-w-3xl mx-auto px-5 py-10">
         <h1 className="text-2xl font-bold mb-4">Privacy Policy</h1>
         <p className="mb-3 opacity-90">Last updated: {new Date().toLocaleDateString()}</p>
@@ -32,7 +33,7 @@ export default function Privacy() {
 
         <h2 className="text-xl font-semibold mt-6 mb-2">Advertising and Cookies</h2>
         <p className="mb-3">
-          We display ads served by Google AdSense. Google may use cookies and/or local storage to serve ads based on prior visits. You can learn more and manage your preferences at
+          We do not display advertisements. We may use cookies and local storage to enhance your experience. You can learn more at
           {' '}<a href="https://policies.google.com/technologies/ads" className="text-blue-300 underline" target="_blank" rel="noopener noreferrer">Google’s Advertising Policies</a> and
           {' '}<a href="https://adssettings.google.com" className="text-blue-300 underline" target="_blank" rel="noopener noreferrer">Ads Settings</a>.
         </p>
@@ -53,7 +54,7 @@ export default function Privacy() {
         <h2 className="text-xl font-semibold mt-6 mb-2">Contact</h2>
         <p>Questions? Email us at <a href="mailto:hoangtrietdev@gmail.com" className="text-blue-300 underline">hoangtrietdev@gmail.com</a>.</p>
       </div>
-      <Footer />
     </main>
+    </MainLayout>
   );
 }

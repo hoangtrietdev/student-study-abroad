@@ -2,8 +2,8 @@ import { useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { useAuth } from '@/contexts/AuthContext'
 import SEO from '@/components/SEO'
-import Footer from '@/components/Footer'
-import CookieConsent from '@/components/CookieConsent'
+import MainLayout from '@/components/layout/MainLayout'
+import LoadingSpinner from '@/components/LoadingSpinner'
 
 export default function Home() {
   const router = useRouter()
@@ -17,22 +17,20 @@ export default function Home() {
   }, [loading, router])
 
   return (
-    <>
+    <MainLayout showHeader={false} showFooter={false}>
       <SEO
         title="Study Overseas Map - Interactive Study Abroad Roadmap"
         description="Plan your study abroad journey with our interactive roadmap. Get AI-powered guidance on university applications, visas, scholarships, and international education planning."
         keywords="study abroad roadmap, international students, overseas education, university applications, student visa guide, study abroad planning, AI study assistant"
         url="https://studyoverseasmap.com"
       />
-      <div className="flex min-h-screen items-center justify-center">
+      <div className="flex min-h-screen items-center justify-center bg-gray-900">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-          <h1 className="text-xl font-semibold text-gray-800 mb-2">Study Overseas Map</h1>
-          <p className="text-gray-600">Loading your study abroad journey...</p>
+          <LoadingSpinner />
+          <h1 className="mb-2 mt-4 text-xl font-semibold text-white">Study Overseas Map</h1>
+          <p className="text-gray-400">Loading your study abroad journey...</p>
         </div>
       </div>
-      <Footer />
-      <CookieConsent />
-    </>
+    </MainLayout>
   )
 }

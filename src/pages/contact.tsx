@@ -1,13 +1,14 @@
 import Head from 'next/head';
-import Footer from '@/components/Footer';
+import MainLayout from '@/components/layout/MainLayout';
 
 export default function Contact() {
   return (
-    <main className="min-h-screen bg-gray-900 text-gray-100">
+    <MainLayout title="Contact Us">
       <Head>
-        <title>Contact | Study Overseas Map</title>
+        <title>Contact Us | Study Overseas Map</title>
         <meta name="robots" content="index,follow" />
       </Head>
+      <main className="min-h-screen bg-gray-900 text-gray-100">
       <div className="max-w-3xl mx-auto px-5 py-10">
         <h1 className="text-2xl font-bold mb-4">Contact</h1>
         <p className="mb-4">We’d love to hear from you. Reach us at:</p>
@@ -16,7 +17,7 @@ export default function Contact() {
           <li>Twitter/X: <a className="text-blue-300 underline" href="https://x.com/studyoverseasmap" target="_blank" rel="noopener noreferrer">@studyoverseasmap</a></li>
         </ul>
       </div>
-      <Footer />
     </main>
+    </MainLayout>
   );
 }

@@ -50,7 +50,7 @@ export default function CookieConsent() {
     <div className="fixed inset-x-0 bottom-0 z-[60] p-4">
       <div className="mx-auto max-w-3xl rounded-lg border border-gray-700 bg-gray-900 p-4 text-sm text-gray-200 shadow-xl">
         <p className="mb-3">
-          We use cookies to provide basic site functionality and display Google AdSense ads. You can accept or reject optional cookies. You can change your choice later in your browser settings.
+          We use cookies to provide basic site functionality and enhance your experience. You can accept or reject optional cookies. You can change your choice later in your browser settings.
         </p>
         <div className="flex flex-wrap gap-2 justify-end">
           <button onClick={rejectAll} className="px-3 py-1.5 rounded-md bg-gray-800 hover:bg-gray-700 border border-gray-600">Reject all</button>

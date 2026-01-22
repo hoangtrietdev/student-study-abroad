@@ -150,7 +150,7 @@ export default function StyledModal({
         </div>
 
         {/* Steps Content */}
-        <div className="flex-1 overflow-auto modal-content-scrollable">
+        <div className="flex-1 overflow-auto modal-content-scrollable custom-scrollbar">
           <div className="p-3 sm:p-6 space-y-3 sm:space-y-4">
             {section.steps.map((step, idx) => {
               const isChecked = checklist[`${section.id}-${idx}`] || false;

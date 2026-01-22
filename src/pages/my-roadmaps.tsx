@@ -13,15 +13,11 @@ import {
 } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 import { useAuth } from "@/contexts/AuthContext";
-import Header from "@/components/Header";
+import MainLayout from "@/components/layout/MainLayout";
 import SEO from "@/components/SEO";
-import Footer from "@/components/Footer";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import CustomRoadmapModal from "@/components/CustomRoadmapModal";
 import AIChatbot from "@/components/AIChatbot";
-import CookieConsent from "@/components/CookieConsent";
-import ResponsiveAd, { InFeedAd } from "@/components/ResponsiveAd";
-import { ADSTERRA_CONFIG, isAdsEnabled } from "@/constants/adsterra-config";
 
 interface CustomRoadmap {
   id: string;
@@ -109,15 +105,16 @@ export default function MyRoadmapsPage() {
 
   if (authLoading || loading) {
     return (
-      <div className="min-h-screen bg-gray-900 text-white">
-        <Header title={t("myRoadmaps.title")} />
-        <div className="container mx-auto px-4 py-12 text-center">
-          <LoadingSpinner />
-          <p className="mt-4 text-gray-400">
-            {t("myRoadmaps.loadingRoadmaps")}
-          </p>
+      <MainLayout showHeader={false} showFooter={false}>
+        <div className="flex h-screen items-center justify-center">
+          <div className="text-center">
+            <LoadingSpinner />
+            <p className="mt-4 text-gray-400">
+              {t("myRoadmaps.loadingRoadmaps")}
+            </p>
+          </div>
         </div>
-      </div>
+      </MainLayout>
     );
   }
 
@@ -127,24 +124,13 @@ export default function MyRoadmapsPage() {
         title={`${t("myRoadmaps.title")} - Study Abroad Plans`}
         description="View and manage all your personalized study abroad roadmaps"
       />
-      <div className="min-h-screen bg-gray-900 text-white flex flex-col">
-        <Header title={t("myRoadmaps.title")} />
-
-        {/* Top Banner Ad */}
-        {isAdsEnabled() && (
-          <ResponsiveAd 
-            desktopBannerId={ADSTERRA_CONFIG.myRoadmaps.topDesktopBanner}
-            mobileBannerId={ADSTERRA_CONFIG.myRoadmaps.topMobileBanner}
-            className="py-4 bg-gray-800/50"
-          />
-        )}
-
-        <div className="flex-1 container mx-auto px-4 py-8">
+      <MainLayout title={t("myRoadmaps.title")}>
+        <div className="container mx-auto px-4 py-6 sm:py-8">
           {/* Header Section */}
-          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
+          <div className="mb-6 sm:mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <button
               onClick={() => setIsModalOpen(true)}
-              className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-6 py-3 rounded-lg transition-all flex items-center gap-2 shadow-lg hover:shadow-xl"
+              className="flex items-center gap-2 rounded-lg bg-gradient-to-r from-blue-600 to-purple-600 px-5 py-2.5 text-sm font-medium text-white shadow-lg transition-all hover:from-blue-700 hover:to-purple-700 hover:shadow-xl sm:px-6 sm:py-3 sm:text-base"
             >
               <svg
                 className="w-5 h-5"
@@ -208,10 +194,9 @@ export default function MyRoadmapsPage() {
               </button>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {roadmaps.map((roadmap, index) => (
-                <>
-                  <div
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {roadmaps.map((roadmap) => (
+                <div
                     key={roadmap.id}
                     className="bg-gray-800 rounded-xl p-6 hover:bg-gray-750 transition-all duration-200 border border-gray-700 hover:border-blue-500 flex flex-col"
                   >
@@ -292,17 +277,6 @@ export default function MyRoadmapsPage() {
                     </div>
                   </div>
                 </div>
-                
-                {/* Insert Ad after every 3rd roadmap */}
-                {(index + 1) % 3 === 0 && index !== roadmaps.length - 1 && isAdsEnabled() && (
-                  <div key={`ad-${roadmap.id}`} className="col-span-1 md:col-span-2 lg:col-span-3">
-                    <InFeedAd 
-                      desktopBannerId={ADSTERRA_CONFIG.myRoadmaps.inFeedDesktopBanner}
-                      mobileBannerId={ADSTERRA_CONFIG.myRoadmaps.inFeedMobileBanner}
-                    />
-                  </div>
-                )}
-                </>
               ))}
             </div>
           )}
@@ -310,13 +284,7 @@ export default function MyRoadmapsPage() {
 
         {/* AI Chatbot */}
         <AIChatbot />
-
-        {/* Footer */}
-        <Footer />
-
-        {/* Cookie Consent */}
-        <CookieConsent />
-      </div>
+      </MainLayout>
 
       {/* Create Roadmap Modal */}
       <CustomRoadmapModal

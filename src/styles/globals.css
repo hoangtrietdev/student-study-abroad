@@ -340,3 +340,69 @@ h6 {
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
 }
+
+/* Custom Scrollbar Styles - Beautiful & Consistent */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: rgba(31, 41, 55, 0.5); /* gray-800 with opacity */
+  border-radius: 4px;
+  margin: 4px 0;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #3b82f6 0%, #2563eb 100%); /* blue gradient */
+  border-radius: 4px;
+  border: 2px solid rgba(31, 41, 55, 0.5);
+  transition: all 0.3s ease;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #60a5fa 0%, #3b82f6 100%); /* lighter blue gradient */
+  border-color: rgba(59, 130, 246, 0.3);
+  box-shadow: 0 0 8px rgba(59, 130, 246, 0.4);
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:active {
+  background: linear-gradient(180deg, #2563eb 0%, #1d4ed8 100%); /* darker blue gradient */
+}
+
+/* Firefox scrollbar support */
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #3b82f6 rgba(31, 41, 55, 0.5);
+}
+
+/* Smooth scrolling */
+.custom-scrollbar {
+  scroll-behavior: smooth;
+}
+
+/* Global scrollbar for the entire app */
+html::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+html::-webkit-scrollbar-track {
+  background: #111827; /* gray-900 */
+}
+
+html::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #4b5563 0%, #374151 100%); /* gray gradient */
+  border-radius: 5px;
+  border: 2px solid #111827;
+}
+
+html::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #6b7280 0%, #4b5563 100%); /* lighter gray gradient */
+  box-shadow: 0 0 10px rgba(107, 114, 128, 0.3);
+}
+
+html {
+  scrollbar-width: thin;
+  scrollbar-color: #4b5563 #111827;
+}

@@ -18,9 +18,9 @@ import { doc, getDoc, updateDoc, deleteDoc } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 import { useAuth } from '@/contexts/AuthContext';
 import LoadingSpinner from '@/components/LoadingSpinner';
-import Header from '@/components/Header';
+import MainLayout from '@/components/layout/MainLayout';
+import AIChatbot from '@/components/AIChatbot';
 import SEO from '@/components/SEO';
-import Footer from '@/components/Footer';
 
 interface RoadmapStep {
   title: string;
@@ -57,7 +57,7 @@ interface CustomRoadmapData {
   updatedAt: { seconds: number; nanoseconds: number };
 }
 
-// Custom Node Component for Roadmap Sections
+// Custom Node Component
 interface RoadmapNodeProps {
   data: {
     section: RoadmapSection;
@@ -75,44 +75,53 @@ const RoadmapNode = ({ data, selected }: RoadmapNodeProps) => {
     <div
       onClick={data.onOpenModal}
       className={`
-        relative w-[280px] h-[200px]
-        p-6 rounded-xl border-2 transition-all duration-500 cursor-pointer 
+        relative w-[200px] h-[140px] sm:w-[280px] sm:h-[180px] lg:w-[320px] lg:h-[200px]
+        p-3 sm:p-5 lg:p-7 rounded-xl border-2 transition-all duration-300 cursor-pointer 
         shadow-lg hover:shadow-2xl transform hover:scale-105 flex flex-col justify-between
-        ${selected ? 'border-blue-400 shadow-blue-400/20' : 'border-white/20 hover:border-white/40'}
-        ${isCompleted ? 'animate-pulse border-yellow-400 shadow-yellow-400/30' : ''}
+        ${selected ? 'border-blue-400 shadow-blue-400/30 ring-2 ring-blue-400/50' : 'border-white/20 hover:border-white/40'}
+        ${isCompleted ? 'animate-pulse border-gold-400 shadow-gold-400/30' : ''}
       `}
       style={{
-        backgroundColor: section.color,
+        backgroundColor: isCompleted ? '#1e7e34' : section.color,
         color: 'white',
         boxShadow: isCompleted 
           ? '0 0 40px rgba(255, 215, 0, 0.4), 0 8px 32px rgba(30, 126, 52, 0.5)'
-          : `0 8px 25px ${section.color}30`,
+          : selected 
+            ? `0 0 30px ${section.color}60` 
+            : `0 8px 25px ${section.color}40`,
       }}
     >
+      {/* Completion Animation Overlay */}
       {isCompleted && (
-        <div className="absolute -top-3 -right-3 w-10 h-10 bg-yellow-400 rounded-full flex items-center justify-center animate-bounce shadow-lg">
-          <svg className="w-6 h-6 text-green-800" fill="currentColor" viewBox="0 0 20 20">
-            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-          </svg>
+        <div className="absolute inset-0 rounded-xl overflow-hidden pointer-events-none">
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-yellow-300/20 to-transparent animate-shimmer"></div>
         </div>
       )}
 
       <Handle 
         type="target" 
         position={Position.Top} 
-        className="!w-4 !h-4 !border-4 !border-white !bg-green-400 !top-[-8px]"
+        className="!w-2.5 !h-2.5 sm:!w-3.5 sm:!h-3.5 lg:!w-4 lg:!h-4 !border-2 lg:!border-4 !border-white !bg-green-400 !top-[-5px] sm:!top-[-6px] lg:!top-[-8px]"
       />
       
       <div className="text-center relative z-10">
-        <h3 className="font-bold text-lg mb-2 leading-tight">
+        {/* Completion Badge */}
+        {isCompleted && (
+          <div className="absolute -top-1 -right-1 sm:-top-2 sm:-right-2 w-6 h-6 sm:w-8 sm:h-8 bg-yellow-400 rounded-full flex items-center justify-center animate-bounce">
+            <svg className="w-3 h-3 sm:w-5 sm:h-5 text-green-800" fill="currentColor" viewBox="0 0 20 20">
+              <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+            </svg>
+          </div>
+        )}
+
+        <h3 className="font-bold text-xs sm:text-base lg:text-lg mb-2 sm:mb-3 lg:mb-4 leading-tight line-clamp-2">
           {isCompleted ? `✅ ${section.title}` : section.title}
         </h3>
-        <p className="text-xs text-white/80 mb-3 line-clamp-2">{section.description}</p>
         
         {/* Progress Bar */}
-        <div className="w-full bg-black/25 rounded-full h-4 mb-3 overflow-hidden">
+        <div className="w-full bg-black/25 rounded-full h-2 sm:h-3 lg:h-4 mb-2 sm:mb-3 lg:mb-4 overflow-hidden">
           <div
-            className={`h-4 rounded-full transition-all duration-700 ease-out relative overflow-hidden ${
+            className={`h-full rounded-full transition-all duration-700 ease-out relative overflow-hidden ${
               isCompleted 
                 ? 'bg-gradient-to-r from-yellow-400 via-yellow-300 to-yellow-400' 
                 : 'bg-gradient-to-r from-green-400 to-green-300'
@@ -123,13 +132,28 @@ const RoadmapNode = ({ data, selected }: RoadmapNodeProps) => {
           </div>
         </div>
         
-        <span className="text-xl font-bold">{Math.round(percentage)}%</span>
+        <div className={`text-xs sm:text-sm lg:text-base font-bold mb-1 sm:mb-2 ${
+          isCompleted ? 'text-yellow-200' : 'opacity-95'
+        }`}>
+          {isCompleted ? '🎉 COMPLETED!' : `${percentage.toFixed(0)}%`}
+        </div>
+        
+        {/* Steps count indicator */}
+        <div className="text-[10px] sm:text-xs lg:text-sm opacity-75">
+          {(() => {
+            const requiredSteps = section.steps.filter(step => !step.optional);
+            const completedRequired = Math.round((percentage / 100) * requiredSteps.length);
+            return isCompleted 
+              ? '🏆 All done!' 
+              : `${completedRequired}/${requiredSteps.length} required`;
+          })()}
+        </div>
       </div>
       
       <Handle 
         type="source" 
         position={Position.Bottom} 
-        className="!w-4 !h-4 !border-4 !border-white !bg-blue-400 !bottom-[-8px]"
+        className="!w-2.5 !h-2.5 sm:!w-3.5 sm:!h-3.5 lg:!w-4 lg:!h-4 !border-2 lg:!border-4 !border-white !bg-green-400 !bottom-[-5px] sm:!bottom-[-6px] lg:!bottom-[-8px]"
       />
     </div>
   );
@@ -233,7 +257,10 @@ export default function CustomRoadmapPage() {
     return { nodes: sectionNodes, edges: generateEdges };
   }, [roadmap, calculateSectionProgress, generateEdges]);
 
-  const nodeTypes: NodeTypes = useMemo(() => ({ roadmapNode: RoadmapNode }), []);
+  // Register node types
+  const nodeTypes: NodeTypes = useMemo(() => ({
+    roadmapNode: RoadmapNode,
+  }), []);
 
   // Handle step toggle
   const handleToggleStep = async (stepIndex: number) => {
@@ -283,53 +310,52 @@ export default function CustomRoadmapPage() {
   // Loading state
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-900 text-white">
-        <Header title={t('customRoadmap.loading')} />
-        <div className="container mx-auto px-4 py-12 text-center">
-          <LoadingSpinner />
-          <p className="mt-4 text-gray-400">{t('customRoadmap.loadingYourRoadmap')}</p>
+      <MainLayout showHeader={false} showFooter={false}>
+        <div className="flex h-screen w-full items-center justify-center">
+          <div className="text-center">
+            <LoadingSpinner />
+            <p className="mt-4 text-gray-400">{t('customRoadmap.loadingYourRoadmap')}</p>
+          </div>
         </div>
-      </div>
+      </MainLayout>
     );
   }
 
   // Error state
   if (error || !roadmap) {
     return (
-      <div className="min-h-screen bg-gray-900 text-white">
+      <MainLayout title={t('customRoadmap.notFound')}>
         <SEO title={t('customRoadmap.notFound')} />
-        <Header title={t('customRoadmap.notFound')} />
         <div className="container mx-auto px-4 py-12 text-center">
-          <h1 className="text-3xl font-bold mb-4">{t('customRoadmap.notFound')}</h1>
-          <p className="text-gray-400 mb-6">{error || t('customRoadmap.notFoundMessage')}</p>
+          <h1 className="mb-4 text-3xl font-bold">{t('customRoadmap.notFound')}</h1>
+          <p className="mb-6 text-gray-400">{error || t('customRoadmap.notFoundMessage')}</p>
           <button
             onClick={() => router.push('/dashboard')}
-            className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg transition-colors"
+            className="rounded-lg bg-blue-600 px-6 py-3 text-white transition-colors hover:bg-blue-700"
           >
             {t('customRoadmap.backToDashboard')}
           </button>
         </div>
-      </div>
+      </MainLayout>
     );
   }
 
   // Access control
   if (user && user.uid !== roadmap.userId) {
     return (
-      <div className="min-h-screen bg-gray-900 text-white">
+      <MainLayout title={t('customRoadmap.accessDenied')}>
         <SEO title={t('customRoadmap.accessDenied')} />
-        <Header title={t('customRoadmap.accessDenied')} />
         <div className="container mx-auto px-4 py-12 text-center">
-          <h1 className="text-3xl font-bold mb-4">{t('customRoadmap.accessDenied')}</h1>
-          <p className="text-gray-400 mb-6">{t('customRoadmap.accessDeniedMessage')}</p>
+          <h1 className="mb-4 text-3xl font-bold">{t('customRoadmap.accessDenied')}</h1>
+          <p className="mb-6 text-gray-400">{t('customRoadmap.accessDeniedMessage')}</p>
           <button
             onClick={() => router.push('/dashboard')}
-            className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg transition-colors"
+            className="rounded-lg bg-blue-600 px-6 py-3 text-white transition-colors hover:bg-blue-700"
           >
             {t('customRoadmap.backToDashboard')}
           </button>
         </div>
-      </div>
+      </MainLayout>
     );
   }
 
@@ -339,23 +365,22 @@ export default function CustomRoadmapPage() {
     : 0;
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white">
+    <MainLayout title={t('customRoadmap.yourCustomRoadmap')}>
       <SEO title={roadmap.roadmapData.title || 'Custom Roadmap'} />
-      <Header title={t('customRoadmap.yourCustomRoadmap')} />
 
-      <div className="container mx-auto px-4 py-6">
+      <div className="container mx-auto px-3 py-4 sm:px-4 sm:py-6">
         {/* Header Info Card */}
-        <div className="bg-gradient-to-r from-purple-900 via-blue-900 to-indigo-900 rounded-xl p-6 mb-6 shadow-2xl">
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-4">
-            <div>
-              <h2 className="font-bold mb-2">{roadmap.roadmapData.title}</h2>
-              <p className="text-gray-300">{t('customRoadmap.createdOn')} {createdDate}</p>
+        <div className="mb-4 rounded-xl bg-gradient-to-r from-purple-900 via-blue-900 to-indigo-900 p-4 shadow-2xl sm:mb-6 sm:p-6">
+          <div className="mb-4 flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
+            <div className="flex-1">
+              <h2 className="mb-1 text-lg font-bold sm:mb-2 sm:text-xl lg:text-2xl">{roadmap.roadmapData.title}</h2>
+              <p className="text-sm text-gray-300">{t('customRoadmap.createdOn')} {createdDate}</p>
             </div>
-            <div className="flex gap-3">
+            <div className="flex gap-2 sm:gap-3">
               <button
                 onClick={handleDelete}
                 disabled={isDeleting}
-                className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg transition-colors disabled:opacity-50 flex items-center gap-2"
+                className="flex items-center gap-2 rounded-lg bg-red-600 px-3 py-2 text-sm text-white transition-colors hover:bg-red-700 disabled:opacity-50 sm:px-4"
               >
                 {isDeleting ? (
                   <>
@@ -390,77 +415,55 @@ export default function CustomRoadmapPage() {
           </div>
         </div>
 
-        {/* Mobile Warning Message */}
-        <div className="block md:hidden bg-yellow-900/30 border-2 border-yellow-500/50 rounded-xl p-6 mb-6 text-center">
-          <div className="mb-4">
-            <svg className="w-16 h-16 mx-auto text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-            </svg>
-          </div>
-          <h3 className="text-xl font-bold text-yellow-300 mb-3">
-            {t('customRoadmap.mobileNotSupported')}
-          </h3>
-          <p className="text-gray-300 mb-4">
-            {t('customRoadmap.mobileNotSupportedMessage')}
-          </p>
-          <div className="flex flex-col gap-3">
-            <button
-              onClick={() => router.push('/my-roadmaps')}
-              className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg transition-colors font-semibold"
-            >
-              {t('navigation.myRoadmaps')}
-            </button>
-            <button
-              onClick={() => router.push('/dashboard')}
-              className="bg-gray-600 hover:bg-gray-700 text-white px-6 py-3 rounded-lg transition-colors font-semibold"
-            >
-              {t('customRoadmap.backToDashboard')}
-            </button>
-          </div>
-          <div className="mt-4 pt-4 border-t border-yellow-500/30">
-            <p className="text-sm text-gray-400 italic">
-              💻 {t('customRoadmap.viewOnDesktop')}
-            </p>
-          </div>
-        </div>
-
-        {/* Mind Map Visualization - Hidden on Mobile */}
-        <div className="hidden md:block bg-gray-800 rounded-xl shadow-2xl mb-6" style={{ height: '600px' }}>
+        {/* Mind Map Visualization */}
+        <div className="relative h-[calc(100vh-16rem)] sm:h-[calc(100vh-14rem)]">
           <ReactFlow
             nodes={nodes}
             edges={edges}
             nodeTypes={nodeTypes}
             fitView
-            minZoom={0.5}
+            fitViewOptions={{
+              padding: 0.15,
+              includeHiddenNodes: false,
+              minZoom: 0.1,
+              maxZoom: 0.8,
+            }}
+            className="bg-gray-900"
+            nodesDraggable={false}
+            nodesConnectable={false}
+            elementsSelectable={true}
+            zoomOnDoubleClick={false}
+            panOnDrag={true}
+            minZoom={0.05}
             maxZoom={1.5}
-            defaultViewport={{ x: 0, y: 0, zoom: 0.8 }}
-            className="rounded-xl"
+            defaultViewport={{ 
+              x: 0, 
+              y: 0, 
+              zoom: typeof window !== 'undefined' && window.innerWidth < 640 ? 0.2 : 
+                    typeof window !== 'undefined' && window.innerWidth < 1024 ? 0.35 : 0.5 
+            }}
           >
-            <Background color="#4B5563" gap={16} />
-            <Controls className="!bg-gray-700 !border-gray-600" />
+            <Background 
+              color="#374151" 
+              gap={typeof window !== 'undefined' && window.innerWidth < 640 ? 12 : 24} 
+              size={typeof window !== 'undefined' && window.innerWidth < 640 ? 1 : 2}
+            />
             <MiniMap
               nodeColor={(node) => {
                 const section = node.data.section;
-                return section?.color || '#8b5cf6';
+                return section?.color || "#6B7280";
               }}
-              className="bg-gray-800 border border-gray-600 scale-75 sm:scale-100 hidden sm:block"
-							style={{
-								backgroundColor: "#1F2937",
-								left: 50,
-								bottom: 1,
-								top: 'auto',
-								right: 'auto'
-							}}
-							position="bottom-left"
+              className="hidden sm:block bg-gray-800 border border-gray-600 rounded-lg"
+              style={{
+                backgroundColor: "#1F2937",
+              }}
+              position="bottom-left"
+            />
+            <Controls 
+              className="bg-gray-800 border border-gray-600 rounded-lg shadow-lg"
+              showInteractive={false}
             />
           </ReactFlow>
-        </div>
-
-        {/* Instructions - Hidden on Mobile */}
-        <div className="hidden md:block bg-blue-900/30 border border-blue-500/30 rounded-lg p-4 mb-6">
-          <p className="text-sm text-gray-300">
-            💡 <strong>Tip:</strong> {t('customRoadmap.clickTip')} {roadmap.university}!
-          </p>
         </div>
       </div>
 
@@ -620,8 +623,9 @@ export default function CustomRoadmapPage() {
         </div>
       )}
 
-      <Footer />
-    </div>
+      {/* AI Chatbot */}
+      <AIChatbot />
+    </MainLayout>
   );
 }
 

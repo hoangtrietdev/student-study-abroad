@@ -1,23 +1,37 @@
 # Study Overseas Map 🎓
 
-An interactive study abroad roadmap platform that helps international students navigate their journey to studying overseas. Features an AI-powered chatbot for personalized guidance and a comprehensive step-by-step roadmap covering everything from university selection to visa applications.
+An interactive study abroad roadmap platform that helps international students navigate their journey to studying overseas. Features an AI-powered chatbot for personalized guidance, comprehensive step-by-step roadmap, and modern responsive design.
 
 ## ✨ Features
 
+### Core Features
 - **Interactive Visual Roadmap**: Navigate through study abroad phases using React Flow
-- **AI Study Advisor**: Get personalized guidance with an integrated chatbot
-- **Progress Tracking**: Save your progress locally or with Google authentication
-- **Internationalization**: Support for English and Vietnamese (i18n)
+- **AI Study Advisor**: Get personalized guidance with an integrated chatbot powered by AI
+- **Progress Tracking**: Save your progress with Firebase + Google authentication
+- **Custom Roadmaps**: Generate personalized roadmaps for specific universities
 - **Guest Mode**: Start immediately without account creation
-- **Responsive Design**: Optimized for desktop and mobile devices
-- **Comprehensive Coverage**: From university research to visa applications
+
+### Technical Features
+- **🌍 Internationalization**: Full support for English and Vietnamese (i18n)
+- **📱 Mobile-First Design**: Fully responsive across all devices (mobile, tablet, desktop)
+- **🎨 Modern UI/UX**: Clean, professional interface with gradient designs
+- **⚡ Performance Optimized**: Fast loading with static generation and code splitting
+- **🔒 Secure**: Firebase authentication with proper security rules
+
+### Recent Major Updates (2025)
+- ✅ **Fixed i18n Bug**: Translation keys no longer show on page reload
+- ✅ **Modern Layout System**: New header with mobile menu, professional footer
+- ✅ **Responsive Redesign**: Mobile-first approach across all pages
+- ✅ **Component Refactoring**: Following React best practices
+- ✅ **Clean Experience**: Removed all advertisements for distraction-free learning
 
 ## 🚀 Quick Start
 
 ### Prerequisites
 
-- Node.js 18+ 
+- Node.js 18+
 - npm, yarn, pnpm, or bun
+- Firebase account (for authentication features)
 
 ### Installation
 
@@ -36,7 +50,19 @@ yarn install
 pnpm install
 ```
 
-3. Run the development server:
+3. Set up environment variables:
+Create a `.env.local` file with your Firebase credentials:
+```env
+NEXT_PUBLIC_FIREBASE_API_KEY=your_api_key
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your_auth_domain
+NEXT_PUBLIC_FIREBASE_PROJECT_ID=your_project_id
+NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=your_storage_bucket
+NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your_messaging_sender_id
+NEXT_PUBLIC_FIREBASE_APP_ID=your_app_id
+NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID=your_measurement_id
+```
+
+4. Run the development server:
 ```bash
 npm run dev
 # or
@@ -47,7 +73,7 @@ pnpm dev
 bun dev
 ```
 
-4. Open [http://localhost:3000](http://localhost:3000) to see the application.
+5. Open [http://localhost:3000](http://localhost:3000) to see the application.
 
 ## 🏗️ Architecture
 

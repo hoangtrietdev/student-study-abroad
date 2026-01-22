@@ -1,8 +1,7 @@
-import { useState } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/router';
 import { collection, addDoc, serverTimestamp, query, where, getDocs } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
-import GenericModal from './GenericModal';
 import LoadingSpinner from './LoadingSpinner';
 import { useAuth } from '@/contexts/AuthContext';
 
@@ -179,7 +178,7 @@ export default function CustomRoadmapModal({ isOpen, onClose }: CustomRoadmapMod
     }
   };
 
-  const handleClose = () => {
+  const handleClose = useCallback(() => {
     if (!loading) {
       setFormData({
         university: '',
@@ -189,12 +188,59 @@ export default function CustomRoadmapModal({ isOpen, onClose }: CustomRoadmapMod
         faculty: '',
       });
       setError(null);
+      setSuccessMessage(null);
       onClose();
+    }
+  }, [loading, onClose]);
+
+  // Handle ESC key
+  useEffect(() => {
+    const handleEscapeKey = (event: KeyboardEvent) => {
+      if (event.key === 'Escape' && isOpen) {
+        handleClose();
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener('keydown', handleEscapeKey);
+      document.body.style.overflow = 'hidden';
+    }
+
+    return () => {
+      document.removeEventListener('keydown', handleEscapeKey);
+      document.body.style.overflow = 'unset';
+    };
+  }, [isOpen, handleClose]);
+
+  if (!isOpen) return null;
+
+  // Handle backdrop click
+  const handleBackdropClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (e.target === e.currentTarget && !loading) {
+      handleClose();
     }
   };
 
   return (
-    <GenericModal isOpen={isOpen} onClose={handleClose} title="Create Your Custom Roadmap" maxWidth="2xl">
+    <div 
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4 overflow-y-auto"
+      onClick={handleBackdropClick}
+    >
+      <div className="bg-[#1e1e1e] rounded-xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
+        {/* Header */}
+        <div className="sticky top-0 bg-[#1e1e1e] border-b border-gray-700 px-6 py-4 flex items-center justify-between z-10">
+          <h2 className="text-2xl font-bold text-white">Create Your Custom Roadmap</h2>
+          <button
+            onClick={handleClose}
+            disabled={loading}
+            className="text-gray-400 hover:text-white transition-colors disabled:opacity-50"
+            aria-label="Close modal"
+          >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
       <form onSubmit={handleSubmit} className="space-y-4 bg-[#1e1e1e] p-4 sm:p-6">
         {error && (
           <div className="bg-red-900/30 border-l-4 border-red-500 text-red-200 px-4 py-3 rounded-lg shadow-sm flex items-start gap-3">
@@ -353,6 +399,7 @@ export default function CustomRoadmapModal({ isOpen, onClose }: CustomRoadmapMod
           </button>
         </div>
       </form>
-    </GenericModal>
+      </div>
+    </div>
   );
 }

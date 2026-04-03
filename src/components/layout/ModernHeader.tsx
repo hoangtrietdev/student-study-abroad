@@ -22,6 +22,7 @@ export default function ModernHeader({ title }: ModernHeaderProps) {
   const navigation = [
     { name: t("navigation.dashboard"), href: "/dashboard" },
     { name: t("navigation.myRoadmaps"), href: "/my-roadmaps" },
+    { name: "Travel Planner", href: "/travel" },
   ];
 
   return (
@@ -73,7 +74,7 @@ export default function ModernHeader({ title }: ModernHeaderProps) {
                   onClick={handleSignOut}
                   className="rounded-lg px-4 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white transition-colors"
                 >
-                  {t("common.signOut")}
+                  Sign out
                 </button>
               </div>
             ) : (
@@ -81,7 +82,7 @@ export default function ModernHeader({ title }: ModernHeaderProps) {
                 href="/login"
                 className="inline-flex items-center rounded-lg bg-gradient-to-r from-blue-500 to-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-md hover:from-blue-600 hover:to-blue-700 transition-all"
               >
-                {t("common.signIn")}
+                Sign in
               </Link>
             )}
           </div>
@@ -166,14 +167,14 @@ export default function ModernHeader({ title }: ModernHeaderProps) {
                     }}
                     className="block w-full rounded-lg bg-gray-700 px-3 py-2 text-left text-base font-medium text-gray-300 hover:bg-gray-600"
                   >
-                    {t("common.signOut")}
+                    Sign out
                   </button>
                 </>
               ) : (
                 <>
                   <div className="mb-3 px-3">
                     <span className="text-sm text-gray-400">
-                      {t("common.guestMode")}
+                      Guest mode
                     </span>
                   </div>
                   <Link
@@ -181,7 +182,7 @@ export default function ModernHeader({ title }: ModernHeaderProps) {
                     className="block w-full rounded-lg bg-gradient-to-r from-blue-500 to-blue-600 px-3 py-2 text-center text-base font-semibold text-white"
                     onClick={() => setMobileMenuOpen(false)}
                   >
-                    {t("common.signIn")}
+                    Sign in
                   </Link>
                 </>
               )}

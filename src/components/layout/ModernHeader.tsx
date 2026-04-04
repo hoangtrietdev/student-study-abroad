@@ -19,11 +19,16 @@ export default function ModernHeader({ title }: ModernHeaderProps) {
     router.reload();
   };
 
-  const navigation = [
-    { name: t("navigation.dashboard"), href: "/dashboard" },
-    { name: t("navigation.myRoadmaps"), href: "/my-roadmaps" },
-    { name: "Travel Planner", href: "/travel" },
-  ];
+  const navigation = user
+    ? [
+        { name: t("navigation.dashboard"), href: "/dashboard" },
+        { name: t("navigation.myRoadmaps"), href: "/my-roadmaps" },
+        { name: t("navigation.travelPlanner"), href: "/travel" },
+      ]
+    : [
+        { name: t("navigation.dashboard"), href: "/dashboard" },
+        { name: t("navigation.travelPlanner"), href: "/travel" },
+      ];
 
   return (
     <header className="bg-gray-800 border-b border-gray-700 sticky top-0 z-50">
@@ -45,23 +50,19 @@ export default function ModernHeader({ title }: ModernHeaderProps) {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex md:items-center md:space-x-4">
-            {user && (
-              <>
-                {navigation.map((item) => (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    className={`rounded-lg px-4 py-2 text-sm font-medium transition-colors ${
-                      router.pathname === item.href
-                        ? "bg-blue-600 text-white"
-                        : "text-gray-300 hover:bg-gray-700 hover:text-white"
-                    }`}
-                  >
-                    {item.name}
-                  </Link>
-                ))}
-              </>
-            )}
+            {navigation.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={`rounded-lg px-4 py-2 text-sm font-medium transition-colors ${
+                  router.pathname === item.href
+                    ? "bg-blue-600 text-white"
+                    : "text-gray-300 hover:bg-gray-700 hover:text-white"
+                }`}
+              >
+                {item.name}
+              </Link>
+            ))}
 
             {/* User Status */}
             {user ? (
@@ -74,7 +75,7 @@ export default function ModernHeader({ title }: ModernHeaderProps) {
                   onClick={handleSignOut}
                   className="rounded-lg px-4 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white transition-colors"
                 >
-                  Sign out
+                  {t("common.signOut")}
                 </button>
               </div>
             ) : (
@@ -82,7 +83,7 @@ export default function ModernHeader({ title }: ModernHeaderProps) {
                 href="/login"
                 className="inline-flex items-center rounded-lg bg-gradient-to-r from-blue-500 to-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-md hover:from-blue-600 hover:to-blue-700 transition-all"
               >
-                Sign in
+                {t("common.signIn")}
               </Link>
             )}
           </div>
@@ -133,24 +134,20 @@ export default function ModernHeader({ title }: ModernHeaderProps) {
       {mobileMenuOpen && (
         <div className="md:hidden border-t border-gray-700">
           <div className="space-y-1 px-4 pb-3 pt-2">
-            {user && (
-              <>
-                {navigation.map((item) => (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    className={`block rounded-lg px-3 py-2 text-base font-medium ${
-                      router.pathname === item.href
-                        ? "bg-blue-600 text-white"
-                        : "text-gray-300 hover:bg-gray-700 hover:text-white"
-                    }`}
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    {item.name}
-                  </Link>
-                ))}
-              </>
-            )}
+            {navigation.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={`block rounded-lg px-3 py-2 text-base font-medium ${
+                  router.pathname === item.href
+                    ? "bg-blue-600 text-white"
+                    : "text-gray-300 hover:bg-gray-700 hover:text-white"
+                }`}
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                {item.name}
+              </Link>
+            ))}
             
             {/* Mobile User Status */}
             <div className="border-t border-gray-700 pt-4">
@@ -167,7 +164,7 @@ export default function ModernHeader({ title }: ModernHeaderProps) {
                     }}
                     className="block w-full rounded-lg bg-gray-700 px-3 py-2 text-left text-base font-medium text-gray-300 hover:bg-gray-600"
                   >
-                    Sign out
+                    {t("common.signOut")}
                   </button>
                 </>
               ) : (
@@ -182,7 +179,7 @@ export default function ModernHeader({ title }: ModernHeaderProps) {
                     className="block w-full rounded-lg bg-gradient-to-r from-blue-500 to-blue-600 px-3 py-2 text-center text-base font-semibold text-white"
                     onClick={() => setMobileMenuOpen(false)}
                   >
-                    Sign in
+                    {t("common.signIn")}
                   </Link>
                 </>
               )}

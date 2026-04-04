@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { GetStaticProps } from 'next';
 import MainLayout from '@/components/layout/MainLayout';
 import SEO from '@/components/SEO';
 import TravelPlannerForm from '@/components/travel/TravelPlannerForm';
@@ -7,6 +8,7 @@ import TravelChatPanel from '@/components/travel/TravelChatPanel';
 import TravelRouteMap from '@/components/travel/TravelRouteMap';
 import { usePostMutation } from '@/hooks/useReactQuery';
 import { TravelPlan, TravelPlannerInput, TravelPlanResponse } from '@/types/travel';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 const QUICK_START_TRIPS: Array<Pick<TravelPlannerInput, 'originCity' | 'destinationCity'>> = [
   { originCity: 'Budapest', destinationCity: 'Vienna' },
@@ -143,3 +145,11 @@ export default function TravelPage() {
     </MainLayout>
   );
 }
+
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale ?? 'en', ['common'])),
+    },
+  };
+};

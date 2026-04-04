@@ -7,7 +7,7 @@ export default function ModernFooter() {
     product: [
       { name: 'Dashboard', href: '/dashboard' },
       { name: 'My Roadmaps', href: '/my-roadmaps' },
-      { name: 'Vacation', href: '/travel' },
+      { name: 'Travel Planner', href: '/travel' },
     ],
     support: [
       { name: 'Contact Us', href: '/contact' },

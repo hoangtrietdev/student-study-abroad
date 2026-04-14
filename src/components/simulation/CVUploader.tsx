@@ -37,7 +37,7 @@ export default function CVUploader({ onExtracted }: CVUploaderProps) {
         const page = await pdf.getPage(i);
         const content = await page.getTextContent();
         const pageText = content.items
-          .map((item: any) => ('str' in item ? item.str : ''))
+          .map((item: unknown) => (item && typeof item === 'object' && 'str' in item ? String((item as { str: string }).str) : ''))
           .join(' ');
         fullText += pageText + '\n';
       }

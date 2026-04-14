@@ -31,7 +31,7 @@ export default function NodeDetailPanel({
   const completedCount = myCompletedSteps.filter(Boolean).length;
   const progress = steps.length ? Math.round((completedCount / steps.length) * 100) : 0;
   const isParent = nodeId ? graph.nodes.some(n => {
-    const legacyParent = (n as any).parentId;
+    const legacyParent = (n as { parentId?: string }).parentId;
     const parents = Array.from(new Set([...(n.parentIds || []), ...(legacyParent ? [legacyParent] : [])]));
     return parents.includes(nodeId);
   }) : false;

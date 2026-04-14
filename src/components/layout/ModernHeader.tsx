@@ -89,6 +89,7 @@ export default function ModernHeader({ title }: ModernHeaderProps) {
                   className="flex items-center space-x-2 focus:outline-none rounded-full hover:bg-gray-700/50 p-1 pr-2 transition-colors"
                 >
                   {user.photoURL ? (
+                    /* eslint-disable-next-line @next/next/no-img-element */
                     <img src={user.photoURL} alt={formattedName} className="h-8 w-8 rounded-full object-cover border border-gray-600" />
                   ) : (
                     <div className="h-8 w-8 rounded-full bg-gradient-to-br from-blue-600 to-indigo-700 flex items-center justify-center text-white font-bold text-sm shadow-inner">

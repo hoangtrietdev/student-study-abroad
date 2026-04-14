@@ -1,6 +1,5 @@
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import { useRouter } from 'next/router';
-import { GetServerSideProps } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { doc, getDoc, updateDoc, serverTimestamp } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
@@ -78,7 +77,7 @@ export default function SimulationDetailPage() {
     if (!simulation) return;
     
     // Auto-expand if already has children
-    const getParents = (n: any) => Array.from(new Set([...(n.parentIds || []), ...(n.parentId ? [n.parentId] : [])])) as string[];
+    const getParents = (n: { parentIds?: string[], parentId?: string }) => Array.from(new Set([...(n.parentIds || []), ...(n.parentId ? [n.parentId] : [])])) as string[];
     const hasChildren = simulation.graph.nodes.some(n => getParents(n).includes(nodeId));
     if (hasChildren) {
       handleToggleExpand(nodeId);
@@ -202,7 +201,7 @@ export default function SimulationDetailPage() {
     if (!simulation) return { nodes: [], edges: [], nodeDetails: {} };
 
     // Helper: gets all parents (legacy + new array)
-    const getParents = (n: any) => Array.from(new Set([...(n.parentIds || []), ...(n.parentId ? [n.parentId] : [])])) as string[];
+    const getParents = (n: { parentIds?: string[], parentId?: string }) => Array.from(new Set([...(n.parentIds || []), ...(n.parentId ? [n.parentId] : [])])) as string[];
 
     // 1. Safety check: clear hallucinated parentIds
     const nodeIds = new Set(simulation.graph.nodes.map(n => n.id));
@@ -227,8 +226,8 @@ export default function SimulationDetailPage() {
 
     // 3. Filter edges
     const visibleEdges = simulation.graph.edges.filter(e => {
-      const srcId = typeof e.source === 'string' ? e.source : (e.source as any).id;
-      const tgtId = typeof e.target === 'string' ? e.target : (e.target as any).id;
+      const srcId = typeof e.source === 'string' ? e.source : (e.source as { id: string }).id;
+      const tgtId = typeof e.target === 'string' ? e.target : (e.target as { id: string }).id;
       return visibleIds.has(srcId) && visibleIds.has(tgtId);
     });
 
@@ -241,8 +240,8 @@ export default function SimulationDetailPage() {
       
       topLevelNodes.forEach(n => {
         const hasGoalLink = enrichedEdges.some(e => {
-          const srcId = typeof e.source === 'string' ? e.source : (e.source as any).id;
-          const tgtId = typeof e.target === 'string' ? e.target : (e.target as any).id;
+          const srcId = typeof e.source === 'string' ? e.source : (e.source as { id: string }).id;
+          const tgtId = typeof e.target === 'string' ? e.target : (e.target as { id: string }).id;
           return (srcId === n.id && tgtId === goalNode.id) || (tgtId === n.id && srcId === goalNode.id);
         });
 
@@ -262,8 +261,8 @@ export default function SimulationDetailPage() {
       const parents = n.parentIds || [];
       parents.forEach(pid => {
         const hasParentLink = enrichedEdges.some(e => {
-          const srcId = typeof e.source === 'string' ? e.source : (e.source as any).id;
-          const tgtId = typeof e.target === 'string' ? e.target : (e.target as any).id;
+          const srcId = typeof e.source === 'string' ? e.source : (e.source as { id: string }).id;
+          const tgtId = typeof e.target === 'string' ? e.target : (e.target as { id: string }).id;
           return (srcId === n.id && tgtId === pid) || (tgtId === n.id && srcId === pid);
         });
 
@@ -287,7 +286,7 @@ export default function SimulationDetailPage() {
 
   const parentIds = useMemo(() => {
     if (!simulation) return new Set<string>();
-    const getParents = (n: any) => Array.from(new Set([...(n.parentIds || []), ...(n.parentId ? [n.parentId] : [])])) as string[];
+    const getParents = (n: { parentIds?: string[], parentId?: string }) => Array.from(new Set([...(n.parentIds || []), ...(n.parentId ? [n.parentId] : [])])) as string[];
     const allParents = simulation.graph.nodes.flatMap(n => getParents(n));
     return new Set(allParents);
   }, [simulation]);

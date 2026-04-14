@@ -68,8 +68,8 @@ export default function GraphCanvas({
 
     const normalizedEdges = graph.edges.map(e => ({
       ...e,
-      source: typeof e.source === 'string' ? e.source : (e.source as any).id,
-      target: typeof e.target === 'string' ? e.target : (e.target as any).id,
+      source: typeof e.source === 'string' ? e.source : (e.source as { id: string }).id,
+      target: typeof e.target === 'string' ? e.target : (e.target as { id: string }).id,
     }));
 
     const links: SimLink[] = normalizedEdges
@@ -242,7 +242,7 @@ export default function GraphCanvas({
 
     // Cleanup
     return () => { simulation.stop(); };
-  }, [graph, completedNodes, selectedNodeId, onNodeClick]);
+  }, [graph, completedNodes, selectedNodeId, onNodeClick, parentIds, expandedNodes, onNodeToggle]);
 
   useEffect(() => {
     const cleanup = draw();

@@ -130,7 +130,6 @@ const nodeTypes: NodeTypes = {
 };
 
 export default function Dashboard() {
-  const { t: tCommon } = useTranslation('common');
   const { t: tRoadmap } = useTranslation('roadmap');
   const { user, loading: authLoading, isGuestMode } = useAuth();
   

@@ -124,7 +124,7 @@ export default function MyRoadmapsPage() {
         title={`${t("myRoadmaps.title")} - Study Abroad Plans`}
         description="View and manage all your personalized study abroad roadmaps"
       />
-      <MainLayout title={t("myRoadmaps.title")}>
+      <MainLayout>
         <div className="container mx-auto px-4 py-6 sm:py-8">
           {/* Header Section */}
           <div className="mb-6 sm:mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">

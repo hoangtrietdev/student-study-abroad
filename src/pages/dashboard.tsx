@@ -187,7 +187,7 @@ export default function Dashboard() {
         url="https://studyoverseasmap.com/dashboard"
       />
       
-      <MainLayout title={tCommon('navigation.studyAbroadRoadmap')}>
+      <MainLayout>
         {/* Main Roadmap Content */}
         <div className="relative h-[calc(100vh-16rem)] sm:h-[calc(100vh-14rem)]">
           <ReactFlow

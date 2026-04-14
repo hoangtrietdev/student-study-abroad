@@ -462,7 +462,7 @@ export default function CustomRoadmapPage() {
   // Error state
   if (error || !roadmap) {
     return (
-      <MainLayout title={t('customRoadmap.notFound')}>
+      <MainLayout>
         <SEO title={t('customRoadmap.notFound')} />
         <div className="container mx-auto px-4 py-12 text-center">
           <h1 className="mb-4 text-3xl font-bold">{t('customRoadmap.notFound')}</h1>
@@ -481,7 +481,7 @@ export default function CustomRoadmapPage() {
   // Access control
   if (user && user.uid !== roadmap.userId) {
     return (
-      <MainLayout title={t('customRoadmap.accessDenied')}>
+      <MainLayout>
         <SEO title={t('customRoadmap.accessDenied')} />
         <div className="container mx-auto px-4 py-12 text-center">
           <h1 className="mb-4 text-3xl font-bold">{t('customRoadmap.accessDenied')}</h1>
@@ -503,7 +503,7 @@ export default function CustomRoadmapPage() {
     : 0;
 
   return (
-    <MainLayout title={t('customRoadmap.yourCustomRoadmap')}>
+    <MainLayout>
       <SEO title={roadmap.roadmapData.title || 'Custom Roadmap'} />
 
       <div className="container mx-auto px-3 py-4 sm:px-4 sm:py-6">

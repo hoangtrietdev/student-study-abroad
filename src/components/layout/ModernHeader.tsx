@@ -71,11 +71,12 @@ export default function ModernHeader({ title }: ModernHeaderProps) {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`rounded-lg px-4 py-2 text-sm font-medium transition-colors ${
+                className={`px-4 py-2 text-sm font-medium transition-colors ${
                   router.pathname === item.href
-                    ? "bg-blue-600 text-white"
+                    ? "text-white border-b-2 border-[#0066FF] pb-1"
                     : "text-gray-300 hover:bg-gray-700 hover:text-white"
                 }`}
+                aria-current={router.pathname === item.href ? "page" : undefined}
               >
                 {item.name}
               </Link>
@@ -184,12 +185,13 @@ export default function ModernHeader({ title }: ModernHeaderProps) {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`block rounded-lg px-3 py-2 text-base font-medium ${
+                className={`block px-3 py-2 text-base font-medium ${
                   router.pathname === item.href
-                    ? "bg-blue-600 text-white"
+                    ? "text-white border-b-2 border-[#0066FF]"
                     : "text-gray-300 hover:bg-gray-700 hover:text-white"
                 }`}
                 onClick={() => setMobileMenuOpen(false)}
+                aria-current={router.pathname === item.href ? "page" : undefined}
               >
                 {item.name}
               </Link>

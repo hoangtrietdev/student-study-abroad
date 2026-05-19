@@ -71,4 +71,67 @@
     "mobileNotSupportedMessage": "The interactive roadmap visualization is not optimized for mobile devices. Please use a desktop or tablet with a larger screen for the best experience.",
     "viewOnDesktop": "View on Desktop for Full Experience"
   }
+  ,
+  "travel": {
+    "title": "Travel Planner",
+    "subtitle": "Find cheap, fast, or comfortable routes for your trip",
+    "defaults": { "origin": "Origin", "destination": "Destination", "date": "Departure date" },
+    "originLabel": "From",
+    "originPlaceholder": "City or airport",
+    "destinationLabel": "To",
+    "destinationPlaceholder": "City or airport",
+    "dateLabel": "When",
+    "searchButton": "Search",
+    "searchingButton": "Searching...",
+    "error": "Something went wrong. Please try again.",
+    "availableRoutes": "Available routes",
+    "noRoutes": "No routes found",
+    "select": "View",
+    "selected": "Viewing",
+    "recommended": "Recommended",
+    "mapCta": "Open in Google Maps",
+    "mapTitle": "Route: {{origin}} → {{destination}}",
+    "selectedPlanTitle": "Selected plan",
+    "openSession": "Open session",
+    "summary": {
+      "budgetFlightLocal": "Budget flight + local transit",
+      "coachBusPractical": "Coach bus with practical schedules",
+      "directOrOneStop": "Direct or 1-stop economy flight",
+      "fastIntercityTrain": "Fast intercity train connection",
+      "hybridRailFlight": "Hybrid route: rail + low-cost flight",
+      "trainFocused": "Train-focused route with flexibility"
+    },
+    "routeTitles": { "directFlight": "Direct flight", "connectingFlight": "Connecting flight", "flightOption": "Flight option", "trainRoute": "Train", "coachRoute": "Coach", "mixedRoute": "Mixed" },
+    "routeMeta": { "oneStop": "1 stop", "nonStop": "Non-stop", "directOneStop": "Direct + 1 stop", "railRoute": "Rail", "coachRoute": "Coach", "mixedRoute": "Mixed" },
+    "tips": {
+      "title": "Travel tips",
+      "studentDiscounts": { "title": "Student discounts", "body": "Check student discounts for cheaper fares and special offers." },
+      "baggageAllowance": { "title": "Baggage allowance", "body": "Confirm baggage rules for low-cost carriers to avoid extra fees." },
+      "arrivalTiming": { "title": "Arrival timing", "body": "Arrive at least 2 hours before international departures." }
+    },
+    "planTitles": { "budget": "Budget", "comfort": "Comfort", "balanced": "Balanced" },
+    "strategy": { "budget": "Lowest cost options, may include longer layovers", "comfort": "Shorter travel time, fewer connections", "balanced": "Good tradeoff between cost and duration" },
+    "details": {
+      "activeChatPlan": "Active plan in chat",
+      "inactive": "Inactive",
+      "totalCost": "Total cost",
+      "tripDuration": "Trip duration",
+      "accommodation": "Accommodation",
+      "confidence": "Confidence",
+      "transportTab": "Transport",
+      "accommodationTab": "Accommodation",
+      "detailTab": "Details",
+      "transportSummary": "Transport summary",
+      "estimatedTransportCost": "Estimated transport cost: €{{value}}",
+      "estimatedDuration": "Estimated duration: {{value}}h",
+      "accommodationLabels": "Accommodation & extras",
+      "accommodationDetails": "Accommodation details",
+      "accommodationType": "Type: {{value}}",
+      "nightlyRange": "Nightly: €{{min}}–€{{max}}",
+      "nights": "Nights: {{value}}",
+      "totalEstimate": "Estimated total: €{{value}}",
+      "tradeoffs": "Tradeoffs",
+      "tabs": { "itinerary": "Itinerary", "options": "Options", "book": "Booking" }
+    }
+  }
 }

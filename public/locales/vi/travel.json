@@ -1,0 +1,101 @@
+{
+  "title": "Lập kế hoạch du lịch",
+  "subtitle": "Tìm tuyến đường rẻ, nhanh hoặc thoải mái cho chuyến đi của bạn",
+  "defaults": {
+    "origin": "Nơi đi",
+    "destination": "Nơi đến",
+    "date": "Ngày khởi hành"
+  },
+  "originLabel": "Từ",
+  "originPlaceholder": "Thành phố hoặc sân bay",
+  "destinationLabel": "Đến",
+  "destinationPlaceholder": "Thành phố hoặc sân bay",
+  "dateLabel": "Ngày",
+  "searchButton": "Tìm kiếm",
+  "searchingButton": "Đang tìm...",
+  "error": "Có lỗi xảy ra. Vui lòng thử lại.",
+  "availableRoutes": "Các tuyến khả dụng",
+  "noRoutes": "Không tìm thấy tuyến nào",
+  "select": "Xem",
+  "selected": "Đang xem",
+  "recommended": "Đề xuất",
+  "mapCta": "Mở trên Google Maps",
+  "mapTitle": "Tuyến: {{origin}} → {{destination}}",
+  "selectedPlanTitle": "Kế hoạch đã chọn",
+  "openSession": "Mở phiên",
+  "summary": {
+    "budgetFlightLocal": "Chuyến bay tiết kiệm + di chuyển nội địa",
+    "coachBusPractical": "Xe khách với lịch trình thực tế",
+    "directOrOneStop": "Chuyến bay thẳng hoặc 1 chặng",
+    "fastIntercityTrain": "Tàu liên tỉnh nhanh",
+    "hybridRailFlight": "Kết hợp: tàu + chuyến bay giá rẻ",
+    "trainFocused": "Tuyến ưu tiên tàu với linh hoạt"
+  },
+  "routeTitles": {
+    "directFlight": "Chuyến bay thẳng",
+    "connectingFlight": "Chuyến bay chuyển tiếp",
+    "flightOption": "Chuyến bay",
+    "trainRoute": "Tàu",
+    "coachRoute": "Xe khách",
+    "mixedRoute": "Kết hợp"
+  },
+  "routeMeta": {
+    "oneStop": "1 chặng",
+    "nonStop": "Không dừng",
+    "directOneStop": "Thẳng + 1 chặng",
+    "railRoute": "Tàu",
+    "coachRoute": "Xe khách",
+    "mixedRoute": "Kết hợp"
+  },
+  "tips": {
+    "title": "Mẹo du lịch",
+    "studentDiscounts": {
+      "title": "Ưu đãi sinh viên",
+      "body": "Kiểm tra các ưu đãi dành cho sinh viên để tiết kiệm chi phí."
+    },
+    "baggageAllowance": {
+      "title": "Hành lý",
+      "body": "Xác nhận quy định hành lý của hãng giá rẻ để tránh phí thêm."
+    },
+    "arrivalTiming": {
+      "title": "Thời gian đến",
+      "body": "Đến ít nhất 2 giờ trước giờ cất cánh quốc tế."
+    }
+  },
+  "planTitles": {
+    "budget": "Tiết kiệm",
+    "comfort": "Thoải mái",
+    "balanced": "Cân bằng"
+  },
+  "strategy": {
+    "budget": "Chi phí thấp nhất, có thể có chặng dừng dài hơn",
+    "comfort": "Thời gian di chuyển ngắn hơn, ít chuyển tiếp",
+    "balanced": "Cân bằng giữa chi phí và thời gian"
+  },
+  "details": {
+    "activeChatPlan": "Kế hoạch đang hoạt động",
+    "inactive": "Không hoạt động",
+    "totalCost": "Tổng chi phí",
+    "tripDuration": "Thời lượng chuyến đi",
+    "accommodation": "Chỗ ở",
+    "confidence": "Mức độ tin cậy",
+    "transportTab": "Vận chuyển",
+    "accommodationTab": "Chỗ ở",
+    "detailTab": "Chi tiết",
+    "transportSummary": "Tổng quan vận chuyển",
+    "estimatedTransportCost": "Chi phí ước tính: €{{value}}",
+    "estimatedDuration": "Thời lượng ước tính: {{value}}h",
+    "accommodationLabels": "Chỗ ở & tiện ích",
+    "accommodationDetails": "Chi tiết chỗ ở",
+    "accommodationType": "Loại: {{value}}",
+    "nightlyRange": "Giá/đêm: €{{min}}–€{{max}}",
+    "nights": "Số đêm: {{value}}",
+    "totalEstimate": "Tổng ước tính: €{{value}}",
+    "tradeoffs": "Những đánh đổi",
+    "tabs": {
+      "itinerary": "Hành trình",
+      "options": "Tùy chọn",
+      "book": "Đặt vé"
+    }
+  }
+}

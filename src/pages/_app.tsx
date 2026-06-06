@@ -6,6 +6,7 @@ import nextI18NextConfig from '../../next-i18next.config.js';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useState } from 'react';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
+import { Analytics } from "@vercel/analytics/next"
 
 function App({ Component, pageProps }: AppProps) {
   // Create a client instance for React Query
@@ -22,6 +23,7 @@ function App({ Component, pageProps }: AppProps) {
 
   return (
     <ErrorBoundary>
+      <Analytics />
       <QueryClientProvider client={queryClient}>
         <AuthProvider>
           <Component {...pageProps} />

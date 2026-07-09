@@ -49,9 +49,9 @@
       "url": "/dashboard",
       "icons": [
         {
-          "src": "/favicon-32x32.png",
+          "src": "/favicon-32x32.svg",
           "sizes": "32x32",
-          "type": "image/png"
+          "type": "image/svg+xml"
         }
       ]
     },
@@ -62,9 +62,9 @@
       "url": "/dashboard#chatbot",
       "icons": [
         {
-          "src": "/favicon-32x32.png",
+          "src": "/favicon-32x32.svg",
           "sizes": "32x32",
-          "type": "image/png"
+          "type": "image/svg+xml"
         }
       ]
     }

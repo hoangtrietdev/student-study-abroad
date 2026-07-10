@@ -6,7 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "fetch-universities": "tsx scripts/fetch-universities.ts",
+    "fetch-universities:dry": "tsx scripts/fetch-universities.ts --dry-run",
+    "fetch-universities:country": "tsx scripts/fetch-universities.ts --country"
   },
   "dependencies": {
     "@supabase/ssr": "^0.6.1",
@@ -38,6 +41,7 @@
     "eslint": "^9",
     "eslint-config-next": "15.4.6",
     "tailwindcss": "^4",
+    "tsx": "^4.23.0",
     "typescript": "^5"
   }
 }

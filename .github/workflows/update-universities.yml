@@ -1,0 +1,79 @@
+name: Update University Rankings Data
+
+on:
+  schedule:
+    # Run at 2:00 AM UTC on the 1st of every month
+    - cron: '0 2 1 * *'
+  
+  # Also allow manual trigger from GitHub Actions UI
+  workflow_dispatch:
+    inputs:
+      country:
+        description: 'Country code to update (leave empty for all)'
+        required: false
+        default: ''
+      dry_run:
+        description: 'Dry run (no file changes)'
+        required: false
+        default: 'false'
+        type: boolean
+
+jobs:
+  update-university-data:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write  # Required for committing updated files
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run university data fetcher
+        env:
+          SERP_API_KEY: ${{ secrets.SERP_API_KEY }}
+        run: |
+          ARGS=""
+          if [ "${{ github.event.inputs.dry_run }}" = "true" ]; then
+            ARGS="$ARGS --dry-run"
+          fi
+          if [ -n "${{ github.event.inputs.country }}" ]; then
+            ARGS="$ARGS --country ${{ github.event.inputs.country }}"
+          fi
+          npx tsx scripts/fetch-universities.ts $ARGS
+
+      - name: Commit and push updated data
+        if: ${{ github.event.inputs.dry_run != 'true' }}
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: |
+            chore: update university rankings data [skip ci]
+            
+            Automated monthly update from QS World University Rankings.
+            Updated on: ${{ github.run_started_at }}
+          file_pattern: 'data/universities/*.md data/universities/.last-fetch.json'
+          commit_user_name: 'GitHub Actions Bot'
+          commit_user_email: 'actions@github.com'
+          skip_dirty_check: false
+
+      - name: Summary
+        run: |
+          echo "## University Data Update" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "✅ University data refresh complete!" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Field | Value |" >> $GITHUB_STEP_SUMMARY
+          echo "|-------|-------|" >> $GITHUB_STEP_SUMMARY
+          echo "| Run time | $(date -u) |" >> $GITHUB_STEP_SUMMARY
+          echo "| Triggered by | ${{ github.event_name }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Countries updated | All 14 countries |" >> $GITHUB_STEP_SUMMARY

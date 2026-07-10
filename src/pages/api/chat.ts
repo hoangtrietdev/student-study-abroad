@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { STUDY_ABROAD_ADVISOR_PROMPT } from '@/prompts/studyAbroadAdvisor';
+import { retrieveContext } from '@/lib/rag';
 
 // Very simple keyword-based moderation as a safety net (not a substitute for full moderation)
 const BLOCKED_PATTERNS = [
@@ -52,11 +53,25 @@ export default async function handler(
       });
     }
 
+    // --- RAG: Retrieve relevant university/scholarship context ---
+    const ragResult = retrieveContext(String(message));
+    
+    let systemPrompt = STUDY_ABROAD_ADVISOR_PROMPT;
+    if (ragResult.isRelevant && ragResult.confidence > 0.15 && ragResult.content) {
+      systemPrompt = `${STUDY_ABROAD_ADVISOR_PROMPT}
+
+## UNIVERSITY DATA (QS Rankings — use this real data to answer accurately):
+${ragResult.content}
+
+${ragResult.sources.length > 0 ? `Sources: ${ragResult.sources.join(', ')}` : ''}
+Note: This data is from QS World University Rankings. Always cite specific rankings, tuition, and scholarship details from above when relevant.`;
+    }
+
     // Prepare messages for Groq API
     const messages = [
       { 
         role: 'system', 
-        content: STUDY_ABROAD_ADVISOR_PROMPT
+        content: systemPrompt   // Uses RAG-augmented prompt when relevant
       },
       ...history.slice(-10), // Keep last 10 messages for context (to stay within token limits)
       { role: 'user', content: message }

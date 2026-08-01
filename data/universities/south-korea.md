@@ -1,6 +1,6 @@
 # Top Universities in South Korea
 
-> **Last updated**: 2025-07-01 | **Source**: QS World University Rankings 2025 | **Country**: South Korea 🇰🇷
+> **Last updated**: 2026-08-01 | **Source**: QS World University Rankings 2025 | **Country**: South Korea 🇰🇷
 
 ---
 

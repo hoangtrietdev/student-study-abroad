@@ -1,6 +1,6 @@
 # Top Universities in Switzerland
 
-> **Last updated**: 2025-07-01 | **Source**: QS World University Rankings 2025 | **Country**: Switzerland 🇨🇭
+> **Last updated**: 2026-08-01 | **Source**: QS World University Rankings 2025 | **Country**: Switzerland 🇨🇭
 
 ---
 

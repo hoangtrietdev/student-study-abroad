@@ -24,7 +24,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       },
       body: JSON.stringify({
         messages: buildGraphGenerationMessages(profile, goal),
-        model: 'llama-3.3-70b-versatile',
+        model: 'openai/gpt-oss-120b',
         temperature: 0.5,
         max_tokens: 8000,
         response_format: { type: 'json_object' },

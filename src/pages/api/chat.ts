@@ -86,7 +86,7 @@ Note: This data is from QS World University Rankings. Always cite specific ranki
       },
       body: JSON.stringify({
         messages,
-        model: 'llama-3.3-70b-versatile', // Updated to supported model
+        model: 'openai/gpt-oss-120b', // Updated to supported model
         max_tokens: 512, // Reasonable response length
         temperature: 0.7, // Balanced creativity
         top_p: 0.9,

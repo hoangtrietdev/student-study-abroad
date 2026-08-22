@@ -67,7 +67,7 @@ Return ONLY valid JSON. No markdown fences.`;
           { role: 'system', content: 'You are a precise career path expander JSON API.' },
           { role: 'user', content: prompt }
         ],
-        model: 'llama-3.3-70b-versatile',
+        model: 'openai/gpt-oss-120b',
         temperature: 0.5,
         max_tokens: 3000,
         response_format: { type: 'json_object' },

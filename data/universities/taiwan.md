@@ -1,6 +1,6 @@
 # Top Universities in Taiwan
 
-> **Last updated**: 2026-08-01 | **Source**: QS World University Rankings 2025 | **Country**: Taiwan 🇹🇼
+> **Last updated**: 2026-09-01 | **Source**: QS World University Rankings 2025 | **Country**: Taiwan 🇹🇼
 
 ---
 

@@ -1,6 +1,6 @@
 # Top Universities in Germany
 
-> **Last updated**: 2026-08-01 | **Source**: QS World University Rankings 2025 | **Country**: Germany 🇩🇪
+> **Last updated**: 2026-09-01 | **Source**: QS World University Rankings 2025 | **Country**: Germany 🇩🇪
 
 ---
 

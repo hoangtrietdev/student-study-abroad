@@ -1,6 +1,6 @@
 # Top Universities in Sweden
 
-> **Last updated**: 2026-09-01 | **Source**: QS World University Rankings 2025 | **Country**: Sweden 🇸🇪
+> **Last updated**: 2026-10-01 | **Source**: QS World University Rankings 2025 | **Country**: Sweden 🇸🇪
 
 ---
 
